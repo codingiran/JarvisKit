@@ -1,0 +1,1007 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		AC5EB681221BA17E0021AA33 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = AC5EB680221BA17E0021AA33 /* AppDelegate.m */; };
+		AC5EB684221BA17E0021AA33 /* JKDemoMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AC5EB683221BA17E0021AA33 /* JKDemoMainViewController.m */; };
+		AC5EB689221BA17F0021AA33 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AC5EB688221BA17F0021AA33 /* Assets.xcassets */; };
+		AC5EB68C221BA17F0021AA33 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AC5EB68A221BA17F0021AA33 /* LaunchScreen.storyboard */; };
+		AC5EB68F221BA17F0021AA33 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = AC5EB68E221BA17F0021AA33 /* main.m */; };
+		AC5EB699221BA17F0021AA33 /* JarvisKitDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = AC5EB698221BA17F0021AA33 /* JarvisKitDemoTests.m */; };
+		AC5EB6A4221BA17F0021AA33 /* JarvisKitDemoUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = AC5EB6A3221BA17F0021AA33 /* JarvisKitDemoUITests.m */; };
+		AC5EB730221BA1A10021AA33 /* JKFontLineHeightViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AC5EB6B3221BA1A00021AA33 /* JKFontLineHeightViewController.m */; };
+		AC5EB731221BA1A10021AA33 /* JKSystemFontViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AC5EB6B4221BA1A00021AA33 /* JKSystemFontViewController.m */; };
+		AC5EB732221BA1A10021AA33 /* JKUIElementToolHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = AC5EB6BC221BA1A00021AA33 /* JKUIElementToolHelper.m */; };
+		AC5EB733221BA1A10021AA33 /* JKMagnifierView.m in Sources */ = {isa = PBXBuildFile; fileRef = AC5EB6BD221BA1A00021AA33 /* JKMagnifierView.m */; };
+		AC5EB734221BA1A10021AA33 /* JKUIElementToolSettingController.m in Sources */ = {isa = PBXBuildFile; fileRef = AC5EB6BE221BA1A00021AA33 /* JKUIElementToolSettingController.m */; };
+		AC5EB735221BA1A10021AA33 /* JKUIElementToolManager.m in Sources */ = {isa = PBXBuildFile; fileRef = AC5EB6BF221BA1A00021AA33 /* JKUIElementToolManager.m */; };
+		AC5EB736221BA1A10021AA33 /* JKSandboxFavPathModel.m in Sources */ = {isa = PBXBuildFile; fileRef = AC5EB6C2221BA1A00021AA33 /* JKSandboxFavPathModel.m */; };
+		AC5EB737221BA1A10021AA33 /* JKSandboxFavPathListController.m in Sources */ = {isa = PBXBuildFile; fileRef = AC5EB6C3221BA1A00021AA33 /* JKSandboxFavPathListController.m */; };
+		AC5EB738221BA1A10021AA33 /* JKSandboxHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = AC5EB6C8221BA1A00021AA33 /* JKSandboxHelper.m */; };
+		AC5EB739221BA1A10021AA33 /* JKSandboxViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AC5EB6CB221BA1A00021AA33 /* JKSandboxViewController.m */; };
+		AC5EB73A221BA1A10021AA33 /* JKSandboxCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AC5EB6CC221BA1A00021AA33 /* JKSandboxCell.m */; };
+		AC5EB73B221BA1A10021AA33 /* JKSandboxFilePreviewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AC5EB6CD221BA1A00021AA33 /* JKSandboxFilePreviewViewController.m */; };
+		AC5EB73C221BA1A10021AA33 /* JKSandboxModel.m in Sources */ = {isa = PBXBuildFile; fileRef = AC5EB6CE221BA1A00021AA33 /* JKSandboxModel.m */; };
+		AC5EB73D221BA1A10021AA33 /* JKRAMLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = AC5EB6D1221BA1A00021AA33 /* JKRAMLabel.m */; };
+		AC5EB73E221BA1A10021AA33 /* JKPerformanceSettingController.m in Sources */ = {isa = PBXBuildFile; fileRef = AC5EB6D2221BA1A00021AA33 /* JKPerformanceSettingController.m */; };
+		AC5EB73F221BA1A10021AA33 /* JKCPULabel.m in Sources */ = {isa = PBXBuildFile; fileRef = AC5EB6D5221BA1A00021AA33 /* JKCPULabel.m */; };
+		AC5EB740221BA1A10021AA33 /* JKPerformanceManager.m in Sources */ = {isa = PBXBuildFile; fileRef = AC5EB6D7221BA1A00021AA33 /* JKPerformanceManager.m */; };
+		AC5EB741221BA1A10021AA33 /* JKPerformanceHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = AC5EB6D8221BA1A00021AA33 /* JKPerformanceHelper.m */; };
+		AC5EB742221BA1A10021AA33 /* JKFlowLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = AC5EB6DB221BA1A00021AA33 /* JKFlowLabel.m */; };
+		AC5EB743221BA1A10021AA33 /* JKFPSLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = AC5EB6DD221BA1A00021AA33 /* JKFPSLabel.m */; };
+		AC5EB744221BA1A10021AA33 /* JKDeviceInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AC5EB6E1221BA1A00021AA33 /* JKDeviceInfoViewController.m */; };
+		AC5EB745221BA1A10021AA33 /* JKDeviceInfoHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = AC5EB6E2221BA1A00021AA33 /* JKDeviceInfoHelper.m */; };
+		AC5EB746221BA1A10021AA33 /* JKUserDefaultsHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = AC5EB6E5221BA1A00021AA33 /* JKUserDefaultsHelper.m */; };
+		AC5EB747221BA1A10021AA33 /* JKUserDefaultsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = AC5EB6E7221BA1A00021AA33 /* JKUserDefaultsModel.m */; };
+		AC5EB748221BA1A10021AA33 /* JKUserDefaultsKeyView.m in Sources */ = {isa = PBXBuildFile; fileRef = AC5EB6E9221BA1A00021AA33 /* JKUserDefaultsKeyView.m */; };
+		AC5EB749221BA1A10021AA33 /* JKUserDefaultsValueCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AC5EB6EC221BA1A00021AA33 /* JKUserDefaultsValueCell.m */; };
+		AC5EB74A221BA1A10021AA33 /* JKUserDefaultsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AC5EB6ED221BA1A00021AA33 /* JKUserDefaultsViewController.m */; };
+		AC5EB74B221BA1A10021AA33 /* JKNetCaptureModel.m in Sources */ = {isa = PBXBuildFile; fileRef = AC5EB6F1221BA1A00021AA33 /* JKNetCaptureModel.m */; };
+		AC5EB74C221BA1A10021AA33 /* JKNetCaptureListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AC5EB6F2221BA1A00021AA33 /* JKNetCaptureListViewController.m */; };
+		AC5EB74D221BA1A10021AA33 /* JKNetCaptureHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = AC5EB6F4221BA1A00021AA33 /* JKNetCaptureHelper.m */; };
+		AC5EB74E221BA1A10021AA33 /* JKNetCaptureDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AC5EB6F8221BA1A00021AA33 /* JKNetCaptureDetailViewController.m */; };
+		AC5EB74F221BA1A10021AA33 /* JKNetCaptureListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AC5EB6F9221BA1A00021AA33 /* JKNetCaptureListCell.m */; };
+		AC5EB750221BA1A10021AA33 /* JKNetCaptureDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = AC5EB6FB221BA1A00021AA33 /* JKNetCaptureDataSource.m */; };
+		AC5EB751221BA1A10021AA33 /* JKURLProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = AC5EB6FC221BA1A00021AA33 /* JKURLProtocol.m */; };
+		AC5EB752221BA1A10021AA33 /* JarvisKit.bundle in Resources */ = {isa = PBXBuildFile; fileRef = AC5EB6FD221BA1A00021AA33 /* JarvisKit.bundle */; };
+		AC5EB753221BA1A10021AA33 /* JKCrashLogListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AC5EB6FF221BA1A00021AA33 /* JKCrashLogListViewController.m */; };
+		AC5EB754221BA1A10021AA33 /* JKCrashUncaughtExceptionHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = AC5EB701221BA1A00021AA33 /* JKCrashUncaughtExceptionHandler.m */; };
+		AC5EB755221BA1A10021AA33 /* JKCrashLogHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = AC5EB702221BA1A00021AA33 /* JKCrashLogHelper.m */; };
+		AC5EB756221BA1A10021AA33 /* JKCrashLogModel.m in Sources */ = {isa = PBXBuildFile; fileRef = AC5EB704221BA1A00021AA33 /* JKCrashLogModel.m */; };
+		AC5EB757221BA1A10021AA33 /* JKCrashSignalExceptionHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = AC5EB705221BA1A00021AA33 /* JKCrashSignalExceptionHandler.m */; };
+		AC5EB758221BA1A10021AA33 /* JKCrashLogDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AC5EB707221BA1A00021AA33 /* JKCrashLogDetailViewController.m */; };
+		AC5EB759221BA1A10021AA33 /* JKCrashLogListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AC5EB709221BA1A00021AA33 /* JKCrashLogListCell.m */; };
+		AC5EB75A221BA1A10021AA33 /* JkPresentationWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = AC5EB70F221BA1A00021AA33 /* JkPresentationWindow.m */; };
+		AC5EB75B221BA1A10021AA33 /* JKFloatWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = AC5EB710221BA1A00021AA33 /* JKFloatWindow.m */; };
+		AC5EB75C221BA1A10021AA33 /* JKViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AC5EB714221BA1A00021AA33 /* JKViewController.m */; };
+		AC5EB75D221BA1A10021AA33 /* JarvisKitManager.m in Sources */ = {isa = PBXBuildFile; fileRef = AC5EB715221BA1A00021AA33 /* JarvisKitManager.m */; };
+		AC5EB75E221BA1A10021AA33 /* JKOrderedDictionary.m in Sources */ = {isa = PBXBuildFile; fileRef = AC5EB717221BA1A00021AA33 /* JKOrderedDictionary.m */; };
+		AC5EB75F221BA1A10021AA33 /* UIView+JarvisKit.m in Sources */ = {isa = PBXBuildFile; fileRef = AC5EB71A221BA1A00021AA33 /* UIView+JarvisKit.m */; };
+		AC5EB760221BA1A10021AA33 /* JKSwitchAccessoryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = AC5EB71B221BA1A00021AA33 /* JKSwitchAccessoryCell.m */; };
+		AC5EB761221BA1A10021AA33 /* JKMovableWindowLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = AC5EB71C221BA1A00021AA33 /* JKMovableWindowLabel.m */; };
+		AC5EB762221BA1A10021AA33 /* JKMenuLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = AC5EB71D221BA1A10021AA33 /* JKMenuLabel.m */; };
+		AC5EB763221BA1A10021AA33 /* JKSegmentView.m in Sources */ = {isa = PBXBuildFile; fileRef = AC5EB71F221BA1A10021AA33 /* JKSegmentView.m */; };
+		AC5EB764221BA1A10021AA33 /* JKTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AC5EB722221BA1A10021AA33 /* JKTableViewController.m */; };
+		AC5EB765221BA1A10021AA33 /* JKHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = AC5EB724221BA1A10021AA33 /* JKHelper.m */; };
+		AC5EB766221BA1A10021AA33 /* JKNavigtionController.m in Sources */ = {isa = PBXBuildFile; fileRef = AC5EB725221BA1A10021AA33 /* JKNavigtionController.m */; };
+		AC5EB767221BA1A10021AA33 /* UIViewController+JarvisKit.m in Sources */ = {isa = PBXBuildFile; fileRef = AC5EB729221BA1A10021AA33 /* UIViewController+JarvisKit.m */; };
+		AC5EB768221BA1A10021AA33 /* UIImage+JarvisKit.m in Sources */ = {isa = PBXBuildFile; fileRef = AC5EB72E221BA1A10021AA33 /* UIImage+JarvisKit.m */; };
+		AC5EB769221BA1A10021AA33 /* JKIronmanWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = AC5EB72F221BA1A10021AA33 /* JKIronmanWindow.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		AC5EB695221BA17F0021AA33 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = AC5EB674221BA17D0021AA33 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = AC5EB67B221BA17D0021AA33;
+			remoteInfo = JarvisKitDemo;
+		};
+		AC5EB6A0221BA17F0021AA33 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = AC5EB674221BA17D0021AA33 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = AC5EB67B221BA17D0021AA33;
+			remoteInfo = JarvisKitDemo;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		AC5EB67C221BA17D0021AA33 /* JarvisKitDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JarvisKitDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		AC5EB67F221BA17E0021AA33 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		AC5EB680221BA17E0021AA33 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		AC5EB682221BA17E0021AA33 /* JKDemoMainViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JKDemoMainViewController.h; sourceTree = "<group>"; };
+		AC5EB683221BA17E0021AA33 /* JKDemoMainViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JKDemoMainViewController.m; sourceTree = "<group>"; };
+		AC5EB688221BA17F0021AA33 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		AC5EB68B221BA17F0021AA33 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		AC5EB68D221BA17F0021AA33 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		AC5EB68E221BA17F0021AA33 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		AC5EB694221BA17F0021AA33 /* JarvisKitDemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = JarvisKitDemoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		AC5EB698221BA17F0021AA33 /* JarvisKitDemoTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JarvisKitDemoTests.m; sourceTree = "<group>"; };
+		AC5EB69A221BA17F0021AA33 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		AC5EB69F221BA17F0021AA33 /* JarvisKitDemoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = JarvisKitDemoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		AC5EB6A3221BA17F0021AA33 /* JarvisKitDemoUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JarvisKitDemoUITests.m; sourceTree = "<group>"; };
+		AC5EB6A5221BA17F0021AA33 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		AC5EB6B3221BA1A00021AA33 /* JKFontLineHeightViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JKFontLineHeightViewController.m; sourceTree = "<group>"; };
+		AC5EB6B4221BA1A00021AA33 /* JKSystemFontViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JKSystemFontViewController.m; sourceTree = "<group>"; };
+		AC5EB6B5221BA1A00021AA33 /* JKSystemFontViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JKSystemFontViewController.h; sourceTree = "<group>"; };
+		AC5EB6B6221BA1A00021AA33 /* JKFontLineHeightViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JKFontLineHeightViewController.h; sourceTree = "<group>"; };
+		AC5EB6B8221BA1A00021AA33 /* JKMagnifierView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JKMagnifierView.h; sourceTree = "<group>"; };
+		AC5EB6B9221BA1A00021AA33 /* JKUIElementToolHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JKUIElementToolHelper.h; sourceTree = "<group>"; };
+		AC5EB6BA221BA1A00021AA33 /* JKUIElementToolSettingController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JKUIElementToolSettingController.h; sourceTree = "<group>"; };
+		AC5EB6BB221BA1A00021AA33 /* JKUIElementToolManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JKUIElementToolManager.h; sourceTree = "<group>"; };
+		AC5EB6BC221BA1A00021AA33 /* JKUIElementToolHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JKUIElementToolHelper.m; sourceTree = "<group>"; };
+		AC5EB6BD221BA1A00021AA33 /* JKMagnifierView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JKMagnifierView.m; sourceTree = "<group>"; };
+		AC5EB6BE221BA1A00021AA33 /* JKUIElementToolSettingController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JKUIElementToolSettingController.m; sourceTree = "<group>"; };
+		AC5EB6BF221BA1A00021AA33 /* JKUIElementToolManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JKUIElementToolManager.m; sourceTree = "<group>"; };
+		AC5EB6C1221BA1A00021AA33 /* JKSandboxHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JKSandboxHelper.h; sourceTree = "<group>"; };
+		AC5EB6C2221BA1A00021AA33 /* JKSandboxFavPathModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JKSandboxFavPathModel.m; sourceTree = "<group>"; };
+		AC5EB6C3221BA1A00021AA33 /* JKSandboxFavPathListController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JKSandboxFavPathListController.m; sourceTree = "<group>"; };
+		AC5EB6C4221BA1A00021AA33 /* JKSandboxCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JKSandboxCell.h; sourceTree = "<group>"; };
+		AC5EB6C5221BA1A00021AA33 /* JKSandboxViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JKSandboxViewController.h; sourceTree = "<group>"; };
+		AC5EB6C6221BA1A00021AA33 /* JKSandboxModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JKSandboxModel.h; sourceTree = "<group>"; };
+		AC5EB6C7221BA1A00021AA33 /* JKSandboxFilePreviewViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JKSandboxFilePreviewViewController.h; sourceTree = "<group>"; };
+		AC5EB6C8221BA1A00021AA33 /* JKSandboxHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JKSandboxHelper.m; sourceTree = "<group>"; };
+		AC5EB6C9221BA1A00021AA33 /* JKSandboxFavPathListController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JKSandboxFavPathListController.h; sourceTree = "<group>"; };
+		AC5EB6CA221BA1A00021AA33 /* JKSandboxFavPathModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JKSandboxFavPathModel.h; sourceTree = "<group>"; };
+		AC5EB6CB221BA1A00021AA33 /* JKSandboxViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JKSandboxViewController.m; sourceTree = "<group>"; };
+		AC5EB6CC221BA1A00021AA33 /* JKSandboxCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JKSandboxCell.m; sourceTree = "<group>"; };
+		AC5EB6CD221BA1A00021AA33 /* JKSandboxFilePreviewViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JKSandboxFilePreviewViewController.m; sourceTree = "<group>"; };
+		AC5EB6CE221BA1A00021AA33 /* JKSandboxModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JKSandboxModel.m; sourceTree = "<group>"; };
+		AC5EB6D0221BA1A00021AA33 /* JKPerformanceManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JKPerformanceManager.h; sourceTree = "<group>"; };
+		AC5EB6D1221BA1A00021AA33 /* JKRAMLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JKRAMLabel.m; sourceTree = "<group>"; };
+		AC5EB6D2221BA1A00021AA33 /* JKPerformanceSettingController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JKPerformanceSettingController.m; sourceTree = "<group>"; };
+		AC5EB6D3221BA1A00021AA33 /* JKPerformanceHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JKPerformanceHelper.h; sourceTree = "<group>"; };
+		AC5EB6D4221BA1A00021AA33 /* JKFPSLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JKFPSLabel.h; sourceTree = "<group>"; };
+		AC5EB6D5221BA1A00021AA33 /* JKCPULabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JKCPULabel.m; sourceTree = "<group>"; };
+		AC5EB6D6221BA1A00021AA33 /* JKFlowLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JKFlowLabel.h; sourceTree = "<group>"; };
+		AC5EB6D7221BA1A00021AA33 /* JKPerformanceManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JKPerformanceManager.m; sourceTree = "<group>"; };
+		AC5EB6D8221BA1A00021AA33 /* JKPerformanceHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JKPerformanceHelper.m; sourceTree = "<group>"; };
+		AC5EB6D9221BA1A00021AA33 /* JKPerformanceSettingController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JKPerformanceSettingController.h; sourceTree = "<group>"; };
+		AC5EB6DA221BA1A00021AA33 /* JKRAMLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JKRAMLabel.h; sourceTree = "<group>"; };
+		AC5EB6DB221BA1A00021AA33 /* JKFlowLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JKFlowLabel.m; sourceTree = "<group>"; };
+		AC5EB6DC221BA1A00021AA33 /* JKCPULabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JKCPULabel.h; sourceTree = "<group>"; };
+		AC5EB6DD221BA1A00021AA33 /* JKFPSLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JKFPSLabel.m; sourceTree = "<group>"; };
+		AC5EB6DF221BA1A00021AA33 /* JKDeviceInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JKDeviceInfoViewController.h; sourceTree = "<group>"; };
+		AC5EB6E0221BA1A00021AA33 /* JKDeviceInfoHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JKDeviceInfoHelper.h; sourceTree = "<group>"; };
+		AC5EB6E1221BA1A00021AA33 /* JKDeviceInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JKDeviceInfoViewController.m; sourceTree = "<group>"; };
+		AC5EB6E2221BA1A00021AA33 /* JKDeviceInfoHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JKDeviceInfoHelper.m; sourceTree = "<group>"; };
+		AC5EB6E4221BA1A00021AA33 /* JKUserDefaultsKeyView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JKUserDefaultsKeyView.h; sourceTree = "<group>"; };
+		AC5EB6E5221BA1A00021AA33 /* JKUserDefaultsHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JKUserDefaultsHelper.m; sourceTree = "<group>"; };
+		AC5EB6E6221BA1A00021AA33 /* JKUserDefaultsValueCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JKUserDefaultsValueCell.h; sourceTree = "<group>"; };
+		AC5EB6E7221BA1A00021AA33 /* JKUserDefaultsModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JKUserDefaultsModel.m; sourceTree = "<group>"; };
+		AC5EB6E8221BA1A00021AA33 /* JKUserDefaultsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JKUserDefaultsViewController.h; sourceTree = "<group>"; };
+		AC5EB6E9221BA1A00021AA33 /* JKUserDefaultsKeyView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JKUserDefaultsKeyView.m; sourceTree = "<group>"; };
+		AC5EB6EA221BA1A00021AA33 /* JKUserDefaultsHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JKUserDefaultsHelper.h; sourceTree = "<group>"; };
+		AC5EB6EB221BA1A00021AA33 /* JKUserDefaultsModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JKUserDefaultsModel.h; sourceTree = "<group>"; };
+		AC5EB6EC221BA1A00021AA33 /* JKUserDefaultsValueCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JKUserDefaultsValueCell.m; sourceTree = "<group>"; };
+		AC5EB6ED221BA1A00021AA33 /* JKUserDefaultsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JKUserDefaultsViewController.m; sourceTree = "<group>"; };
+		AC5EB6EF221BA1A00021AA33 /* JKNetCaptureDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JKNetCaptureDetailViewController.h; sourceTree = "<group>"; };
+		AC5EB6F0221BA1A00021AA33 /* JKNetCaptureListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JKNetCaptureListCell.h; sourceTree = "<group>"; };
+		AC5EB6F1221BA1A00021AA33 /* JKNetCaptureModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JKNetCaptureModel.m; sourceTree = "<group>"; };
+		AC5EB6F2221BA1A00021AA33 /* JKNetCaptureListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JKNetCaptureListViewController.m; sourceTree = "<group>"; };
+		AC5EB6F3221BA1A00021AA33 /* JKNetCaptureDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JKNetCaptureDataSource.h; sourceTree = "<group>"; };
+		AC5EB6F4221BA1A00021AA33 /* JKNetCaptureHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JKNetCaptureHelper.m; sourceTree = "<group>"; };
+		AC5EB6F5221BA1A00021AA33 /* JKURLProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JKURLProtocol.h; sourceTree = "<group>"; };
+		AC5EB6F6221BA1A00021AA33 /* JKNetCaptureListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JKNetCaptureListViewController.h; sourceTree = "<group>"; };
+		AC5EB6F7221BA1A00021AA33 /* JKNetCaptureModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JKNetCaptureModel.h; sourceTree = "<group>"; };
+		AC5EB6F8221BA1A00021AA33 /* JKNetCaptureDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JKNetCaptureDetailViewController.m; sourceTree = "<group>"; };
+		AC5EB6F9221BA1A00021AA33 /* JKNetCaptureListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JKNetCaptureListCell.m; sourceTree = "<group>"; };
+		AC5EB6FA221BA1A00021AA33 /* JKNetCaptureHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JKNetCaptureHelper.h; sourceTree = "<group>"; };
+		AC5EB6FB221BA1A00021AA33 /* JKNetCaptureDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JKNetCaptureDataSource.m; sourceTree = "<group>"; };
+		AC5EB6FC221BA1A00021AA33 /* JKURLProtocol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JKURLProtocol.m; sourceTree = "<group>"; };
+		AC5EB6FD221BA1A00021AA33 /* JarvisKit.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = JarvisKit.bundle; sourceTree = "<group>"; };
+		AC5EB6FF221BA1A00021AA33 /* JKCrashLogListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JKCrashLogListViewController.m; sourceTree = "<group>"; };
+		AC5EB700221BA1A00021AA33 /* JKCrashLogDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JKCrashLogDetailViewController.h; sourceTree = "<group>"; };
+		AC5EB701221BA1A00021AA33 /* JKCrashUncaughtExceptionHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JKCrashUncaughtExceptionHandler.m; sourceTree = "<group>"; };
+		AC5EB702221BA1A00021AA33 /* JKCrashLogHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JKCrashLogHelper.m; sourceTree = "<group>"; };
+		AC5EB703221BA1A00021AA33 /* JKCrashLogListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JKCrashLogListCell.h; sourceTree = "<group>"; };
+		AC5EB704221BA1A00021AA33 /* JKCrashLogModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JKCrashLogModel.m; sourceTree = "<group>"; };
+		AC5EB705221BA1A00021AA33 /* JKCrashSignalExceptionHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JKCrashSignalExceptionHandler.m; sourceTree = "<group>"; };
+		AC5EB706221BA1A00021AA33 /* JKCrashUncaughtExceptionHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JKCrashUncaughtExceptionHandler.h; sourceTree = "<group>"; };
+		AC5EB707221BA1A00021AA33 /* JKCrashLogDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JKCrashLogDetailViewController.m; sourceTree = "<group>"; };
+		AC5EB708221BA1A00021AA33 /* JKCrashLogListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JKCrashLogListViewController.h; sourceTree = "<group>"; };
+		AC5EB709221BA1A00021AA33 /* JKCrashLogListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JKCrashLogListCell.m; sourceTree = "<group>"; };
+		AC5EB70A221BA1A00021AA33 /* JKCrashLogHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JKCrashLogHelper.h; sourceTree = "<group>"; };
+		AC5EB70B221BA1A00021AA33 /* JKCrashSignalExceptionHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JKCrashSignalExceptionHandler.h; sourceTree = "<group>"; };
+		AC5EB70C221BA1A00021AA33 /* JKCrashLogModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JKCrashLogModel.h; sourceTree = "<group>"; };
+		AC5EB70E221BA1A00021AA33 /* JKTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JKTableViewController.h; sourceTree = "<group>"; };
+		AC5EB70F221BA1A00021AA33 /* JkPresentationWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JkPresentationWindow.m; sourceTree = "<group>"; };
+		AC5EB710221BA1A00021AA33 /* JKFloatWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JKFloatWindow.m; sourceTree = "<group>"; };
+		AC5EB711221BA1A00021AA33 /* JKSegmentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JKSegmentView.h; sourceTree = "<group>"; };
+		AC5EB712221BA1A00021AA33 /* JKNavigtionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JKNavigtionController.h; sourceTree = "<group>"; };
+		AC5EB713221BA1A00021AA33 /* JKHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JKHelper.h; sourceTree = "<group>"; };
+		AC5EB714221BA1A00021AA33 /* JKViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JKViewController.m; sourceTree = "<group>"; };
+		AC5EB715221BA1A00021AA33 /* JarvisKitManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JarvisKitManager.m; sourceTree = "<group>"; };
+		AC5EB716221BA1A00021AA33 /* JKIronmanWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JKIronmanWindow.h; sourceTree = "<group>"; };
+		AC5EB717221BA1A00021AA33 /* JKOrderedDictionary.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JKOrderedDictionary.m; sourceTree = "<group>"; };
+		AC5EB718221BA1A00021AA33 /* JKMacro.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JKMacro.h; sourceTree = "<group>"; };
+		AC5EB719221BA1A00021AA33 /* UIImage+JarvisKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+JarvisKit.h"; sourceTree = "<group>"; };
+		AC5EB71A221BA1A00021AA33 /* UIView+JarvisKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+JarvisKit.m"; sourceTree = "<group>"; };
+		AC5EB71B221BA1A00021AA33 /* JKSwitchAccessoryCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JKSwitchAccessoryCell.m; sourceTree = "<group>"; };
+		AC5EB71C221BA1A00021AA33 /* JKMovableWindowLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JKMovableWindowLabel.m; sourceTree = "<group>"; };
+		AC5EB71D221BA1A10021AA33 /* JKMenuLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JKMenuLabel.m; sourceTree = "<group>"; };
+		AC5EB71E221BA1A10021AA33 /* UIViewController+JarvisKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+JarvisKit.h"; sourceTree = "<group>"; };
+		AC5EB71F221BA1A10021AA33 /* JKSegmentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JKSegmentView.m; sourceTree = "<group>"; };
+		AC5EB720221BA1A10021AA33 /* JKFloatWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JKFloatWindow.h; sourceTree = "<group>"; };
+		AC5EB721221BA1A10021AA33 /* JkPresentationWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JkPresentationWindow.h; sourceTree = "<group>"; };
+		AC5EB722221BA1A10021AA33 /* JKTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JKTableViewController.m; sourceTree = "<group>"; };
+		AC5EB723221BA1A10021AA33 /* JKViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JKViewController.h; sourceTree = "<group>"; };
+		AC5EB724221BA1A10021AA33 /* JKHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JKHelper.m; sourceTree = "<group>"; };
+		AC5EB725221BA1A10021AA33 /* JKNavigtionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JKNavigtionController.m; sourceTree = "<group>"; };
+		AC5EB726221BA1A10021AA33 /* JarvisKitManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JarvisKitManager.h; sourceTree = "<group>"; };
+		AC5EB727221BA1A10021AA33 /* JKCommonDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JKCommonDefines.h; sourceTree = "<group>"; };
+		AC5EB728221BA1A10021AA33 /* JKMenuLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JKMenuLabel.h; sourceTree = "<group>"; };
+		AC5EB729221BA1A10021AA33 /* UIViewController+JarvisKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+JarvisKit.m"; sourceTree = "<group>"; };
+		AC5EB72A221BA1A10021AA33 /* JKSwitchAccessoryCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JKSwitchAccessoryCell.h; sourceTree = "<group>"; };
+		AC5EB72B221BA1A10021AA33 /* JKMovableWindowLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JKMovableWindowLabel.h; sourceTree = "<group>"; };
+		AC5EB72C221BA1A10021AA33 /* UIView+JarvisKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+JarvisKit.h"; sourceTree = "<group>"; };
+		AC5EB72D221BA1A10021AA33 /* JKOrderedDictionary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JKOrderedDictionary.h; sourceTree = "<group>"; };
+		AC5EB72E221BA1A10021AA33 /* UIImage+JarvisKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+JarvisKit.m"; sourceTree = "<group>"; };
+		AC5EB72F221BA1A10021AA33 /* JKIronmanWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JKIronmanWindow.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		AC5EB679221BA17D0021AA33 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AC5EB691221BA17F0021AA33 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AC5EB69C221BA17F0021AA33 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		AC5EB673221BA17D0021AA33 = {
+			isa = PBXGroup;
+			children = (
+				AC5EB67E221BA17D0021AA33 /* JarvisKitDemo */,
+				AC5EB697221BA17F0021AA33 /* JarvisKitDemoTests */,
+				AC5EB6A2221BA17F0021AA33 /* JarvisKitDemoUITests */,
+				AC5EB67D221BA17D0021AA33 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		AC5EB67D221BA17D0021AA33 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				AC5EB67C221BA17D0021AA33 /* JarvisKitDemo.app */,
+				AC5EB694221BA17F0021AA33 /* JarvisKitDemoTests.xctest */,
+				AC5EB69F221BA17F0021AA33 /* JarvisKitDemoUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		AC5EB67E221BA17D0021AA33 /* JarvisKitDemo */ = {
+			isa = PBXGroup;
+			children = (
+				AC5EB6B1221BA1A00021AA33 /* JarvisKit */,
+				AC5EB67F221BA17E0021AA33 /* AppDelegate.h */,
+				AC5EB680221BA17E0021AA33 /* AppDelegate.m */,
+				AC5EB682221BA17E0021AA33 /* JKDemoMainViewController.h */,
+				AC5EB683221BA17E0021AA33 /* JKDemoMainViewController.m */,
+				AC5EB688221BA17F0021AA33 /* Assets.xcassets */,
+				AC5EB68A221BA17F0021AA33 /* LaunchScreen.storyboard */,
+				AC5EB68D221BA17F0021AA33 /* Info.plist */,
+				AC5EB68E221BA17F0021AA33 /* main.m */,
+			);
+			path = JarvisKitDemo;
+			sourceTree = "<group>";
+		};
+		AC5EB697221BA17F0021AA33 /* JarvisKitDemoTests */ = {
+			isa = PBXGroup;
+			children = (
+				AC5EB698221BA17F0021AA33 /* JarvisKitDemoTests.m */,
+				AC5EB69A221BA17F0021AA33 /* Info.plist */,
+			);
+			path = JarvisKitDemoTests;
+			sourceTree = "<group>";
+		};
+		AC5EB6A2221BA17F0021AA33 /* JarvisKitDemoUITests */ = {
+			isa = PBXGroup;
+			children = (
+				AC5EB6A3221BA17F0021AA33 /* JarvisKitDemoUITests.m */,
+				AC5EB6A5221BA17F0021AA33 /* Info.plist */,
+			);
+			path = JarvisKitDemoUITests;
+			sourceTree = "<group>";
+		};
+		AC5EB6B1221BA1A00021AA33 /* JarvisKit */ = {
+			isa = PBXGroup;
+			children = (
+				AC5EB6B2221BA1A00021AA33 /* JKSystemFontViewer */,
+				AC5EB6B7221BA1A00021AA33 /* UIElementToolBox */,
+				AC5EB6C0221BA1A00021AA33 /* JKSandboxBrowser */,
+				AC5EB6CF221BA1A00021AA33 /* JKPerformance */,
+				AC5EB6DE221BA1A00021AA33 /* JKDeviceInfo */,
+				AC5EB6E3221BA1A00021AA33 /* JKUserDefaultsPanel */,
+				AC5EB6EE221BA1A00021AA33 /* JKNetworkCapture */,
+				AC5EB6FD221BA1A00021AA33 /* JarvisKit.bundle */,
+				AC5EB6FE221BA1A00021AA33 /* JKCrashLog */,
+				AC5EB70D221BA1A00021AA33 /* JKCore */,
+			);
+			name = JarvisKit;
+			path = ../../JarvisKit;
+			sourceTree = "<group>";
+		};
+		AC5EB6B2221BA1A00021AA33 /* JKSystemFontViewer */ = {
+			isa = PBXGroup;
+			children = (
+				AC5EB6B3221BA1A00021AA33 /* JKFontLineHeightViewController.m */,
+				AC5EB6B4221BA1A00021AA33 /* JKSystemFontViewController.m */,
+				AC5EB6B5221BA1A00021AA33 /* JKSystemFontViewController.h */,
+				AC5EB6B6221BA1A00021AA33 /* JKFontLineHeightViewController.h */,
+			);
+			path = JKSystemFontViewer;
+			sourceTree = "<group>";
+		};
+		AC5EB6B7221BA1A00021AA33 /* UIElementToolBox */ = {
+			isa = PBXGroup;
+			children = (
+				AC5EB6B8221BA1A00021AA33 /* JKMagnifierView.h */,
+				AC5EB6B9221BA1A00021AA33 /* JKUIElementToolHelper.h */,
+				AC5EB6BA221BA1A00021AA33 /* JKUIElementToolSettingController.h */,
+				AC5EB6BB221BA1A00021AA33 /* JKUIElementToolManager.h */,
+				AC5EB6BC221BA1A00021AA33 /* JKUIElementToolHelper.m */,
+				AC5EB6BD221BA1A00021AA33 /* JKMagnifierView.m */,
+				AC5EB6BE221BA1A00021AA33 /* JKUIElementToolSettingController.m */,
+				AC5EB6BF221BA1A00021AA33 /* JKUIElementToolManager.m */,
+			);
+			path = UIElementToolBox;
+			sourceTree = "<group>";
+		};
+		AC5EB6C0221BA1A00021AA33 /* JKSandboxBrowser */ = {
+			isa = PBXGroup;
+			children = (
+				AC5EB6C1221BA1A00021AA33 /* JKSandboxHelper.h */,
+				AC5EB6C2221BA1A00021AA33 /* JKSandboxFavPathModel.m */,
+				AC5EB6C3221BA1A00021AA33 /* JKSandboxFavPathListController.m */,
+				AC5EB6C4221BA1A00021AA33 /* JKSandboxCell.h */,
+				AC5EB6C5221BA1A00021AA33 /* JKSandboxViewController.h */,
+				AC5EB6C6221BA1A00021AA33 /* JKSandboxModel.h */,
+				AC5EB6C7221BA1A00021AA33 /* JKSandboxFilePreviewViewController.h */,
+				AC5EB6C8221BA1A00021AA33 /* JKSandboxHelper.m */,
+				AC5EB6C9221BA1A00021AA33 /* JKSandboxFavPathListController.h */,
+				AC5EB6CA221BA1A00021AA33 /* JKSandboxFavPathModel.h */,
+				AC5EB6CB221BA1A00021AA33 /* JKSandboxViewController.m */,
+				AC5EB6CC221BA1A00021AA33 /* JKSandboxCell.m */,
+				AC5EB6CD221BA1A00021AA33 /* JKSandboxFilePreviewViewController.m */,
+				AC5EB6CE221BA1A00021AA33 /* JKSandboxModel.m */,
+			);
+			path = JKSandboxBrowser;
+			sourceTree = "<group>";
+		};
+		AC5EB6CF221BA1A00021AA33 /* JKPerformance */ = {
+			isa = PBXGroup;
+			children = (
+				AC5EB6D0221BA1A00021AA33 /* JKPerformanceManager.h */,
+				AC5EB6D1221BA1A00021AA33 /* JKRAMLabel.m */,
+				AC5EB6D2221BA1A00021AA33 /* JKPerformanceSettingController.m */,
+				AC5EB6D3221BA1A00021AA33 /* JKPerformanceHelper.h */,
+				AC5EB6D4221BA1A00021AA33 /* JKFPSLabel.h */,
+				AC5EB6D5221BA1A00021AA33 /* JKCPULabel.m */,
+				AC5EB6D6221BA1A00021AA33 /* JKFlowLabel.h */,
+				AC5EB6D7221BA1A00021AA33 /* JKPerformanceManager.m */,
+				AC5EB6D8221BA1A00021AA33 /* JKPerformanceHelper.m */,
+				AC5EB6D9221BA1A00021AA33 /* JKPerformanceSettingController.h */,
+				AC5EB6DA221BA1A00021AA33 /* JKRAMLabel.h */,
+				AC5EB6DB221BA1A00021AA33 /* JKFlowLabel.m */,
+				AC5EB6DC221BA1A00021AA33 /* JKCPULabel.h */,
+				AC5EB6DD221BA1A00021AA33 /* JKFPSLabel.m */,
+			);
+			path = JKPerformance;
+			sourceTree = "<group>";
+		};
+		AC5EB6DE221BA1A00021AA33 /* JKDeviceInfo */ = {
+			isa = PBXGroup;
+			children = (
+				AC5EB6DF221BA1A00021AA33 /* JKDeviceInfoViewController.h */,
+				AC5EB6E0221BA1A00021AA33 /* JKDeviceInfoHelper.h */,
+				AC5EB6E1221BA1A00021AA33 /* JKDeviceInfoViewController.m */,
+				AC5EB6E2221BA1A00021AA33 /* JKDeviceInfoHelper.m */,
+			);
+			path = JKDeviceInfo;
+			sourceTree = "<group>";
+		};
+		AC5EB6E3221BA1A00021AA33 /* JKUserDefaultsPanel */ = {
+			isa = PBXGroup;
+			children = (
+				AC5EB6E4221BA1A00021AA33 /* JKUserDefaultsKeyView.h */,
+				AC5EB6E5221BA1A00021AA33 /* JKUserDefaultsHelper.m */,
+				AC5EB6E6221BA1A00021AA33 /* JKUserDefaultsValueCell.h */,
+				AC5EB6E7221BA1A00021AA33 /* JKUserDefaultsModel.m */,
+				AC5EB6E8221BA1A00021AA33 /* JKUserDefaultsViewController.h */,
+				AC5EB6E9221BA1A00021AA33 /* JKUserDefaultsKeyView.m */,
+				AC5EB6EA221BA1A00021AA33 /* JKUserDefaultsHelper.h */,
+				AC5EB6EB221BA1A00021AA33 /* JKUserDefaultsModel.h */,
+				AC5EB6EC221BA1A00021AA33 /* JKUserDefaultsValueCell.m */,
+				AC5EB6ED221BA1A00021AA33 /* JKUserDefaultsViewController.m */,
+			);
+			path = JKUserDefaultsPanel;
+			sourceTree = "<group>";
+		};
+		AC5EB6EE221BA1A00021AA33 /* JKNetworkCapture */ = {
+			isa = PBXGroup;
+			children = (
+				AC5EB6EF221BA1A00021AA33 /* JKNetCaptureDetailViewController.h */,
+				AC5EB6F0221BA1A00021AA33 /* JKNetCaptureListCell.h */,
+				AC5EB6F1221BA1A00021AA33 /* JKNetCaptureModel.m */,
+				AC5EB6F2221BA1A00021AA33 /* JKNetCaptureListViewController.m */,
+				AC5EB6F3221BA1A00021AA33 /* JKNetCaptureDataSource.h */,
+				AC5EB6F4221BA1A00021AA33 /* JKNetCaptureHelper.m */,
+				AC5EB6F5221BA1A00021AA33 /* JKURLProtocol.h */,
+				AC5EB6F6221BA1A00021AA33 /* JKNetCaptureListViewController.h */,
+				AC5EB6F7221BA1A00021AA33 /* JKNetCaptureModel.h */,
+				AC5EB6F8221BA1A00021AA33 /* JKNetCaptureDetailViewController.m */,
+				AC5EB6F9221BA1A00021AA33 /* JKNetCaptureListCell.m */,
+				AC5EB6FA221BA1A00021AA33 /* JKNetCaptureHelper.h */,
+				AC5EB6FB221BA1A00021AA33 /* JKNetCaptureDataSource.m */,
+				AC5EB6FC221BA1A00021AA33 /* JKURLProtocol.m */,
+			);
+			path = JKNetworkCapture;
+			sourceTree = "<group>";
+		};
+		AC5EB6FE221BA1A00021AA33 /* JKCrashLog */ = {
+			isa = PBXGroup;
+			children = (
+				AC5EB6FF221BA1A00021AA33 /* JKCrashLogListViewController.m */,
+				AC5EB700221BA1A00021AA33 /* JKCrashLogDetailViewController.h */,
+				AC5EB701221BA1A00021AA33 /* JKCrashUncaughtExceptionHandler.m */,
+				AC5EB702221BA1A00021AA33 /* JKCrashLogHelper.m */,
+				AC5EB703221BA1A00021AA33 /* JKCrashLogListCell.h */,
+				AC5EB704221BA1A00021AA33 /* JKCrashLogModel.m */,
+				AC5EB705221BA1A00021AA33 /* JKCrashSignalExceptionHandler.m */,
+				AC5EB706221BA1A00021AA33 /* JKCrashUncaughtExceptionHandler.h */,
+				AC5EB707221BA1A00021AA33 /* JKCrashLogDetailViewController.m */,
+				AC5EB708221BA1A00021AA33 /* JKCrashLogListViewController.h */,
+				AC5EB709221BA1A00021AA33 /* JKCrashLogListCell.m */,
+				AC5EB70A221BA1A00021AA33 /* JKCrashLogHelper.h */,
+				AC5EB70B221BA1A00021AA33 /* JKCrashSignalExceptionHandler.h */,
+				AC5EB70C221BA1A00021AA33 /* JKCrashLogModel.h */,
+			);
+			path = JKCrashLog;
+			sourceTree = "<group>";
+		};
+		AC5EB70D221BA1A00021AA33 /* JKCore */ = {
+			isa = PBXGroup;
+			children = (
+				AC5EB70E221BA1A00021AA33 /* JKTableViewController.h */,
+				AC5EB70F221BA1A00021AA33 /* JkPresentationWindow.m */,
+				AC5EB710221BA1A00021AA33 /* JKFloatWindow.m */,
+				AC5EB711221BA1A00021AA33 /* JKSegmentView.h */,
+				AC5EB712221BA1A00021AA33 /* JKNavigtionController.h */,
+				AC5EB713221BA1A00021AA33 /* JKHelper.h */,
+				AC5EB714221BA1A00021AA33 /* JKViewController.m */,
+				AC5EB715221BA1A00021AA33 /* JarvisKitManager.m */,
+				AC5EB716221BA1A00021AA33 /* JKIronmanWindow.h */,
+				AC5EB717221BA1A00021AA33 /* JKOrderedDictionary.m */,
+				AC5EB718221BA1A00021AA33 /* JKMacro.h */,
+				AC5EB719221BA1A00021AA33 /* UIImage+JarvisKit.h */,
+				AC5EB71A221BA1A00021AA33 /* UIView+JarvisKit.m */,
+				AC5EB71B221BA1A00021AA33 /* JKSwitchAccessoryCell.m */,
+				AC5EB71C221BA1A00021AA33 /* JKMovableWindowLabel.m */,
+				AC5EB71D221BA1A10021AA33 /* JKMenuLabel.m */,
+				AC5EB71E221BA1A10021AA33 /* UIViewController+JarvisKit.h */,
+				AC5EB71F221BA1A10021AA33 /* JKSegmentView.m */,
+				AC5EB720221BA1A10021AA33 /* JKFloatWindow.h */,
+				AC5EB721221BA1A10021AA33 /* JkPresentationWindow.h */,
+				AC5EB722221BA1A10021AA33 /* JKTableViewController.m */,
+				AC5EB723221BA1A10021AA33 /* JKViewController.h */,
+				AC5EB724221BA1A10021AA33 /* JKHelper.m */,
+				AC5EB725221BA1A10021AA33 /* JKNavigtionController.m */,
+				AC5EB726221BA1A10021AA33 /* JarvisKitManager.h */,
+				AC5EB727221BA1A10021AA33 /* JKCommonDefines.h */,
+				AC5EB728221BA1A10021AA33 /* JKMenuLabel.h */,
+				AC5EB729221BA1A10021AA33 /* UIViewController+JarvisKit.m */,
+				AC5EB72A221BA1A10021AA33 /* JKSwitchAccessoryCell.h */,
+				AC5EB72B221BA1A10021AA33 /* JKMovableWindowLabel.h */,
+				AC5EB72C221BA1A10021AA33 /* UIView+JarvisKit.h */,
+				AC5EB72D221BA1A10021AA33 /* JKOrderedDictionary.h */,
+				AC5EB72E221BA1A10021AA33 /* UIImage+JarvisKit.m */,
+				AC5EB72F221BA1A10021AA33 /* JKIronmanWindow.m */,
+			);
+			path = JKCore;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		AC5EB67B221BA17D0021AA33 /* JarvisKitDemo */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AC5EB6A8221BA17F0021AA33 /* Build configuration list for PBXNativeTarget "JarvisKitDemo" */;
+			buildPhases = (
+				AC5EB678221BA17D0021AA33 /* Sources */,
+				AC5EB679221BA17D0021AA33 /* Frameworks */,
+				AC5EB67A221BA17D0021AA33 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = JarvisKitDemo;
+			productName = JarvisKitDemo;
+			productReference = AC5EB67C221BA17D0021AA33 /* JarvisKitDemo.app */;
+			productType = "com.apple.product-type.application";
+		};
+		AC5EB693221BA17F0021AA33 /* JarvisKitDemoTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AC5EB6AB221BA17F0021AA33 /* Build configuration list for PBXNativeTarget "JarvisKitDemoTests" */;
+			buildPhases = (
+				AC5EB690221BA17F0021AA33 /* Sources */,
+				AC5EB691221BA17F0021AA33 /* Frameworks */,
+				AC5EB692221BA17F0021AA33 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				AC5EB696221BA17F0021AA33 /* PBXTargetDependency */,
+			);
+			name = JarvisKitDemoTests;
+			productName = JarvisKitDemoTests;
+			productReference = AC5EB694221BA17F0021AA33 /* JarvisKitDemoTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		AC5EB69E221BA17F0021AA33 /* JarvisKitDemoUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AC5EB6AE221BA17F0021AA33 /* Build configuration list for PBXNativeTarget "JarvisKitDemoUITests" */;
+			buildPhases = (
+				AC5EB69B221BA17F0021AA33 /* Sources */,
+				AC5EB69C221BA17F0021AA33 /* Frameworks */,
+				AC5EB69D221BA17F0021AA33 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				AC5EB6A1221BA17F0021AA33 /* PBXTargetDependency */,
+			);
+			name = JarvisKitDemoUITests;
+			productName = JarvisKitDemoUITests;
+			productReference = AC5EB69F221BA17F0021AA33 /* JarvisKitDemoUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		AC5EB674221BA17D0021AA33 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 1010;
+				ORGANIZATIONNAME = CodingIran;
+				TargetAttributes = {
+					AC5EB67B221BA17D0021AA33 = {
+						CreatedOnToolsVersion = 10.1;
+					};
+					AC5EB693221BA17F0021AA33 = {
+						CreatedOnToolsVersion = 10.1;
+						TestTargetID = AC5EB67B221BA17D0021AA33;
+					};
+					AC5EB69E221BA17F0021AA33 = {
+						CreatedOnToolsVersion = 10.1;
+						TestTargetID = AC5EB67B221BA17D0021AA33;
+					};
+				};
+			};
+			buildConfigurationList = AC5EB677221BA17D0021AA33 /* Build configuration list for PBXProject "JarvisKitDemo" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = AC5EB673221BA17D0021AA33;
+			productRefGroup = AC5EB67D221BA17D0021AA33 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				AC5EB67B221BA17D0021AA33 /* JarvisKitDemo */,
+				AC5EB693221BA17F0021AA33 /* JarvisKitDemoTests */,
+				AC5EB69E221BA17F0021AA33 /* JarvisKitDemoUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		AC5EB67A221BA17D0021AA33 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AC5EB68C221BA17F0021AA33 /* LaunchScreen.storyboard in Resources */,
+				AC5EB689221BA17F0021AA33 /* Assets.xcassets in Resources */,
+				AC5EB752221BA1A10021AA33 /* JarvisKit.bundle in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AC5EB692221BA17F0021AA33 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AC5EB69D221BA17F0021AA33 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		AC5EB678221BA17D0021AA33 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AC5EB75E221BA1A10021AA33 /* JKOrderedDictionary.m in Sources */,
+				AC5EB756221BA1A10021AA33 /* JKCrashLogModel.m in Sources */,
+				AC5EB73C221BA1A10021AA33 /* JKSandboxModel.m in Sources */,
+				AC5EB684221BA17E0021AA33 /* JKDemoMainViewController.m in Sources */,
+				AC5EB750221BA1A10021AA33 /* JKNetCaptureDataSource.m in Sources */,
+				AC5EB732221BA1A10021AA33 /* JKUIElementToolHelper.m in Sources */,
+				AC5EB768221BA1A10021AA33 /* UIImage+JarvisKit.m in Sources */,
+				AC5EB749221BA1A10021AA33 /* JKUserDefaultsValueCell.m in Sources */,
+				AC5EB764221BA1A10021AA33 /* JKTableViewController.m in Sources */,
+				AC5EB734221BA1A10021AA33 /* JKUIElementToolSettingController.m in Sources */,
+				AC5EB73E221BA1A10021AA33 /* JKPerformanceSettingController.m in Sources */,
+				AC5EB760221BA1A10021AA33 /* JKSwitchAccessoryCell.m in Sources */,
+				AC5EB73D221BA1A10021AA33 /* JKRAMLabel.m in Sources */,
+				AC5EB748221BA1A10021AA33 /* JKUserDefaultsKeyView.m in Sources */,
+				AC5EB761221BA1A10021AA33 /* JKMovableWindowLabel.m in Sources */,
+				AC5EB68F221BA17F0021AA33 /* main.m in Sources */,
+				AC5EB744221BA1A10021AA33 /* JKDeviceInfoViewController.m in Sources */,
+				AC5EB73B221BA1A10021AA33 /* JKSandboxFilePreviewViewController.m in Sources */,
+				AC5EB73F221BA1A10021AA33 /* JKCPULabel.m in Sources */,
+				AC5EB766221BA1A10021AA33 /* JKNavigtionController.m in Sources */,
+				AC5EB74C221BA1A10021AA33 /* JKNetCaptureListViewController.m in Sources */,
+				AC5EB75D221BA1A10021AA33 /* JarvisKitManager.m in Sources */,
+				AC5EB742221BA1A10021AA33 /* JKFlowLabel.m in Sources */,
+				AC5EB746221BA1A10021AA33 /* JKUserDefaultsHelper.m in Sources */,
+				AC5EB74E221BA1A10021AA33 /* JKNetCaptureDetailViewController.m in Sources */,
+				AC5EB739221BA1A10021AA33 /* JKSandboxViewController.m in Sources */,
+				AC5EB759221BA1A10021AA33 /* JKCrashLogListCell.m in Sources */,
+				AC5EB730221BA1A10021AA33 /* JKFontLineHeightViewController.m in Sources */,
+				AC5EB743221BA1A10021AA33 /* JKFPSLabel.m in Sources */,
+				AC5EB736221BA1A10021AA33 /* JKSandboxFavPathModel.m in Sources */,
+				AC5EB737221BA1A10021AA33 /* JKSandboxFavPathListController.m in Sources */,
+				AC5EB754221BA1A10021AA33 /* JKCrashUncaughtExceptionHandler.m in Sources */,
+				AC5EB758221BA1A10021AA33 /* JKCrashLogDetailViewController.m in Sources */,
+				AC5EB769221BA1A10021AA33 /* JKIronmanWindow.m in Sources */,
+				AC5EB75F221BA1A10021AA33 /* UIView+JarvisKit.m in Sources */,
+				AC5EB73A221BA1A10021AA33 /* JKSandboxCell.m in Sources */,
+				AC5EB767221BA1A10021AA33 /* UIViewController+JarvisKit.m in Sources */,
+				AC5EB735221BA1A10021AA33 /* JKUIElementToolManager.m in Sources */,
+				AC5EB75C221BA1A10021AA33 /* JKViewController.m in Sources */,
+				AC5EB753221BA1A10021AA33 /* JKCrashLogListViewController.m in Sources */,
+				AC5EB74B221BA1A10021AA33 /* JKNetCaptureModel.m in Sources */,
+				AC5EB762221BA1A10021AA33 /* JKMenuLabel.m in Sources */,
+				AC5EB738221BA1A10021AA33 /* JKSandboxHelper.m in Sources */,
+				AC5EB74D221BA1A10021AA33 /* JKNetCaptureHelper.m in Sources */,
+				AC5EB755221BA1A10021AA33 /* JKCrashLogHelper.m in Sources */,
+				AC5EB757221BA1A10021AA33 /* JKCrashSignalExceptionHandler.m in Sources */,
+				AC5EB765221BA1A10021AA33 /* JKHelper.m in Sources */,
+				AC5EB763221BA1A10021AA33 /* JKSegmentView.m in Sources */,
+				AC5EB75A221BA1A10021AA33 /* JkPresentationWindow.m in Sources */,
+				AC5EB681221BA17E0021AA33 /* AppDelegate.m in Sources */,
+				AC5EB741221BA1A10021AA33 /* JKPerformanceHelper.m in Sources */,
+				AC5EB75B221BA1A10021AA33 /* JKFloatWindow.m in Sources */,
+				AC5EB751221BA1A10021AA33 /* JKURLProtocol.m in Sources */,
+				AC5EB731221BA1A10021AA33 /* JKSystemFontViewController.m in Sources */,
+				AC5EB745221BA1A10021AA33 /* JKDeviceInfoHelper.m in Sources */,
+				AC5EB74F221BA1A10021AA33 /* JKNetCaptureListCell.m in Sources */,
+				AC5EB74A221BA1A10021AA33 /* JKUserDefaultsViewController.m in Sources */,
+				AC5EB747221BA1A10021AA33 /* JKUserDefaultsModel.m in Sources */,
+				AC5EB733221BA1A10021AA33 /* JKMagnifierView.m in Sources */,
+				AC5EB740221BA1A10021AA33 /* JKPerformanceManager.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AC5EB690221BA17F0021AA33 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AC5EB699221BA17F0021AA33 /* JarvisKitDemoTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AC5EB69B221BA17F0021AA33 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AC5EB6A4221BA17F0021AA33 /* JarvisKitDemoUITests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		AC5EB696221BA17F0021AA33 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = AC5EB67B221BA17D0021AA33 /* JarvisKitDemo */;
+			targetProxy = AC5EB695221BA17F0021AA33 /* PBXContainerItemProxy */;
+		};
+		AC5EB6A1221BA17F0021AA33 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = AC5EB67B221BA17D0021AA33 /* JarvisKitDemo */;
+			targetProxy = AC5EB6A0221BA17F0021AA33 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		AC5EB68A221BA17F0021AA33 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				AC5EB68B221BA17F0021AA33 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		AC5EB6A6221BA17F0021AA33 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		AC5EB6A7221BA17F0021AA33 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		AC5EB6A9221BA17F0021AA33 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = "";
+				INFOPLIST_FILE = JarvisKitDemo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.CodingIran.JarvisKitDemo;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		AC5EB6AA221BA17F0021AA33 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = "";
+				INFOPLIST_FILE = JarvisKitDemo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.CodingIran.JarvisKitDemo;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		AC5EB6AC221BA17F0021AA33 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 6P8D4EMSLJ;
+				INFOPLIST_FILE = JarvisKitDemoTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.CodingIran.JarvisKitDemoTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/JarvisKitDemo.app/JarvisKitDemo";
+			};
+			name = Debug;
+		};
+		AC5EB6AD221BA17F0021AA33 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 6P8D4EMSLJ;
+				INFOPLIST_FILE = JarvisKitDemoTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.CodingIran.JarvisKitDemoTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/JarvisKitDemo.app/JarvisKitDemo";
+			};
+			name = Release;
+		};
+		AC5EB6AF221BA17F0021AA33 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 6P8D4EMSLJ;
+				INFOPLIST_FILE = JarvisKitDemoUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.CodingIran.JarvisKitDemoUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = JarvisKitDemo;
+			};
+			name = Debug;
+		};
+		AC5EB6B0221BA17F0021AA33 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 6P8D4EMSLJ;
+				INFOPLIST_FILE = JarvisKitDemoUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.CodingIran.JarvisKitDemoUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = JarvisKitDemo;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		AC5EB677221BA17D0021AA33 /* Build configuration list for PBXProject "JarvisKitDemo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AC5EB6A6221BA17F0021AA33 /* Debug */,
+				AC5EB6A7221BA17F0021AA33 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		AC5EB6A8221BA17F0021AA33 /* Build configuration list for PBXNativeTarget "JarvisKitDemo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AC5EB6A9221BA17F0021AA33 /* Debug */,
+				AC5EB6AA221BA17F0021AA33 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		AC5EB6AB221BA17F0021AA33 /* Build configuration list for PBXNativeTarget "JarvisKitDemoTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AC5EB6AC221BA17F0021AA33 /* Debug */,
+				AC5EB6AD221BA17F0021AA33 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		AC5EB6AE221BA17F0021AA33 /* Build configuration list for PBXNativeTarget "JarvisKitDemoUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AC5EB6AF221BA17F0021AA33 /* Debug */,
+				AC5EB6B0221BA17F0021AA33 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = AC5EB674221BA17D0021AA33 /* Project object */;
+}
