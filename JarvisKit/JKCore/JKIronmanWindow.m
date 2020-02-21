@@ -118,8 +118,7 @@
             }
         }];
         self.alertController = toolAlertController;
-        [[JKHelper jk_visibleViewController] presentViewController:self.alertController animated:YES completion:^{
-        }];
+        [[JKHelper jk_visibleViewController] presentViewController:self.alertController animated:YES completion:NULL];
     }
 }
 

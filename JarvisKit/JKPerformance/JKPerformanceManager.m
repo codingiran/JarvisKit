@@ -90,6 +90,9 @@ static JKPerformanceManager *jkPerformanceManager = nil;
         if (![[JKHelper jk_visibleViewController] isKindOfClass:[JKNetCaptureListViewController class]]) {
             JKNetCaptureListViewController *netCaptureListVc = [[JKNetCaptureListViewController alloc] init];
             JKNavigtionController *navigationController = [[JKNavigtionController alloc] initWithRootViewController:netCaptureListVc];
+            if (@available(iOS 13, *)) {
+                navigationController.modalPresentationStyle = UIModalPresentationFullScreen;
+            }
             [[JKHelper jk_visibleViewController] presentViewController:navigationController animated:YES completion:NULL];
         }
     } else {
@@ -97,6 +100,9 @@ static JKPerformanceManager *jkPerformanceManager = nil;
         if (![[JKHelper jk_visibleViewController] isKindOfClass:[JKPerformanceSettingController class]]) {
             JKPerformanceSettingController *performanceSettingController = [[JKPerformanceSettingController alloc] init];
             JKNavigtionController *navigationController = [[JKNavigtionController alloc] initWithRootViewController:performanceSettingController];
+            if (@available(iOS 13, *)) {
+                navigationController.modalPresentationStyle = UIModalPresentationFullScreen;
+            }
             [[JKHelper jk_visibleViewController] presentViewController:navigationController animated:YES completion:NULL];
         }
     }

@@ -32,6 +32,7 @@ static NSString * const kReuseIdentifier = @"SandboxTableViewCell";
 @implementation JKSandboxViewController
 
 #pragma mark - initilize
+
 - (instancetype)init
 {
     if (self = [super init]) {
@@ -51,6 +52,9 @@ static NSString * const kReuseIdentifier = @"SandboxTableViewCell";
         [refreshControl addTarget:self action:@selector(refresh:) forControlEvents:UIControlEventValueChanged];
         self.tableView.refreshControl = refreshControl;
     }
+    
+    self.navigationController.interactivePopGestureRecognizer.delegate = self;
+    [self.navigationController.interactivePopGestureRecognizer addTarget:self action:@selector(handleInteractivePopGestureRecognizer:)];
 }
 
 - (void)jk_setupNavigationItems
@@ -134,7 +138,7 @@ static NSString * const kReuseIdentifier = @"SandboxTableViewCell";
         [files addObject:model];
     }
     
-    self.dataArray = [files copy];
+    self.dataArray = files.copy;
     
     [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationAutomatic];
 }
@@ -289,7 +293,15 @@ static NSString * const kReuseIdentifier = @"SandboxTableViewCell";
     }
 }
 
+- (void)handleInteractivePopGestureRecognizer:(UIGestureRecognizer *)interactivePopGestureRecognizer
+{
+    if (interactivePopGestureRecognizer.state == UIGestureRecognizerStateEnded) {
+        [self navigationBack:nil];
+    }
+}
+
 #pragma mark - table view datasource
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     return 1;
