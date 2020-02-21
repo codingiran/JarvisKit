@@ -116,19 +116,6 @@
         self.selectable = NO;
         self.editable = NO;
     }
-    
-}
-
-- (CGFloat)cellHeight
-{
-    // type label
-    CGSize typeLabelMaxSize = CGSizeMake(MAXFLOAT, 20);
-    CGFloat typeLabelW = [self.displayValueType boundingRectWithSize:typeLabelMaxSize options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSForegroundColorAttributeName : [UIColor lightGrayColor], NSFontAttributeName : [UIFont systemFontOfSize:15]} context:nil].size.width;
-    // value label
-    CGSize valueLabelMaxSize = CGSizeMake([UIScreen mainScreen].bounds.size.width - 15 - typeLabelW - 18 - 10/* type和value的间距 */, MAXFLOAT);
-    CGFloat nameLabelH = [self.displayValue boundingRectWithSize:valueLabelMaxSize options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSForegroundColorAttributeName : [UIColor darkTextColor], NSFontAttributeName : [UIFont systemFontOfSize:16]} context:nil].size.height;
-    
-    return MAX(nameLabelH, 20) + 12 + 12;// 12是上下边距
 }
 
 @end

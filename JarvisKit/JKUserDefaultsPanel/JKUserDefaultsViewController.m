@@ -32,7 +32,8 @@ static NSTimeInterval const kTransitionAnimationDuration = 0.45f;
 @property(nonatomic, strong) JKUserDefaultsModel *currentUserDefaultsModel;
 
 /// 当前列表模型数组
-@property(nonatomic, copy) NSArray<JKUserDefaultsModel *> *userDefaultsLists;
+@property(nonatomic, copy) NSArray<NSString *> *sectionIndexList;
+@property(nonatomic, copy) NSArray *userDefaultsLists;
 
 /// tableview展示列表 or 文本形式的字典
 @property(nonatomic, assign) JKUserDefaultsShowType userDefaultsShowType;
@@ -44,9 +45,12 @@ static NSTimeInterval const kTransitionAnimationDuration = 0.45f;
 - (void)jk_initTableView
 {
     [super jk_initTableView];
+    
+    [self.tableView setSectionIndexBackgroundColor:UIColor.clearColor];
+    [self.tableView setSectionIndexColor:JKThemeColor];
     [self.tableView registerClass:[JKUserDefaultsValueCell class] forCellReuseIdentifier:kReuseTableViewCellIdentifier];
     [self.tableView registerClass:[JKUserDefaultsKeyView class] forHeaderFooterViewReuseIdentifier:kReuseTableViewHeaderViewIdentifier];
-    self.tableView.estimatedRowHeight = 0;
+    self.tableView.estimatedRowHeight = 44.f;
     self.tableView.estimatedSectionHeaderHeight = 0;
     self.tableView.estimatedSectionFooterHeight = 0;
 }
@@ -61,11 +65,6 @@ static NSTimeInterval const kTransitionAnimationDuration = 0.45f;
     segment.selectedSegmentIndex = 0;
     [segment addTarget:self action:@selector(segmentSelected:) forControlEvents:UIControlEventValueChanged];
     self.navigationItem.titleView = segment;
-}
-
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
     
     // 只有字典的根节点才有关闭和添加按钮
     if (self.currentUserDefaultsModel.isRoot) {
@@ -75,18 +74,65 @@ static NSTimeInterval const kTransitionAnimationDuration = 0.45f;
         UIBarButtonItem *addItem = [[UIBarButtonItem alloc] initWithImage:JKImageMake(@"jarvis_navi_add") style:UIBarButtonItemStylePlain target:self action:@selector(navigationAdd:)];
         self.navigationItem.rightBarButtonItems = @[addItem];
     }
+}
+
+- (NSArray<NSArray *> *)makeSectionListWith:(NSDictionary *)userDefaultsDic
+{
+    // 字典转模型列表
+    NSMutableArray<JKUserDefaultsModel *> *list = [NSMutableArray arrayWithCapacity:userDefaultsDic.allKeys.count];
+    [userDefaultsDic enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
+        // 生成模型
+        JKUserDefaultsModel *model = [[JKUserDefaultsModel alloc] initWithKey:key andValue:obj];
+        [list addObject:model];
+        
+    }];
+    
+    // 模型列表排序
+    NSArray<JKUserDefaultsModel *> *sortedList = [list sortedArrayUsingComparator:^NSComparisonResult(JKUserDefaultsModel * _Nonnull obj1, JKUserDefaultsModel * _Nonnull obj2) {
+        return [obj1.key compare:obj2.key];
+    }];
+    
+    // 生成 section 需要的列表
+    NSMutableOrderedSet<NSString *> *orderdSet = [[NSMutableOrderedSet alloc] initWithCapacity:27];
+    unichar lastChar = '^_^';
+    NSMutableArray<NSMutableArray<JKUserDefaultsModel *> *> *resultList = [NSMutableArray arrayWithCapacity:27];
+    NSMutableArray<JKUserDefaultsModel *> *otherModelList = [NSMutableArray array];
+    NSMutableArray<JKUserDefaultsModel *> *alphaModelList = nil;
+    for (JKUserDefaultsModel *model in sortedList) {
+        // 索引
+        unichar c = [model.key characterAtIndex:0];
+        if (!isalpha(c)) {
+            [orderdSet addObject:@"#"];
+            [otherModelList addObject:model];
+        } else if (c != lastChar) {
+            [orderdSet addObject:[NSString stringWithFormat:@"%c", c].uppercaseString];
+            lastChar = c;
+            if (alphaModelList && alphaModelList.count) {
+                [resultList addObject:alphaModelList];
+            }
+            alphaModelList = [NSMutableArray array];
+            [alphaModelList addObject:model];
+        } else {
+            [orderdSet addObject:[NSString stringWithFormat:@"%c", c].uppercaseString];
+            [alphaModelList addObject:model];
+        }
+    }
+    if (otherModelList.count) {
+        [resultList addObject:otherModelList];
+    }
+    self.sectionIndexList = orderdSet.array;
+    
+    return resultList.copy;
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
     
     // 将字典转为tableview数据源
     if (self.currentUserDefaultsModel.valueType == JKUserDefaultsValueTypeDictionary) {
         NSDictionary *userDefaultsDic = (NSDictionary *)self.currentUserDefaultsModel.value;
-        NSMutableArray<JKUserDefaultsModel *> *list = [NSMutableArray arrayWithCapacity:userDefaultsDic.allKeys.count];
-        [userDefaultsDic enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
-            JKUserDefaultsModel *model = [[JKUserDefaultsModel alloc] initWithKey:key andValue:obj];
-            [list addObject:model];
-        }];
-        // 使用UILocalizedIndexedCollation对key属性进行排序
-        UILocalizedIndexedCollation *collation = [UILocalizedIndexedCollation currentCollation];
-        self.userDefaultsLists = [collation sortedArrayFromArray:list.copy collationStringSelector:@selector(key)];
+        self.userDefaultsLists = [self makeSectionListWith:userDefaultsDic];
     }
     
     if (self.currentUserDefaultsModel.valueType == JKUserDefaultsValueTypeArray) {
@@ -100,6 +146,7 @@ static NSTimeInterval const kTransitionAnimationDuration = 0.45f;
         self.userDefaultsLists = list.copy;
     }
     
+    self.tableView.separatorStyle = (self.currentUserDefaultsModel.valueType == JKUserDefaultsValueTypeDictionary) ? UITableViewCellSeparatorStyleNone : UITableViewCellSeparatorStyleSingleLine;
     [self.tableView reloadData];
 }
 
@@ -178,30 +225,17 @@ static NSTimeInterval const kTransitionAnimationDuration = 0.45f;
             JKUserDefaultsModel *newModel = [JKUserDefaultsModel new];
             if (type == JKUserDefaultsValueTypeString) {
                 [[NSUserDefaults standardUserDefaults] setValue:tf1.text forKey:tf0.text];
-                // 创建新的数据
-                newModel = [[JKUserDefaultsModel alloc] initWithKey:tf0.text andValue:tf1.text];
             }
             if (type == JKUserDefaultsValueTypeNumber) {
                 [[NSUserDefaults standardUserDefaults] setValue:[JKUserDefaultsHelper numberFromString:tf1.text] forKey:tf0.text];
-                // 创建新的数据
-                newModel = [[JKUserDefaultsModel alloc] initWithKey:tf0.text andValue:[JKUserDefaultsHelper numberFromString:tf1.text]];
             }
             if (type == JKUserDefaultsValueTypeBool) {
                 [[NSUserDefaults standardUserDefaults] setBool:[JKUserDefaultsHelper booleanFromString:tf1.text] forKey:tf0.text];
-                // 创建新的数据
-                newModel = [[JKUserDefaultsModel alloc] initWithKey:tf0.text andValue:[JKUserDefaultsHelper numberFromString:tf1.text]];
-                newModel.valueType = JKUserDefaultsValueTypeBool;
             }
             
-            // 添加数据源
-            NSMutableArray<JKUserDefaultsModel *> *userDefaultsLists = weakSelf.userDefaultsLists.mutableCopy;
-            [userDefaultsLists addObject:newModel];
-            // 使用UILocalizedIndexedCollation对key属性重新排序
-            UILocalizedIndexedCollation *collation = [UILocalizedIndexedCollation currentCollation];
-            weakSelf.userDefaultsLists = [collation sortedArrayFromArray:userDefaultsLists.copy collationStringSelector:@selector(key)];
-            
-            // 维护副本
-            [weakSelf updateUserDefaultsTranscript];
+            weakSelf.currentUserDefaultsModel = [self realodCurrentUserDefaultsModel];
+            NSDictionary *userDefaultsDic = (NSDictionary *)weakSelf.currentUserDefaultsModel.value;
+            weakSelf.userDefaultsLists = [weakSelf makeSectionListWith:userDefaultsDic];
             
             // 刷新列表
             [weakSelf.tableView reloadData];
@@ -227,98 +261,87 @@ static NSTimeInterval const kTransitionAnimationDuration = 0.45f;
 }
 
 #pragma mark - private methods
+
 /// 刷新副本
 - (void)updateUserDefaultsTranscript
 {
     if (!self.currentUserDefaultsModel.isRoot) return;
     // 将模型转为字典模型
-    NSMutableDictionary *userDefaltsDict = [NSMutableDictionary dictionaryWithCapacity:self.userDefaultsLists.count];
-    [self.userDefaultsLists enumerateObjectsUsingBlock:^(JKUserDefaultsModel * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        NSAssert(obj.value && obj.key, @"Error: 将一个为nil的value写入字典");
-        [userDefaltsDict setValue:obj.value forKey:obj.key];
+    NSMutableDictionary *userDefaltsDict = [NSMutableDictionary dictionary];
+    [self.userDefaultsLists enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if ([obj isKindOfClass:NSArray.class]) {
+            NSArray<JKUserDefaultsModel *> *data = (NSArray<JKUserDefaultsModel *> *)obj;
+            for (JKUserDefaultsModel *model in data) {
+                NSAssert(model.value && model.key, @"Error: 将一个为nil的value写入字典");
+                [userDefaltsDict setValue:model.value forKey:model.key];
+            }
+        } else {
+            if ([obj isKindOfClass:JKUserDefaultsModel.class]) {
+                JKUserDefaultsModel *model = (JKUserDefaultsModel *)obj;
+                NSAssert(model.value && model.key, @"Error: 将一个为nil的value写入字典");
+                [userDefaltsDict setValue:model.value forKey:model.key];
+            }
+        }
     }];
     self.currentUserDefaultsModel.value = userDefaltsDict.copy;
 }
 
 #pragma mark - table view datasource
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    if (self.currentUserDefaultsModel.valueType == JKUserDefaultsValueTypeArray) {
-        return 1;
-    }
     if (self.currentUserDefaultsModel.valueType == JKUserDefaultsValueTypeDictionary) {
         return self.userDefaultsLists.count;
     }
-    return 0;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    if (self.currentUserDefaultsModel.valueType == JKUserDefaultsValueTypeArray) {
-        return self.userDefaultsLists.count;
-    }
     if (self.currentUserDefaultsModel.valueType == JKUserDefaultsValueTypeDictionary) {
-        return 1;
+        NSArray<JKUserDefaultsModel *> *sectionData = self.userDefaultsLists[section];
+        return sectionData.count;
     }
-    return 0;
+    return self.userDefaultsLists.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (self.currentUserDefaultsModel.valueType == JKUserDefaultsValueTypeArray) {
-        JKUserDefaultsValueCell *cell = [tableView dequeueReusableCellWithIdentifier:kReuseTableViewCellIdentifier];
-        cell.userDefaultsModel = self.userDefaultsLists[indexPath.row];
-        return cell;
-    }
+    JKUserDefaultsValueCell *cell = [tableView dequeueReusableCellWithIdentifier:kReuseTableViewCellIdentifier];
+    cell.needShowKey = self.currentUserDefaultsModel.valueType == JKUserDefaultsValueTypeDictionary;
     if (self.currentUserDefaultsModel.valueType == JKUserDefaultsValueTypeDictionary) {
-        JKUserDefaultsValueCell *cell = [tableView dequeueReusableCellWithIdentifier:kReuseTableViewCellIdentifier];
-        cell.userDefaultsModel = self.userDefaultsLists[indexPath.section];
-        return cell;
+        NSArray<JKUserDefaultsModel *> *sectionData = self.userDefaultsLists[indexPath.section];
+        cell.userDefaultsModel = sectionData[indexPath.row];
+    } else {
+        cell.userDefaultsModel = self.userDefaultsLists[indexPath.row];
     }
-    return nil;
+    
+    return cell;
 }
 
 #pragma mark - table view delegate
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (self.currentUserDefaultsModel.valueType == JKUserDefaultsValueTypeArray) {
-        JKUserDefaultsModel *model = self.userDefaultsLists[indexPath.row];
-        return model.cellHeight;
-    }
-    if (self.currentUserDefaultsModel.valueType == JKUserDefaultsValueTypeDictionary) {
-        JKUserDefaultsModel *model = self.userDefaultsLists[indexPath.section];
-        return model.cellHeight;
-    }
-    return 0;
+    return UITableViewAutomaticDimension;
 }
 
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+- (NSArray<NSString *> *)sectionIndexTitlesForTableView:(UITableView *)tableView
 {
-    if (self.currentUserDefaultsModel.valueType == JKUserDefaultsValueTypeDictionary) {
-        JKUserDefaultsKeyView *keyView = [tableView dequeueReusableHeaderFooterViewWithIdentifier:kReuseTableViewHeaderViewIdentifier];
-        JKUserDefaultsModel *model = self.userDefaultsLists[section];
-        keyView.titleLabel.text = [NSString stringWithFormat:@"Key%zd: %@", section, model.key];
-        keyView.titleLabel.text = [NSString stringWithFormat:@"%@", model.key];
-        keyView.contentEdgeInsets = UIEdgeInsetsMake(5, 15, 5, 15);
-        return keyView;
-    } else {
-        return nil;
-    }
+    return self.sectionIndexList;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
     if (self.currentUserDefaultsModel.valueType == JKUserDefaultsValueTypeDictionary) {
-        return 44;
-    } else {
-        return 0;
+        self.sectionIndexList[section];
     }
+    return nil;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
-    return 0.01;
+    return CGFLOAT_MIN;
 }
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
@@ -326,33 +349,28 @@ static NSTimeInterval const kTransitionAnimationDuration = 0.45f;
     return self.currentUserDefaultsModel.isRoot;
 }
 
-//    [[NSUserDefaults standardUserDefaults] setObject:[NSDate date] forKey:@"NSDate"];
-//    NSString *s = @"1234的";
-//    [[NSUserDefaults standardUserDefaults] setObject:s forKey:@"NSStringjj"];
-//    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"BOOL"];
-//    [[NSUserDefaults standardUserDefaults] setDouble:1.0 forKey:@"Double"];
-//    NSURL *url = [NSURL URLWithString:@"https://www.bilibili.com/"];
-//    [[NSUserDefaults standardUserDefaults] setURL:url forKey:@"NSURL"];
-
 - (NSArray<UITableViewRowAction *> *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     // 指头根节点才可以增删改
     if (!self.currentUserDefaultsModel.isRoot) return nil;
-    JKUserDefaultsModel *model = self.userDefaultsLists[indexPath.section];
+    JKUserDefaultsModel *model = (self.currentUserDefaultsModel.valueType == JKUserDefaultsValueTypeDictionary) ? self.userDefaultsLists[indexPath.section][indexPath.row] : self.userDefaultsLists[indexPath.row];
     UITableViewRowAction *deleteAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDefault title:@"删除" handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
         // 删除NSUserDefaults的数据
         [[NSUserDefaults standardUserDefaults] removeObjectForKey:model.key];
         // 刷新数据源
-        NSMutableArray<JKUserDefaultsModel *> *userDefaultsLists = self.userDefaultsLists.mutableCopy;
-        [userDefaultsLists removeObjectAtIndex:indexPath.section];
-        self.userDefaultsLists = userDefaultsLists.copy;
-        // 刷新维护的NSUserDefaults字典副本（存在self.currentUserDefaultsModel.value中）
-        [self updateUserDefaultsTranscript];
+        self.currentUserDefaultsModel = [self realodCurrentUserDefaultsModel];
+        self.userDefaultsLists = [self makeSectionListWith:(NSDictionary *)self.currentUserDefaultsModel.value];
+        
         // 刷新tableview
-        [self.tableView beginUpdates];
-        NSIndexSet *indexSet = [NSIndexSet indexSetWithIndex:indexPath.section];
-        [self.tableView deleteSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
-        [self.tableView endUpdates];
+        if (@available(iOS 11.0, *)) {
+            [self.tableView performBatchUpdates:^{
+                [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+            } completion:NULL];
+        } else {
+            [self.tableView beginUpdates];
+            [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+            [self.tableView endUpdates];
+        }
     }];
     
     __weak __typeof(self)weakSelf = self;
@@ -451,18 +469,14 @@ static NSTimeInterval const kTransitionAnimationDuration = 0.45f;
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    JKUserDefaultsModel *model = nil;
-    if (self.currentUserDefaultsModel.valueType == JKUserDefaultsValueTypeArray) {
-        model = self.userDefaultsLists[indexPath.section];
-    }
     if (self.currentUserDefaultsModel.valueType == JKUserDefaultsValueTypeDictionary) {
-        model = self.userDefaultsLists[indexPath.section];
+        JKUserDefaultsModel *model = self.userDefaultsLists[indexPath.section][indexPath.row];
+        if (!model.selectable) return;
+        
+        JKUserDefaultsViewController *userDefaultsViewController = [[JKUserDefaultsViewController alloc] init];
+        userDefaultsViewController.currentUserDefaultsModel = model;
+        [self.navigationController pushViewController:userDefaultsViewController animated:YES];
     }
-    if (!model || !model.selectable) return;
-    
-    JKUserDefaultsViewController *userDefaultsViewController = [[JKUserDefaultsViewController alloc] init];
-    userDefaultsViewController.currentUserDefaultsModel = model;
-    [self.navigationController pushViewController:userDefaultsViewController animated:YES];
 }
 
 #pragma mark - setter & getter
@@ -501,11 +515,17 @@ static NSTimeInterval const kTransitionAnimationDuration = 0.45f;
     }
 }
 
+- (JKUserDefaultsModel *)realodCurrentUserDefaultsModel
+{
+    JKUserDefaultsModel *currentUserDefaultsModel = [[JKUserDefaultsModel alloc] initWithKey:@"NSUserDefaults" andValue:[JKUserDefaultsHelper achieveUserDefaultsFromSandboxPlist]];
+    currentUserDefaultsModel.isRoot = YES;
+    return currentUserDefaultsModel;
+}
+
 - (JKUserDefaultsModel *)currentUserDefaultsModel
 {
     if (!_currentUserDefaultsModel) {
-        _currentUserDefaultsModel = [[JKUserDefaultsModel alloc] initWithKey:@"NSUserDefaults" andValue:[JKUserDefaultsHelper achieveUserDefaultsFromSandboxPlist]];
-        _currentUserDefaultsModel.isRoot = YES;
+        _currentUserDefaultsModel = [self realodCurrentUserDefaultsModel];
     }
     return _currentUserDefaultsModel;
 }

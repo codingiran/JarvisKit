@@ -13,6 +13,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface JKUserDefaultsValueCell : UITableViewCell
 
+@property(nonatomic, assign) BOOL needShowKey;
+
 @property(nonatomic, strong) JKUserDefaultsModel *userDefaultsModel;
 
 @end

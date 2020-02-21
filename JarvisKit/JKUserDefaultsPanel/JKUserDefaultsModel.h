@@ -42,10 +42,6 @@ NS_ASSUME_NONNULL_BEGIN
 /// 对应是跟节点，也就是JKUserDefaultsViewController的首页
 @property(nonatomic, assign) BOOL isRoot;
 
-/// 模型对用cell的高度
-@property(nonatomic, assign) CGFloat cellHeight;
-
-
 /**
  初始化方法
 

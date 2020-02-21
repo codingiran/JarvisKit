@@ -8,11 +8,18 @@
 
 #import "JKUserDefaultsValueCell.h"
 #import "JKUserDefaultsModel.h"
+#import "JKHelper.h"
 
 @interface JKUserDefaultsValueCell ()
 
+@property(nonatomic, strong) UIView *keyBackgroudView;
+@property(nonatomic, strong) UILabel *keyLabel;
+
+@property(nonatomic, strong) UIView *valueBackgroudView;
 @property(nonatomic, strong) UILabel *valueLabel;
 @property(nonatomic, strong) UILabel *valueTypeLabel;
+
+@property(nonatomic, strong) UIImageView *arrow;
 
 @end
 
@@ -21,6 +28,19 @@
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
+        
+        self.keyBackgroudView = [UIView new];
+        self.keyBackgroudView.backgroundColor = JKColorMake(229, 229, 229);
+        
+        self.keyLabel = [UILabel new];
+        self.keyLabel.textAlignment = NSTextAlignmentLeft;
+        self.keyLabel.numberOfLines = 1;
+        self.keyLabel.textColor = [UIColor darkTextColor];
+        self.keyLabel.font = [UIFont systemFontOfSize:17];
+        
+        self.valueBackgroudView = [UIView new];
+        self.valueBackgroudView.backgroundColor = [UIColor whiteColor];
+        
         self.valueTypeLabel = [UILabel new];
         self.valueTypeLabel.textAlignment = NSTextAlignmentLeft;
         self.valueTypeLabel.numberOfLines = 1;
@@ -33,39 +53,78 @@
         self.valueLabel.textColor = [UIColor darkTextColor];
         self.valueLabel.font = [UIFont systemFontOfSize:16];
         
-        [self.contentView addSubview:self.valueTypeLabel];
-        [self.contentView addSubview:self.valueLabel];
-
+        self.arrow = [[UIImageView alloc] initWithImage:JKImageMake(@"jarvis_cell_accessArrow")];
+        
+        [self addSubview:self.keyBackgroudView];
+        [self.keyBackgroudView addSubview:self.keyLabel];
+        
+        [self addSubview:self.valueBackgroudView];
+        [self.valueBackgroudView addSubview:self.valueTypeLabel];
+        [self.valueBackgroudView addSubview:self.valueLabel];
+        [self.valueBackgroudView addSubview:self.arrow];
     }
     return self;
+}
+
+- (CGSize)sizeThatFits:(CGSize)size
+{
+    CGSize resultSize = CGSizeMake(size.width, 0);
+    
+    // key bkg 高度
+    resultSize.height += self.needShowKey ? 44.f : 0.f;
+    
+    if (!self.userDefaultsModel.selectable) {
+        // value top
+        resultSize.height += 12.f;
+        
+        // value type width
+        CGSize valueTypeSize = [self.valueTypeLabel sizeThatFits:CGSizeMake(CGFLOAT_MAX, CGFLOAT_MAX)];
+        CGFloat valueTypeWidth = valueTypeSize.width;
+        
+        CGFloat valueWidth = resultSize.width - 15 - valueTypeWidth - 18;
+        CGSize valueSize = [self.valueLabel sizeThatFits:CGSizeMake(valueWidth, CGFLOAT_MAX)];
+        // value height
+        resultSize.height += MAX(valueSize.height, 20);// give a min height 20px
+        
+        // value bottom
+        resultSize.height += 12.f;
+    } else {
+        resultSize.height += 44.f;
+    }
+    
+    return resultSize;
 }
 
 - (void)layoutSubviews
 {
     [super layoutSubviews];
     
+    self.keyBackgroudView.frame = CGRectMake(0, 0, self.jk_width, self.needShowKey ? self.jk_height * 0.5 : 0.f);
+    [self.keyLabel sizeToFit];
+    self.keyLabel.frame = CGRectMake(15, (self.keyBackgroudView.jk_height - self.keyLabel.jk_height) * 0.5, self.keyLabel.jk_width, self.keyLabel.jk_height);
+    
+    self.valueBackgroudView.frame = CGRectMake(0, self.keyBackgroudView.jk_bottom, self.jk_width, self.jk_height - self.keyBackgroudView.jk_height);
+    
     [self.valueTypeLabel sizeToFit];
-    self.valueTypeLabel.frame = CGRectMake(15, (self.contentView.frame.size.height - self.valueTypeLabel.frame.size.height) * 0.5, self.valueTypeLabel.frame.size.width, self.valueTypeLabel.frame.size.height);
+    self.valueTypeLabel.frame = CGRectMake(15, (self.valueBackgroudView.jk_height - self.valueTypeLabel.jk_height) * 0.5, self.valueTypeLabel.jk_width, self.valueTypeLabel.jk_height);
     
     [self.valueLabel sizeToFit];
-    self.valueLabel.frame = CGRectMake(CGRectGetMaxX(self.valueTypeLabel.frame) + 10, (self.contentView.frame.size.height - self.valueLabel.frame.size.height) * 0.5, self.contentView.frame.size.width - CGRectGetMaxX(self.valueTypeLabel.frame) - 10 - 18, self.valueLabel.frame.size.height);
+    self.valueLabel.frame = CGRectMake(self.valueTypeLabel.jk_right + 10, (self.valueBackgroudView.jk_height - self.valueLabel.jk_height) * 0.5, self.valueBackgroudView.jk_width - self.valueTypeLabel.jk_right - 10 - 18, self.valueLabel.jk_height);
+    
+    [self.arrow sizeToFit];
+    self.arrow.frame = CGRectMake(self.valueBackgroudView.jk_width - 20.f - self.arrow.jk_width, (self.valueBackgroudView.jk_height - self.arrow.jk_height) * 0.5, self.arrow.jk_width, self.arrow.jk_height);
 }
 
 - (void)setUserDefaultsModel:(JKUserDefaultsModel *)userDefaultsModel
 {
     _userDefaultsModel = userDefaultsModel;
     
-    if (userDefaultsModel.selectable) {
-        self.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-        self.selectionStyle = UITableViewCellSelectionStyleDefault;
-    } else {
-        self.accessoryType = UITableViewCellAccessoryNone;
-        self.selectionStyle = UITableViewCellSelectionStyleNone;
-    }
-    
-    self.valueLabel.text = [NSString stringWithFormat:@"%@",userDefaultsModel.displayValue];
-    self.valueTypeLabel.text = [NSString stringWithFormat:@"%@",userDefaultsModel.displayValueType];
-    
+    self.selectionStyle = _userDefaultsModel.selectable ? UITableViewCellSelectionStyleDefault : UITableViewCellSelectionStyleNone;
+    self.arrow.hidden = !_userDefaultsModel.selectable;
+    self.keyBackgroudView.hidden = !self.needShowKey;
+    self.keyLabel.text = self.needShowKey ? [NSString stringWithFormat:@"%@", _userDefaultsModel.key] : nil;
+    self.valueLabel.text = [NSString stringWithFormat:@"%@",_userDefaultsModel.displayValue];
+    self.valueTypeLabel.text = [NSString stringWithFormat:@"%@",_userDefaultsModel.displayValueType];
 }
 
 @end
