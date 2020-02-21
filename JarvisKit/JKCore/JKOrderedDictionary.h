@@ -2,7 +2,7 @@
 //  JKOrderedDictionary.h
 //  WekidsEducation
 //
-//  Created by 邱一郎 on 2019/1/23.
+//  Created by CodingIran on 2019/1/23.
 //  Copyright © 2019 wekids. All rights reserved.
 //
 
@@ -15,7 +15,8 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  有序字典的初始化方法
  
- @warning 着不是`NSDictionary`的拓展，需要更完整优雅的*有序`NSdictionary`*，可以参考[https://github.com/nicklockwood/OrderedDictionary]
+ @warning 这不是`NSDictionary`的拓展，需要更完整优雅的*有序`NSdictionary`*，
+ 可以参考[https://github.com/nicklockwood/OrderedDictionary]
 
  @param firstKey 将所有的参数以"key, value, key, value..."的方式传入
  @return 有序的的字典

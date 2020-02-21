@@ -2,7 +2,7 @@
 //  JKDeviceInfoViewController.m
 //  WekidsEducation
 //
-//  Created by 邱一郎 on 2019/1/7.
+//  Created by CodingIran on 2019/1/7.
 //  Copyright © 2019 wekids. All rights reserved.
 //
 
@@ -32,9 +32,9 @@ static NSString * const kTableViewCellReuseIdentifier = @"DeviceInfoCell";
     [super viewWillAppear:animated];
     __weak __typeof(self)weakSelf = self;
     [JKDeviceInfoHelper fetchNetAuthorityWithCompletion:^(NSString * _Nonnull authority) {
-        __strong __typeof(weakSelf)strongSelf = weakSelf;
-        strongSelf.dataArray = [strongSelf getDataArrayWithNetAuthority:authority];
         dispatch_async(dispatch_get_main_queue(), ^{
+            __strong __typeof(weakSelf)strongSelf = weakSelf;
+            strongSelf.dataArray = [strongSelf getDataArrayWithNetAuthority:authority];
             if ([strongSelf isViewLoaded]) {
                 [strongSelf.tableView reloadData];
             }

@@ -2,7 +2,7 @@
 //  JKCrashLogListViewController.m
 //  WekidsEducation
 //
-//  Created by 邱一郎 on 2019/1/11.
+//  Created by CodingIran on 2019/1/11.
 //  Copyright © 2019 wekids. All rights reserved.
 //
 
@@ -43,6 +43,7 @@ static NSString * const kTableViewReuseIdentifier = @"JKCrashLogListCell";
     self.navigationTitle = @"奔溃日志";
     
     UISwitch *switcher = [[UISwitch alloc] init];
+    switcher.tintColor = JKColorMake(225, 226, 227);
     switcher.on = [JKCrashLogHelper jk_crashLogActivate];
     [switcher addTarget:self action:@selector(switcher:) forControlEvents:UIControlEventValueChanged];
     UIBarButtonItem *switchActive = [[UIBarButtonItem alloc] initWithCustomView:switcher];
@@ -106,8 +107,8 @@ static NSString * const kTableViewReuseIdentifier = @"JKCrashLogListCell";
     UITableViewRowAction *deleteAction = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDefault title:@"删除" handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
         // 删除沙盒文件
         JKCrashLogModel *model = self.crashLogList[indexPath.section][indexPath.row];
-        BOOL delete = [JKSandboxHelper removeFileOfPath:model.crashFilePath];
-        NSAssert(delete, @"JKError: ****Crash日志文件无法删除！****");
+        [JKSandboxHelper removeFileOfPath:model.crashFilePath];
+//        NSAssert(delete, @"JKError: ****Crash日志文件无法删除！****");
         // 删除数据源
         NSMutableArray<NSArray<JKCrashLogModel *> *> *dataArray = self.crashLogList.mutableCopy;
         NSMutableArray<JKCrashLogModel *> *sectionDataArray = dataArray[indexPath.section].mutableCopy;

@@ -2,7 +2,7 @@
 //  JKFloatWindow.m
 //  WekidsEducation
 //
-//  Created by 邱一郎 on 2019/1/24.
+//  Created by CodingIran on 2019/1/24.
 //  Copyright © 2019 wekids. All rights reserved.
 //
 
@@ -24,12 +24,12 @@
     
     if (self = [super initWithFrame:frame]) {
         self.entityView = entity;
-        self.backgroundColor = [UIColor clearColor];
+        self.backgroundColor = UIColor.clearColor;
         self.windowLevel = JKFloatWindowLevel;
         if (!self.rootViewController) {
             self.rootViewController = [[UIViewController alloc] init];
             self.rootViewController.view.frame = CGRectMake(0, 0, side, side);
-            self.rootViewController.view.backgroundColor = [UIColor clearColor];
+            self.rootViewController.view.backgroundColor = UIColor.clearColor;
         }
         if (![entity isDescendantOfView:self.rootViewController.view]) {
             // 居中
@@ -77,6 +77,7 @@
 }
 
 #pragma mark - touch event
+
 - (void)tap:(UITapGestureRecognizer *)tap
 {
     if (self.delegate && [self.delegate respondsToSelector:@selector(floatWindow:punchOnEntity:)]) {

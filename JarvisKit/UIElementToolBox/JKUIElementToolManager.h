@@ -2,7 +2,7 @@
 //  JKUIElementToolManager.h
 //  WekidsEducation
 //
-//  Created by 邱一郎 on 2019/1/28.
+//  Created by CodingIran on 2019/1/28.
 //  Copyright © 2019 wekids. All rights reserved.
 //
 
@@ -12,7 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface JKUIElementToolManager : NSObject
 
-/// 颜色c拾取器
+/// 颜色拾取器
 @property(nonatomic, assign) BOOL colorPickerActive;
 
 /// 尺寸标尺
@@ -28,7 +28,6 @@ NS_ASSUME_NONNULL_BEGIN
  全局单例
  */
 + (instancetype)sharedManager;
-
 
 @end
 

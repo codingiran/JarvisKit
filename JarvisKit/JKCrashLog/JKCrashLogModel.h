@@ -2,7 +2,7 @@
 //  JKCrashLogModel.h
 //  WekidsEducation
 //
-//  Created by 邱一郎 on 2019/1/11.
+//  Created by CodingIran on 2019/1/11.
 //  Copyright © 2019 wekids. All rights reserved.
 //
 
@@ -12,7 +12,6 @@
 NS_ASSUME_NONNULL_BEGIN
 
 /// https://nianxi.net/ios/ios-crash-reporter.html
-
 typedef NS_ENUM(NSUInteger, JKCrashExceptionType) {
     JKCrashExceptionTypeUncaughtException,  // NSException异常
     JKCrashExceptionTypeUnixSignal,         // Mach异常与Unix信号

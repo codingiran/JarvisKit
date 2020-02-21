@@ -2,7 +2,7 @@
 //  JarvisKitManager.m
 //  WekidsEducation
 //
-//  Created by 邱一郎 on 2019/1/8.
+//  Created by CodingIran on 2019/1/8.
 //  Copyright © 2019 wekids. All rights reserved.
 //
 
@@ -65,13 +65,11 @@ static JarvisKitManager *jarvisKitManager = nil;
     if (JKPerformanceActive) {
         [[JKPerformanceManager sharedManager] showPerformanceModuleOnLaunch];
     }
-
 }
 
 - (void)shutDown
 {
-    
+    // 关闭
 }
-
 
 @end

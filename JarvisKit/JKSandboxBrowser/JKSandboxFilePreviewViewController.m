@@ -2,7 +2,7 @@
 //  JKSandboxFilePreviewViewController.m
 //  WekidsEducation
 //
-//  Created by 邱一郎 on 2019/1/2.
+//  Created by CodingIran on 2019/1/2.
 //  Copyright © 2019 wekids. All rights reserved.
 //
 #import <AVKit/AVKit.h>
@@ -62,8 +62,8 @@
         [self.mediaPlayer.player play];
         [self addChildViewController:self.mediaPlayer];
         [self.view addSubview:self.mediaPlayer.view];
-    } else if (fileType == JKSandboxFileTypePDF || fileType == JKSandboxFileTypeWord || fileType == JKSandboxFileTypeExcel || fileType == JKSandboxFileTypePPT) {
-        NSURL *fileUrl = [NSURL URLWithString:filePath];
+    } else if (fileType == JKSandboxFileTypePDF || fileType == JKSandboxFileTypeWord || fileType == JKSandboxFileTypeExcel || fileType == JKSandboxFileTypePPT || fileType == JKSandboxFileTypeHTML) {
+        NSURL *fileUrl = [NSURL fileURLWithPath:filePath];
         [self.documentViewer loadRequest:[NSURLRequest requestWithURL:fileUrl]];
         [self.view addSubview:self.documentViewer];
     } else {
@@ -83,6 +83,23 @@
     
     UIBarButtonItem *close = [[UIBarButtonItem alloc] initWithImage:JKImageMake(@"jarvis_navi_close") style:UIBarButtonItemStylePlain target:self action:@selector(dismiss:)];
     self.navigationItem.leftBarButtonItem = close;
+}
+
+- (void)viewDidLayoutSubviews
+{
+    [super viewDidLayoutSubviews];
+    
+    if (_imageView) {
+        _imageView.frame = self.view.bounds;
+    }
+    
+    if (_textView) {
+        _textView.frame = self.view.bounds;
+    }
+    
+    if (_documentViewer) {
+        _documentViewer.frame = self.view.bounds;
+    }
 }
 
 #pragma mark - UIDocumentInteractionController

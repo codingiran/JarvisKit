@@ -2,7 +2,7 @@
 //  JKUserDefaultsHelper.m
 //  WekidsEducation
 //
-//  Created by 邱一郎 on 2019/1/4.
+//  Created by CodingIran on 2019/1/4.
 //  Copyright © 2019 wekids. All rights reserved.
 //
 
@@ -12,16 +12,19 @@
 
 + (NSDictionary *)achieveUserDefaultsFromSandboxPlist
 {
-    NSArray *filePaths = NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES);
-    NSString *libraryPath = filePaths.firstObject;
-    NSString *bundleId = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleIdentifier"];
-    NSString *plistPath = [libraryPath stringByAppendingPathComponent:[NSString stringWithFormat:@"Preferences/%@.plist", bundleId]];
-    if ([[NSFileManager defaultManager] fileExistsAtPath:plistPath]) {
-        NSDictionary *dictionary = [[NSDictionary alloc] initWithContentsOfFile:plistPath];
-        return dictionary;
-    } else {
-        return nil;
-    }
+//    NSArray *filePaths = NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES);
+//    NSString *libraryPath = filePaths.firstObject;
+//    NSString *bundleId = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleIdentifier"];
+//    NSString *plistPath = [libraryPath stringByAppendingPathComponent:[NSString stringWithFormat:@"Preferences/%@.plist", bundleId]];
+//    if ([[NSFileManager defaultManager] fileExistsAtPath:plistPath]) {
+//        NSDictionary *dictionary = [[NSDictionary alloc] initWithContentsOfFile:plistPath];
+//        return dictionary;
+//    } else {
+//        return nil;
+//    }
+//    
+    NSDictionary<NSString *, id> *dic = [[NSUserDefaults standardUserDefaults] dictionaryRepresentation];
+    return dic;
 }
 
 @end

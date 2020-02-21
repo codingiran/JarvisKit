@@ -2,7 +2,7 @@
 //  JKCommonDefines.h
 //  WekidsEducation
 //
-//  Created by 邱一郎 on 2019/2/12.
+//  Created by CodingIran on 2019/2/12.
 //  Copyright © 2019 wekids. All rights reserved.
 //
 

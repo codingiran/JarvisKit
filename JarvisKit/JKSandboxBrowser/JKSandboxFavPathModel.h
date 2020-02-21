@@ -2,7 +2,7 @@
 //  JKSandboxFavPathModel.h
 //  WekidsEducation
 //
-//  Created by 邱一郎 on 2019/1/21.
+//  Created by CodingIran on 2019/1/21.
 //  Copyright © 2019 wekids. All rights reserved.
 //
 

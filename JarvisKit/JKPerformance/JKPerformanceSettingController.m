@@ -2,7 +2,7 @@
 //  JKPerformanceSettingController.m
 //  WekidsEducation
 //
-//  Created by 邱一郎 on 2019/1/23.
+//  Created by CodingIran on 2019/1/23.
 //  Copyright © 2019 wekids. All rights reserved.
 //
 
@@ -23,7 +23,14 @@
 {
     [super viewDidLoad];
     
-    self.dataSource = @[@"FPS-帧率实时显示", @"CPU-占用率", @"RAM-内存使用", @"FLOW-网络流量"];
+    self.dataSource = @[
+        @"FPS-帧率实时显示",
+        @"CPU-占用率",
+        @"RAM-内存使用",
+        @"FLOW-网络流量",
+        @"内存泄露检查",
+        @"循环引用检查"
+    ];
 }
 
 - (void)jk_setupNavigationItems
@@ -60,6 +67,17 @@
         }
             break;
             
+        case 4:// momery leak
+        {
+            [[JKPerformanceManager sharedManager] setLeakActive:on];
+        }
+            break;
+        case 5:// retain cycle
+        {
+            [[JKPerformanceManager sharedManager] setCycleActive:on];
+        }
+            break;
+            
         default:
             break;
     }
@@ -82,6 +100,7 @@
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.textLabel.text = self.dataSource[indexPath.row];
     NSInteger index = indexPath.row;
+    cell.showSwitch = YES;
     switch (index) {
         case 0:// fps
         {
@@ -103,6 +122,16 @@
             [cell setSwitchOn:JKFLOWActiveStatus];
         }
             break;
+        case 4:// momery leak
+        {
+            [cell setSwitchOn:JKLEAKActiveStatus];
+        }
+            break;
+        case 5:// retain cycle
+        {
+            [cell setSwitchOn:JKCYCLEActiveStatus];
+        }
+            break;
             
         default:
             break;
@@ -117,10 +146,10 @@
 }
 
 #pragma mark - table view delegate
+
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return 55;
 }
-
 
 @end

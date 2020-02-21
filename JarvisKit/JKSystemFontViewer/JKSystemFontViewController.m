@@ -2,7 +2,7 @@
 //  JKSystemFontViewController.m
 //  WekidsEducation
 //
-//  Created by 邱一郎 on 2019/1/8.
+//  Created by CodingIran on 2019/1/8.
 //  Copyright © 2019 wekids. All rights reserved.
 //
 
@@ -85,8 +85,9 @@ static NSString * const kDefaultChinese = @"废话少说，放码过来";
             textField.text = strongSelf.chineseDisplayText;
         }];
         UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:NULL];
+        __weak __typeof(changeTextAlertController)weakChangeTextAlertController = changeTextAlertController;
         UIAlertAction *submitAction = [UIAlertAction actionWithTitle:@"确认" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-            UITextField *textField = changeTextAlertController.textFields.firstObject;
+            UITextField *textField = weakChangeTextAlertController.textFields.firstObject;
             __strong __typeof(weakSelf)strongSelf = weakSelf;
             strongSelf.chineseDisplayText = textField.text.length ? textField.text : kDefaultChinese;
             [strongSelf.tableView reloadData];

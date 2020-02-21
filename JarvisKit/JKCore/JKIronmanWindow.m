@@ -2,7 +2,7 @@
 //  JKIronmanWindow.m
 //  WekidsEducation
 //
-//  Created by 邱一郎 on 2019/1/12.
+//  Created by CodingIran on 2019/1/12.
 //  Copyright © 2019 wekids. All rights reserved.
 //
 
@@ -35,7 +35,7 @@
                       @"JKNetCaptureListViewController", @"网络抓包工具",
                       @"JKCrashLogListViewController", @"奔溃日志收集",
                       @"JKSystemFontViewController", @"系统字体浏览器",
-                      @"JKUIElementToolSettingController", @"UI元素调试工具",
+                      @"JKUIElementToolSettingController", @"UI调试工具",
                       nil
                       ];
     }
@@ -81,6 +81,7 @@
         UIAlertController *toolAlertController = [UIAlertController alertControllerWithTitle:@"选择Debug工具" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
         UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:NULL];
         [toolAlertController addAction:cancelAction];
+        __weak __typeof(self)weakSelf = self;
         [self.toolsList.allKeys enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
             NSString *className = (NSString *)obj;
             if (className && className.length) {
@@ -88,13 +89,28 @@
                 UIAlertAction *toolAction = [UIAlertAction actionWithTitle:actionTitle style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                     if (![NSStringFromClass([[JKHelper jk_visibleViewController] class]) isEqualToString:className]) {// 如果已经打开了就不需要再次打开
                         Class class = NSClassFromString(className);
-                        __typeof (JKViewController *)toolVc = [[class alloc] init];
+                        __kindof JKViewController *toolVc = [[class alloc] init];
                         NSAssert(!!toolVc, @"JkError: 初始化工具controller失败");
-                        __weak __typeof(self)weakSelf = self;
                         [toolVc showCompletion:^{
-                            weakSelf.hidden = YES;
+                            if (!weakSelf.hidden) {
+                                weakSelf.userInteractionEnabled = NO;
+                                [UIView animateWithDuration:0.15 animations:^{
+                                    weakSelf.alpha = 0;
+                                } completion:^(BOOL finished) {
+                                    weakSelf.hidden = YES;
+                                    weakSelf.userInteractionEnabled = YES;
+                                }];
+                            }
                         } andDimissCompletion:^{
-                            weakSelf.hidden = NO;
+                            if (weakSelf.hidden) {
+                                weakSelf.hidden = NO;
+                                weakSelf.userInteractionEnabled = NO;
+                                [UIView animateWithDuration:0.15 animations:^{
+                                    weakSelf.alpha = 1;
+                                } completion:^(BOOL finished) {
+                                    weakSelf.userInteractionEnabled = YES;
+                                }];
+                            }
                         }];
                     }
                 }];

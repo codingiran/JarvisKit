@@ -2,20 +2,20 @@
 //  JKMagnifierView.m
 //  WekidsEducation
 //
-//  Created by 邱一郎 on 2019/1/28.
+//  Created by CodingIran on 2019/1/28.
 //  Copyright © 2019 wekids. All rights reserved.
 //
 
 #import "JKMagnifierView.h"
 #import "JKHelper.h"
 
+static CGFloat const kColorMeterHeight = 16.f;
+
 @interface JKMagnifierView ()
 
-/// 中间的圆点
-@property(nonatomic, strong) UIView *dot;
+@property(nonatomic, strong) JKMenuLabel *colorLabel;
 
-/// 屏幕截图
-@property(nonatomic, strong) UIImage *fullScreenSnapshot;
+@property(nonatomic, strong, readwrite) JKMagnifierLayer *magnifierLayer;
 
 @end
 
@@ -24,65 +24,90 @@
 - (instancetype)initWithFrame:(CGRect)frame
 {
     if (self = [super initWithFrame:frame]) {
-        self.magnifierSide = MAX(frame.size.width, frame.size.height);
-        self.magnification = 2.0;
-        self.layer.borderWidth = 1;
-        self.layer.borderColor = [[UIColor darkGrayColor] CGColor];
-        self.layer.contentsScale = [[UIScreen mainScreen] scale];
-        self.dot = [[UIView alloc] initWithFrame:JKRectWithSize(5, 5)];
-        self.dot.backgroundColor = JKThemeColor;
-//        [self addSubview:self.cutScreenImage];
-        [self addSubview:self.dot];
+        self.clipsToBounds = NO;
+        self.backgroundColor = UIColor.clearColor;
+        self.colorMeterPostion = JKColorMeterPostionDown;
+        [self.layer addSublayer:self.magnifierLayer];
+        [self addSubview:self.colorLabel];
     }
     return self;
 }
+
 - (void)layoutSubviews
 {
     [super layoutSubviews];
-    self.dot.center = CGPointMake(self.jk_width * 0.5, self.jk_height * 0.5);
+    
+    self.magnifierLayer.frame = self.bounds;
+    
+    CGFloat colorLabelWidth = self.jk_width * 0.7;
+    CGFloat colorLabelHeight = kColorMeterHeight;
+    // ↑
+    if (self.colorMeterPostion == JKColorMeterPostionUp) {
+        self.colorLabel.frame = CGRectMake((self.jk_width - colorLabelWidth) * 0.5, self.jk_height * 0.5 - 10 - colorLabelHeight, colorLabelWidth, colorLabelHeight);
+    }
+    // ↖
+    if (self.colorMeterPostion == JKColorMeterPostionUpLeft) {
+        self.colorLabel.frame = CGRectMake(self.jk_width * 0.5 - colorLabelWidth, self.jk_height * 0.5 - 10 - colorLabelHeight, colorLabelWidth, colorLabelHeight);
+    }
+    // ↙
+    if (self.colorMeterPostion == JKColorMeterPostionDownLeft) {
+        self.colorLabel.frame = CGRectMake(self.jk_width * 0.5 - colorLabelWidth, self.jk_height * 0.5 + 10, colorLabelWidth, colorLabelHeight);
+    }
+    // ↓
+    if (self.colorMeterPostion == JKColorMeterPostionDown) {
+        self.colorLabel.frame = CGRectMake((self.jk_width - colorLabelWidth) * 0.5, self.jk_height * 0.5 + 10, colorLabelWidth, colorLabelHeight);
+    }
+    // ↘
+    if (self.colorMeterPostion == JKColorMeterPostionDownRight) {
+        self.colorLabel.frame = CGRectMake(self.jk_width * 0.5, self.jk_height * 0.5 + 10, colorLabelWidth, colorLabelHeight);
+    }
+    // ↗
+    if (self.colorMeterPostion == JKColorMeterPostionUpRight) {
+        self.colorLabel.frame = CGRectMake(self.jk_width * 0.5, self.jk_height * 0.5 - 10 - colorLabelHeight, colorLabelWidth, colorLabelHeight);
+    }
+}
+
+#pragma mark - public method
+
+- (void)setColorString:(NSString *)colorString
+{
+    _colorString = colorString.copy;
+    self.colorLabel.text = _colorString;
 }
 
 #pragma mark - setter & getter
 
-- (void)setMagnifierSide:(CGFloat)magnifierSide
+- (void)setColorMeterPostion:(JKColorMeterPostion)colorMeterPostion
 {
-    BOOL hasChange = magnifierSide != _magnifierSide;
-    if (!hasChange) return;
-    _magnifierSide = magnifierSide;
-    NSAssert(magnifierSide > 50.0, @"JKWarning: 放大镜设置的太小了!");
-    self.jk_width = magnifierSide;
-    self.jk_height = magnifierSide;
-    self.layer.cornerRadius = magnifierSide / 2;
-    self.layer.masksToBounds = YES;
-}
-
-- (void)setMagnification:(CGFloat)magnification
-{
-    BOOL hasChange = magnification != _magnification;
-    if (hasChange && magnification > 0) {
-        _magnification = magnification;
+    _colorMeterPostion = colorMeterPostion;
+    if (_colorLabel) {
+        [self setNeedsLayout];
     }
 }
 
-- (void)setTargetWindow:(UIView *)targetWindow
+- (JKMenuLabel *)colorLabel
 {
-    _targetWindow = targetWindow;
-    // 获取window的全屏截图
-    if (!targetWindow) {
-        self.fullScreenSnapshot = nil;
+    if (!_colorLabel) {
+        _colorLabel = [[JKMenuLabel alloc] init];
+        _colorLabel.textAlignment = NSTextAlignmentCenter;
+        _colorLabel.textColor = UIColor.lightTextColor;
+        _colorLabel.font = [UIFont systemFontOfSize:12];
+        _colorLabel.backgroundColor = UIColor.darkTextColor;
+        _colorLabel.layer.cornerRadius = 8;
+        _colorLabel.layer.masksToBounds = YES;
+        _colorLabel.canPerformMenuAction = YES;
+        _colorLabel.menuActionType = JKMenuActionTypeCopy;
     }
-    self.fullScreenSnapshot = [targetWindow jk_snapshotImageAfterScreenUpdates:YES];
+    return _colorLabel;
 }
 
-- (void)setTargetPoint:(CGPoint)targetPoint
+- (JKMagnifierLayer *)magnifierLayer
 {
-    _targetPoint = targetPoint;
-    if (self.fullScreenSnapshot) {
-        // 根据目标点获取截取的图
-        CGRect clippedRect = CGRectMake(targetPoint.x - self.magnifierSide / self.magnification/ 2, targetPoint.y - self.magnifierSide / self.magnification / 2, self.magnifierSide / self.magnification, self.magnifierSide / self.magnification);
-        UIImage *image = [self.fullScreenSnapshot jk_imageWithClippedRect:clippedRect];
-        self.layer.contents = (__bridge id _Nullable)(image.CGImage);
+    if (!_magnifierLayer) {
+        _magnifierLayer = [JKMagnifierLayer layer];
+        _magnifierLayer.contentsScale = [[UIScreen mainScreen] scale];
     }
+    return _magnifierLayer;
 }
 
 @end

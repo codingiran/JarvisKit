@@ -2,7 +2,7 @@
 //  JKNetCaptureListViewController.m
 //  WekidsEducation
 //
-//  Created by 邱一郎 on 2019/1/16.
+//  Created by CodingIran on 2019/1/16.
 //  Copyright © 2019 wekids. All rights reserved.
 //
 
@@ -56,6 +56,7 @@ static NSString * const kTableViewResuseIdentifier = @"JKNetCaptureListCell";
     
     self.navigationTitle = @"网络抓包列表";
     UISwitch *switcher = [[UISwitch alloc] init];
+    switcher.tintColor = JKColorMake(225, 226, 227);
     switcher.on = [JKNetCaptureDataSource sharedDataSource].netCaptureActive;
     [switcher addTarget:self action:@selector(switcher:) forControlEvents:UIControlEventValueChanged];
     UIBarButtonItem *switchActive = [[UIBarButtonItem alloc] initWithCustomView:switcher];

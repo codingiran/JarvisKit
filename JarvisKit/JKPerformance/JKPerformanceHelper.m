@@ -2,7 +2,7 @@
 //  JKPerformanceHelper.m
 //  WekidsEducation
 //
-//  Created by 邱一郎 on 2019/1/26.
+//  Created by CodingIran on 2019/1/26.
 //  Copyright © 2019 wekids. All rights reserved.
 //
 
@@ -14,9 +14,10 @@ NSString * const kFPSActiveKey           = @"JKFPSActiveKey";
 NSString * const kCPUActiveKey           = @"JKCPUActiveKey";
 NSString * const kRAMActiveKey           = @"JKRAMActiveKey";
 NSString * const kFLOWActiveKey          = @"JKFLOWActiveKey";
+NSString * const kLEAKActiveKey          = @"kLEAKActiveKey";
+NSString * const kCYCLEActiveKey         = @"kCYCLEActiveKey";
 
 @implementation JKPerformanceHelper
-
 
 + (BOOL)savedFpsActiveStatus
 {
@@ -58,11 +59,31 @@ NSString * const kFLOWActiveKey          = @"JKFLOWActiveKey";
     [self setActiveStatusValue:savedFlowActiveStatus toUserDefaultsKey:kFLOWActiveKey];
 }
 
++ (BOOL)savedLeakActiveStatus
+{
+    return [self getActiveStatusValuefromUserDefaultsWithKey:kLEAKActiveKey];
+}
+
++ (void)setSavedLeakActiveStatus:(BOOL)savedLeakActiveStatus
+{
+    [self setActiveStatusValue:savedLeakActiveStatus toUserDefaultsKey:kLEAKActiveKey];
+}
+
++ (BOOL)savedCycleActiveStatus
+{
+    return [self getActiveStatusValuefromUserDefaultsWithKey:kCYCLEActiveKey];
+}
+
++ (void)setSavedCycleActiveStatus:(BOOL)savedCycleActiveStatus
+{
+    [self setActiveStatusValue:savedCycleActiveStatus toUserDefaultsKey:kCYCLEActiveKey];
+}
+
 + (void)setActiveStatusValue:(BOOL)active toUserDefaultsKey:(NSString *)activeKey
 {
     NSMutableDictionary<NSString *, NSNumber *> *multablePerformanceActiveValue = [[self getPerformanceActiveValueFromUserDefaults] mutableCopy];
     [multablePerformanceActiveValue setValue:@(active) forKey:activeKey];
-    [[NSUserDefaults standardUserDefaults] setObject:[multablePerformanceActiveValue copy] forKey:kPerformanceActiveKey];
+    [[NSUserDefaults standardUserDefaults] setObject:multablePerformanceActiveValue.copy forKey:kPerformanceActiveKey];
 }
 
 + (BOOL)getActiveStatusValuefromUserDefaultsWithKey:(NSString *)activeKey
@@ -76,11 +97,13 @@ NSString * const kFLOWActiveKey          = @"JKFLOWActiveKey";
     if (!performanceActiveValue) {
         // 第一次创建
         performanceActiveValue = @{
-                                   kFPSActiveKey  : @(NO),
-                                   kCPUActiveKey  : @(NO),
-                                   kRAMActiveKey  : @(NO),
-                                   kFLOWActiveKey : @(NO),
-                                   };
+            kFPSActiveKey   : @(NO),
+            kCPUActiveKey   : @(NO),
+            kRAMActiveKey   : @(NO),
+            kFLOWActiveKey  : @(NO),
+            kLEAKActiveKey  : @(NO),
+            kCYCLEActiveKey : @(NO),
+        };
     }
     return performanceActiveValue;
 }
@@ -133,13 +156,10 @@ NSString * const kFLOWActiveKey          = @"JKFLOWActiveKey";
     task_vm_info_data_t vmInfo;
     mach_msg_type_number_t count = TASK_VM_INFO_COUNT;
     kern_return_t kernelReturn = task_info(mach_task_self(), TASK_VM_INFO, (task_info_t) &vmInfo, &count);
-    if(kernelReturn == KERN_SUCCESS)
-    {
+    if(kernelReturn == KERN_SUCCESS) {
         int64_t memoryUsageInByte = (int64_t) vmInfo.phys_footprint;
-        return memoryUsageInByte/1024/1024;
-    }
-    else
-    {
+        return (NSInteger)memoryUsageInByte/1024/1024;
+    } else {
         return -1;
     }
 }
@@ -147,7 +167,7 @@ NSString * const kFLOWActiveKey          = @"JKFLOWActiveKey";
 /// 设备总的内存
 + (NSInteger)totalMemoryForDevice
 {
-    return [NSProcessInfo processInfo].physicalMemory/1024/1024;
+    return (NSInteger)[NSProcessInfo processInfo].physicalMemory / 1024 / 1024;
 }
 
 @end

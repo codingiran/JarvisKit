@@ -2,7 +2,7 @@
 //  JKUIElementToolManager.m
 //  WekidsEducation
 //
-//  Created by 邱一郎 on 2019/1/28.
+//  Created by CodingIran on 2019/1/28.
 //  Copyright © 2019 wekids. All rights reserved.
 //
 
@@ -10,10 +10,15 @@
 #import "JKFloatWindow.h"
 #import "JKMagnifierView.h"
 #import "JKUIElementToolHelper.h"
+#import <AudioToolbox/AudioToolbox.h>
 
 @interface JKUIElementToolManager ()<JKFloatWindowDelegate>
 
 @property(nonatomic, strong) JKFloatWindow *colorPickerWindow;
+@property(nonatomic, strong) UIImage *screenShotImage;
+@property(nonatomic, copy) NSString *hexString;
+@property(nonatomic, copy) NSString *rgbaString;
+
 @property(nonatomic, strong) JKFloatWindow *frameRulerWindow;
 @property(nonatomic, strong) JKFloatWindow *viewBorderWindow;
 @property(nonatomic, strong) JKFloatWindow *viewComponentWindow;
@@ -52,13 +57,12 @@ static JKUIElementToolManager *jkUIElementToolManager = nil;
 /// ******完整的ARC单例***End**********
 
 #pragma mark - JKFloatWindowDelegate
+
 - (void)floatWindow:(JKFloatWindow *)floatWindow didShowEntity:(__kindof UIView *)entity
 {
     if (floatWindow == self.colorPickerWindow) {
-        JKMagnifierView *magnifierView = (JKMagnifierView *)entity;
-        if (magnifierView) {
-            magnifierView.targetWindow = [UIApplication sharedApplication].keyWindow;
-            magnifierView.targetPoint = floatWindow.center;
+        if (floatWindow.rootViewController.view.superview) {
+            floatWindow.rootViewController.view.superview.clipsToBounds = NO;
         }
     }
 }
@@ -68,8 +72,9 @@ static JKUIElementToolManager *jkUIElementToolManager = nil;
     if (floatWindow == self.colorPickerWindow) {
         JKMagnifierView *magnifierView = (JKMagnifierView *)entity;
         if (magnifierView) {
-            magnifierView.targetWindow = [UIApplication sharedApplication].keyWindow;
-            magnifierView.targetPoint = floatWindow.center;
+            [self updateScreeShotImage];
+            CGPoint centerPoint = floatWindow.center;
+            [self handleMagnifier:magnifierView moveToPoint:centerPoint];
         }
     }
 }
@@ -79,9 +84,9 @@ static JKUIElementToolManager *jkUIElementToolManager = nil;
     if (floatWindow == self.colorPickerWindow) {
         JKMagnifierView *magnifierView = (JKMagnifierView *)entity;
         if (magnifierView) {
-            magnifierView.targetPoint = floatWindow.center;
+            CGPoint centerPoint = floatWindow.center;
+            [self handleMagnifier:magnifierView moveToPoint:centerPoint];
         }
-        UIColor *color = [JKUIElementToolHelper jk_getColorWithPoint:floatWindow.center inView:[UIApplication sharedApplication].keyWindow];
     }
 }
 
@@ -90,9 +95,69 @@ static JKUIElementToolManager *jkUIElementToolManager = nil;
     if (floatWindow == self.colorPickerWindow) {
         JKMagnifierView *magnifierView = (JKMagnifierView *)entity;
         if (magnifierView) {
-            magnifierView.targetWindow = nil;
+            CGPoint centerPoint = floatWindow.center;
+            [self handleMagnifier:magnifierView moveToPoint:centerPoint];
         }
     }
+}
+
+- (void)floatWindow:(JKFloatWindow *)floatWindow punchOnEntity:(__kindof UIView *)entity
+{
+    if (floatWindow == self.colorPickerWindow) {
+        JKMagnifierView *magnifierView = (JKMagnifierView *)entity;
+        if (magnifierView) {
+            UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
+            if (!magnifierView.colorString.length) {
+                return;
+            }
+            pasteboard.string = magnifierView.colorString;
+            if (@available(iOS 10.0, *)) {
+                UIImpactFeedbackGenerator *generator = [[UIImpactFeedbackGenerator alloc] initWithStyle: UIImpactFeedbackStyleMedium];
+                [generator prepare];
+                [generator impactOccurred];
+            } else {
+                AudioServicesPlaySystemSound(1519);
+            }
+        }
+    }
+}
+
+- (void)handleMagnifier:(JKMagnifierView *)magnifierView moveToPoint:(CGPoint)point
+{
+    magnifierView.magnifierLayer.targetPoint = point;
+    [magnifierView.magnifierLayer setNeedsDisplay];
+    self.hexString = [self.screenShotImage jk_HexColorStringAtPoint:point];
+    NSLog(@"hexString:----%@", self.hexString);
+    
+    // 更改取色器颜色文字的位置
+    CGFloat horizontalTrigger = magnifierView.jk_width * 0.35;
+    CGFloat verticalTrigger = magnifierView.jk_width * 0.2;
+
+    BOOL up = NO, left = NO, right = NO;
+    right = (point.x < horizontalTrigger);
+    left = (point.x > JK_SCREEN_WIDTH - horizontalTrigger);
+    up = (point.y > JK_SCREEN_HEIGHT - verticalTrigger);
+    
+    JKColorMeterPostion postion = JKColorMeterPostionDown;
+    if (!left && !right) {
+        postion = up ? JKColorMeterPostionUp : JKColorMeterPostionDown;
+    } else if (left) {
+        postion = up ? JKColorMeterPostionUpLeft : JKColorMeterPostionDownLeft;
+    } else if (right) {
+        postion = up ? JKColorMeterPostionUpRight : JKColorMeterPostionDownRight;
+    }
+    magnifierView.colorMeterPostion = postion;
+}
+
+#pragma mark - private method
+
+- (void)updateScreeShotImage
+{
+    UIGraphicsBeginImageContext([UIScreen mainScreen].bounds.size);
+    [[[UIApplication sharedApplication].delegate window].layer renderInContext:UIGraphicsGetCurrentContext()];
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    self.screenShotImage = image;
 }
 
 
@@ -111,12 +176,31 @@ static JKUIElementToolManager *jkUIElementToolManager = nil;
     }
 }
 
+- (void)setHexString:(NSString *)hexString
+{
+    _hexString = hexString.copy;
+    self.rgbaString = [_hexString jk_rgbaString];
+}
+
+- (void)setRgbaString:(NSString *)rgbaString
+{
+    _rgbaString = rgbaString.copy;
+    if (self.colorPickerWindow && [self.colorPickerWindow.entityView isKindOfClass:JKMagnifierView.class]) {
+        JKMagnifierView *magnifierView = (JKMagnifierView *)self.colorPickerWindow.entityView;
+        [magnifierView setColorString:_rgbaString];
+    }
+}
 
 - (JKFloatWindow *)colorPickerWindow
 {
     if (!_colorPickerWindow) {
-        CGRect frame = CGRectMake((JK_SCREEN_WIDTH - 100 * JK_WIDTH_RATIO) * 0.5, (JK_SCREEN_HEIGHT - 100 * JK_WIDTH_RATIO) * 0.5, 100 * JK_WIDTH_RATIO, 100 * JK_WIDTH_RATIO);
+        CGRect frame = CGRectMake((JK_SCREEN_WIDTH - 140 * JK_WIDTH_RATIO) * 0.5, (JK_SCREEN_HEIGHT - 140 * JK_WIDTH_RATIO) * 0.5, 140 * JK_WIDTH_RATIO, 140 * JK_WIDTH_RATIO);
         JKMagnifierView *magnifierView = [[JKMagnifierView alloc] initWithFrame:frame];
+        __weak __typeof(self)weakSelf = self;
+        magnifierView.magnifierLayer.pointColorHandler = ^NSString * _Nonnull(CGPoint point) {
+            __strong __typeof(weakSelf)strongSelf = weakSelf;
+            return [strongSelf.screenShotImage jk_HexColorStringAtPoint:point];
+        };
         _colorPickerWindow = [[JKFloatWindow alloc] initWithEntity:magnifierView];
         _colorPickerWindow.delegate = self;
     }
@@ -147,6 +231,5 @@ static JKUIElementToolManager *jkUIElementToolManager = nil;
     }
     return _viewComponentWindow;
 }
-
 
 @end

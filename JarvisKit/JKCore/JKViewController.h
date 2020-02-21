@@ -2,7 +2,7 @@
 //  JKViewController.h
 //  WekidsEducation
 //
-//  Created by 邱一郎 on 2019/1/8.
+//  Created by CodingIran on 2019/1/8.
 //  Copyright © 2019 wekids. All rights reserved.
 //
 
@@ -45,6 +45,13 @@ NS_ASSUME_NONNULL_BEGIN
  `navigationTitleLabel`的点击回调
  */
 @property(nonatomic, copy) void (^tapOnTitleLabelComletion)(UILabel *titleLabel, UIGestureRecognizer *tap);
+
+/**
+ 与`firstControllerNeedNavigationCloseItem`属性对应的完成回调
+ 
+ @warning 注意事项与firstControllerNeedNavigationCloseItem属性相同
+ */
+@property(nonatomic, copy, readonly, nullable) void (^dismissCompletion)(void);
 
 
 /**

@@ -2,7 +2,7 @@
 //  JKHelper.h
 //  WekidsEducation
 //
-//  Created by 邱一郎 on 2019/1/8.
+//  Created by CodingIran on 2019/1/8.
 //  Copyright © 2019 wekids. All rights reserved.
 //
 
@@ -11,6 +11,7 @@
 #import "UIViewController+JarvisKit.h"
 #import "JKViewController.h"
 #import "UIView+JarvisKit.h"
+#import "UIColor+JarvisKit.h"
 #import "JKOrderedDictionary.h"
 #import "JKMenuLabel.h"
 #import "JKCommonDefines.h"
@@ -124,5 +125,29 @@ NS_ASSUME_NONNULL_BEGIN
 + (NSString *)jk_getFormatUnitFromByte:(CGFloat)byte;
 
 @end
+
+CG_INLINE BOOL
+ExchangeImplementationsInTwoClasses(Class _fromClass, SEL _originSelector, Class _toClass, SEL _newSelector) {
+    if (!_fromClass || !_toClass) {
+        return NO;
+    }
+    
+    Method oriMethod = class_getInstanceMethod(_fromClass, _originSelector);
+    Method newMethod = class_getInstanceMethod(_toClass, _newSelector);
+    if (!newMethod) {
+        return NO;
+    }
+    
+    BOOL isAddedMethod = class_addMethod(_fromClass, _originSelector, method_getImplementation(newMethod), method_getTypeEncoding(newMethod));
+    if (isAddedMethod) {
+        // 如果 class_addMethod 成功了，说明之前 fromClass 里并不存在 originSelector，所以要用一个空的方法代替它，以避免 class_replaceMethod 后，后续 toClass 的这个方法被调用时可能会 crash
+        IMP oriMethodIMP = method_getImplementation(oriMethod) ?: imp_implementationWithBlock(^(id selfObject) {});
+        const char *oriMethodTypeEncoding = method_getTypeEncoding(oriMethod) ?: "v@:";
+        class_replaceMethod(_toClass, _newSelector, oriMethodIMP, oriMethodTypeEncoding);
+    } else {
+        method_exchangeImplementations(oriMethod, newMethod);
+    }
+    return YES;
+}
 
 NS_ASSUME_NONNULL_END

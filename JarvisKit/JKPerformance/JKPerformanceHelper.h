@@ -2,7 +2,7 @@
 //  JKPerformanceHelper.h
 //  WekidsEducation
 //
-//  Created by 邱一郎 on 2019/1/26.
+//  Created by CodingIran on 2019/1/26.
 //  Copyright © 2019 wekids. All rights reserved.
 //
 
@@ -15,6 +15,8 @@ FOUNDATION_EXPORT NSString * const           kFPSActiveKey;
 FOUNDATION_EXPORT NSString * const           kCPUActiveKey;
 FOUNDATION_EXPORT NSString * const           kRAMActiveKey;
 FOUNDATION_EXPORT NSString * const           kFLOWActiveKey;
+FOUNDATION_EXPORT NSString * const           kLEAKActiveKey;
+FOUNDATION_EXPORT NSString * const           kCYCLEActiveKey;
 
 #define JKFPSActiveStatus                    [JKPerformanceHelper savedFpsActiveStatus]
 #define JKSaveFPSActiveStatus(fpsActive)     [JKPerformanceHelper setSavedFpsActiveStatus:fpsActive]
@@ -28,7 +30,13 @@ FOUNDATION_EXPORT NSString * const           kFLOWActiveKey;
 #define JKFLOWActiveStatus                   [JKPerformanceHelper savedFlowActiveStatus]
 #define JKSaveFLOWActiveStatus(flowActive)   [JKPerformanceHelper setSavedFlowActiveStatus:flowActive]
 
-#define JKPerformanceActive                  (JKFPSActiveStatus || JKCPUActiveStatus || JKRAMActiveStatus || JKFLOWActiveStatus)
+#define JKLEAKActiveStatus                   [JKPerformanceHelper savedLeakActiveStatus]
+#define JKSaveLEAKActiveStatus(leakActive)   [JKPerformanceHelper setSavedLeakActiveStatus:leakActive]
+
+#define JKCYCLEActiveStatus                  [JKPerformanceHelper savedCycleActiveStatus]
+#define JKSaveCYCLEActiveStatus(cycleActive) [JKPerformanceHelper setSavedCycleActiveStatus:cycleActive]
+
+#define JKPerformanceActive                  (JKFPSActiveStatus || JKCPUActiveStatus || JKRAMActiveStatus || JKFLOWActiveStatus || JKLEAKActiveStatus || JKCYCLEActiveStatus)
 
 
 @interface JKPerformanceHelper : JKHelper
@@ -49,7 +57,14 @@ FOUNDATION_EXPORT NSString * const           kFLOWActiveKey;
  类属性，存在本地的流量开关状态
  */
 @property(class, nonatomic, assign) BOOL savedFlowActiveStatus;
-
+/**
+ 类属性，存在本地的内存泄露开关状态
+ */
+@property(class, nonatomic, assign) BOOL savedLeakActiveStatus;
+/**
+ 类属性，存在本地的循环引用检查开关状态
+ */
+@property(class, nonatomic, assign) BOOL savedCycleActiveStatus;
 
 /**
  获取当前cpu使用率，格式为0.03,0.12,0.99...

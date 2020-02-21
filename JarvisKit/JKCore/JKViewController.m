@@ -2,7 +2,7 @@
 //  JKViewController.m
 //  WekidsEducation
 //
-//  Created by 邱一郎 on 2019/1/8.
+//  Created by CodingIran on 2019/1/8.
 //  Copyright © 2019 wekids. All rights reserved.
 //
 
@@ -26,7 +26,7 @@
  
  @warning 注意事项与firstControllerNeedNavigationCloseItem属性相同
  */
-@property(nonatomic, copy, nullable) void (^dismissCompletion)(void);
+@property(nonatomic, copy, readwrite, nullable) void (^dismissCompletion)(void);
 
 /**
  容纳控制器的window
@@ -95,37 +95,32 @@
     }
 }
 
+- (void)viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:animated];
+    
+    if (self.isBeingDismissed || self.navigationController.isBeingDismissed) {
+        // 消失回调
+        if (self.dismissCompletion) {
+            self.dismissCompletion();
+            self.dismissCompletion = nil;
+        }
+        
+        [JKHelper jk_setStatusBarColorWith:self.previousStatuesBarColor];
+        self.previousStatuesBarColor = nil;
+        
+        [self.previousKeyWindow makeKeyAndVisible];
+        self.containerWindow.hidden = YES;
+    }
+}
+
 #pragma mark - touch event
 - (void)navigationDismss:(UIBarButtonItem *)sender
 {
     if (self.navigationController) {
-        [self.navigationController dismissViewControllerAnimated:YES completion:^{
-            // 消失回调
-            if (self.dismissCompletion) {
-                self.dismissCompletion();
-                self.dismissCompletion = nil;
-            }
-            
-            [JKHelper jk_setStatusBarColorWith:self.previousStatuesBarColor];
-            self.previousStatuesBarColor = nil;
-            
-            [self.previousKeyWindow makeKeyAndVisible];
-            self.containerWindow.hidden = YES;
-        }];
+        [self.navigationController dismissViewControllerAnimated:YES completion:NULL];
     } else {
-        [self dismissViewControllerAnimated:YES completion:^{
-            // 消失回调
-            if (self.dismissCompletion) {
-                self.dismissCompletion();
-                self.dismissCompletion = nil;
-            }
-            
-            [JKHelper jk_setStatusBarColorWith:self.previousStatuesBarColor];
-            self.previousStatuesBarColor = nil;
-            
-            [self.previousKeyWindow makeKeyAndVisible];
-            self.containerWindow.hidden = YES;
-        }];
+        [self dismissViewControllerAnimated:YES completion:NULL];
     }
 }
 
@@ -156,6 +151,9 @@
     
     JKNavigtionController *navigationController = [[JKNavigtionController alloc] initWithRootViewController:self];
     
+    if (@available(iOS 13, *)) {
+        navigationController.modalPresentationStyle = UIModalPresentationFullScreen;
+    }
     // 在下一个runloop 执行present
     // https://stackoverflow.com/questions/8563473/unbalanced-calls-to-begin-end-appearance-transitions-for-uitabbarcontroller
     dispatch_async(dispatch_get_main_queue(), ^{

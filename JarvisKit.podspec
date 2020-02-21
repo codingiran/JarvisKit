@@ -2,67 +2,38 @@
 #  Be sure to run `pod spec lint JarvisKit.podspec' to ensure this is a
 #  valid spec and to remove all comments including this before submitting the spec.
 #
-#  To learn more about Podspec attributes see http://docs.cocoapods.org/specification.html
+#  To learn more about Podspec attributes see https://guides.cocoapods.org/syntax/podspec.html
 #  To see working Podspecs in the CocoaPods repo see https://github.com/CocoaPods/Specs/
 #
 
-Pod::Spec.new do |s|
+Pod::Spec.new do |spec|
 
   # ―――  Spec Metadata  ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
+  #
+  #  These will help people to find your library, and whilst it
+  #  can feel like a chore to fill in it's definitely to your advantage. The
+  #  summary should be tweet-length, and the description more in depth.
+  #
 
-  s.name         = "JarvisKit"
-  s.version      = "0.0.1"
-  s.summary      = "JarvisKit is an elegant debug tool for iOS development."
-
-  # This description is used to generate tags and improve search results.
-
-  s.description  = "JarvisKit is an elegant debug tool for iOS development. Such as sandbox manager, NSUserDefaults manager, Network capture, Crash log etc."
-
-  s.homepage     = "https://github.com/codingiran/JarvisKit"
-  # s.screenshots  = "www.example.com/screenshots_1.gif", "www.example.com/screenshots_2.gif"
-
-
-  # ―――  Spec License  ――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
-
-  s.license      = "MIT"
+  spec.name         = "JarvisKit"
+  spec.version      = "1.0.0"
+  spec.summary      = "JarvisKit is an elegant debug tool for iOS development."
+  spec.description  = "JarvisKit is an elegant debug tool for iOS development. Such as sandbox manager, NSUserDefaults manager, Network capture, Crash log etc."
 
 
-  # ――― Author Metadata  ――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
+  spec.homepage     = "https://github.com/codingiran/JarvisKit"
+  spec.license      = { :type => 'MIT', :file => 'LICENSE' }
+  spec.author             = { "codingiran" => "codingiran@gmail.com" }
+  spec.social_media_url   = "https://weibo.com/iranq"
+  spec.platform     = :ios, "9.0"
 
-  s.author             = { "CodingIran" => "codingiran@gmail.com" }
-  s.social_media_url   = "https://weibo.com/iranq"
+  spec.source       = { :git => "https://github.com/codingiran/JarvisKit.git", :tag => "#{spec.version}" }
+  spec.source_files = "JarvisKit/**/*.{h,m}"
+  spec.resource     = "JarvisKit/JarvisKit.bundle"
 
-  # ――― Platform Specifics ――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
+  spec.requires_arc = true
 
-  s.platform     = :ios, "8.0"
-
-
-  # ――― Source Location ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
-
-  s.source       = { :git => "https://github.com/codingiran/JarvisKit.git", :tag => s.version }
-
-
-  # ――― Source Code ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
-
-  s.source_files  = "JarvisKit/**/*.{h,m}"
-  # s.exclude_files = "JarvisKit/Exclude"
-
-  # s.public_header_files = "JarvisKit/**/JarvisKit.h"
-
-
-  # ――― Resources ―――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
-
-  s.resource  = "JarvisKit/JarvisKit.bundle"
-  # s.resources = "Resources/*.png"
-
-  # s.preserve_paths = "FilesToSave", "MoreFilesToSave"
-
-
-  # ――― Project Settings ――――――――――――――――――――――――――――――――――――――――――――――――――――――――― #
-
-  s.requires_arc = true
-
-  # s.xcconfig = { "HEADER_SEARCH_PATHS" => "$(SDKROOT)/usr/include/libxml2" }
-  # s.dependency "JSONKit", "~> 1.4"
+  spec.dependency "LookinServer"
+  spec.dependency "MLeaksFinder"
 
 end

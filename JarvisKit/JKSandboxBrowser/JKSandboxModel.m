@@ -2,7 +2,7 @@
 //  JKSandboxModel.m
 //  WekidsEducation
 //
-//  Created by 邱一郎 on 2019/1/1.
+//  Created by CodingIran on 2019/1/1.
 //  Copyright © 2019 wekids. All rights reserved.
 //
 
@@ -63,11 +63,14 @@
         if ([extend isEqualToString:@"rar"] || [extend isEqualToString:@"zip"]) {
             self.fileType = JKSandboxFileTypeArchive;
         }
-        if ([extend isEqualToString:@"txt"] || [extend isEqualToString:@"strings"] || [extend isEqualToString:@"log"] || [extend isEqualToString:@"csv"] || [extend isEqualToString:@"md"]) {
+        if ([extend isEqualToString:@"txt"] || [extend isEqualToString:@"strings"] || [extend isEqualToString:@"log"] || [extend isEqualToString:@"csv"] || [extend isEqualToString:@"md"] || [extend isEqualToString:@"json"]) {
             self.fileType = JKSandboxFileTypeTxt;
         }
         if ([extend isEqualToString:@"plist"]) {
             self.fileType = JKSandboxFileTypePlist;
+        }
+        if ([extend isEqualToString:@"html"]) {
+            self.fileType = JKSandboxFileTypeHTML;
         }
     }
 }

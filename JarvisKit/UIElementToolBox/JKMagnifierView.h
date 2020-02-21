@@ -2,38 +2,32 @@
 //  JKMagnifierView.h
 //  WekidsEducation
 //
-//  Created by 邱一郎 on 2019/1/28.
+//  Created by CodingIran on 2019/1/28.
 //  Copyright © 2019 wekids. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
+#import "JKMagnifierLayer.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
+typedef NS_ENUM(NSUInteger, JKColorMeterPostion) {
+    JKColorMeterPostionUp,         // ↑
+    JKColorMeterPostionUpLeft,     // ↖
+    JKColorMeterPostionDownLeft,   // ↙
+    JKColorMeterPostionDown,       // ↓
+    JKColorMeterPostionDownRight,  // ↘
+    JKColorMeterPostionUpRight,    // ↗
+};
+
 @interface JKMagnifierView : UIView
 
-/**
- 边长
- */
-@property(nonatomic, assign) CGFloat magnifierSide;
+@property(nonatomic, strong, readonly) JKMagnifierLayer *magnifierLayer;
 
-/**
- 放大倍数
- */
-@property(nonatomic, assign) CGFloat magnification;
+/// 移动取色器时防止遮挡自动调整上下左右的位置
+@property(nonatomic, assign) JKColorMeterPostion colorMeterPostion;
 
-/**
- 目标视图的Window
- */
-@property(nullable, nonatomic, strong) UIView *targetWindow;
-
-/**
- 目标视图展示位置
- */
-@property(nonatomic, assign) CGPoint targetPoint;
-
-
-
+@property(nonatomic, copy) NSString *colorString;
 
 @end
 

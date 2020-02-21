@@ -2,7 +2,7 @@
 //  JKFPSLabel.h
 //  WekidsEducation
 //
-//  Created by 邱一郎 on 2018/12/25.
+//  Created by CodingIran on 2018/12/25.
 //  Copyright © 2018 wekids. All rights reserved.
 //
 

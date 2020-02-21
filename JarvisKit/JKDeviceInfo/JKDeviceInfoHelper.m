@@ -2,7 +2,7 @@
 //  JKDeviceInfoHelper.m
 //  WekidsEducation
 //
-//  Created by 邱一郎 on 2019/1/7.
+//  Created by CodingIran on 2019/1/7.
 //  Copyright © 2019 wekids. All rights reserved.
 //
 
@@ -60,6 +60,9 @@
     if ([device isEqualToString:@"iPhone11,4"]) return @"iPhone XS Max";
     if ([device isEqualToString:@"iPhone11,6"]) return @"iPhone XS Max";
     if ([device isEqualToString:@"iPhone11,8"]) return @"iPhone XR";
+    if ([device isEqualToString:@"iPhone12,1"]) return @"iPhone 11";
+    if ([device isEqualToString:@"iPhone12,3"]) return @"iPhone 11 Pro";
+    if ([device isEqualToString:@"iPhone12,5"]) return @"iPhone 11 Pro Max";
     
     return device;
 }
@@ -95,16 +98,17 @@
     if (statfs("/var", &buf) >= 0) {
         freeSpace = (unsigned long long)(buf.f_bsize * buf.f_bavail);
     }
-    
-//    return [NSString stringWithFormat:@"%lluG / %lluG", (freeSpace / 1024 / 1024 / 1024),(totalSpace / 1024 / 1024 / 1024)];
-    
+        
     return [NSString stringWithFormat:@"%lluG", (totalSpace / 1024 / 1024 / 1024)];
-
 }
 
 + (NSString *)appDisplayName
 {
-    return [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleDisplayName"];
+    NSString *appDisplayName = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleDisplayName"];
+    if (!appDisplayName) {
+        appDisplayName = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleName"];
+    }
+    return appDisplayName ? : @"unknown";
 }
 
 /// BundleId
@@ -116,18 +120,18 @@
 /// app版本号
 + (NSString *)appVersion
 {
-    return [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
+    return [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"] ? : @"unknown";
 }
 
 /// build号
 + (NSString *)buildVersion
 {
-    return [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"];
+    return [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"] ? : @"unknown";
 }
 
 + (NSString *)minimumOSVersion
 {
-    return [[[NSBundle mainBundle] infoDictionary] objectForKey:@"MinimumOSVersion"];
+    return [[[NSBundle mainBundle] infoDictionary] objectForKey:@"MinimumOSVersion"] ? : @"unknown";
 }
 
 @end
@@ -160,13 +164,10 @@
 /// 推送权限
 + (NSString *)pushAuthority
 {
-    JKBeginIgnoreDeprecatedWarning
-    if ([[UIApplication sharedApplication] currentUserNotificationSettings].types  == UIRemoteNotificationTypeNone) {
+    if ([[UIApplication sharedApplication] currentUserNotificationSettings].types  == UIUserNotificationTypeNone) {
         return @"NO";
-    } else {
-        return @"YES";
     }
-    JKEndIgnoreDeprecatedWarning
+    return @"YES";
 }
 
 /// 网络访问权限
@@ -246,33 +247,6 @@
 + (NSString *)photoAuthority
 {
     NSString *authority = @"";
-#if __IPHONE_OS_VERSION_MIN_REQUIRED < __IPHONE_8_0 //iOS 8.0以下使用AssetsLibrary.framework
-    ALAuthorizationStatus status = [ALAssetsLibrary authorizationStatus];
-    switch (status) {
-        case ALAuthorizationStatusNotDetermined:    //用户还没有选择
-        {
-            authority = @"NotDetermined";
-        }
-            break;
-        case ALAuthorizationStatusRestricted:       //家长控制
-        {
-            authority = @"Restricted";
-        }
-            break;
-        case ALAuthorizationStatusDenied:           //用户拒绝
-        {
-            authority = @"Denied";
-        }
-            break;
-        case ALAuthorizationStatusAuthorized:       //已授权
-        {
-            authority = @"Authorized";
-        }
-            break;
-        default:
-            break;
-    }
-#else   //iOS 8.0以上使用Photos.framework
     PHAuthorizationStatus current = [PHPhotoLibrary authorizationStatus];
     switch (current) {
         case PHAuthorizationStatusNotDetermined:    //用户还没有选择(第一次)
@@ -298,7 +272,6 @@
         default:
             break;
     }
-#endif
     return authority;
 }
 
@@ -306,55 +279,24 @@
 + (NSString *)addressAuthority
 {
     NSString *authority = @"";
-    //iOS9.0之前
-    if([[UIDevice currentDevice].systemVersion floatValue] <= __IPHONE_9_0)
-    {
-        JKBeginIgnoreDeprecatedWarning
-        
-        ABAuthorizationStatus authorStatus = ABAddressBookGetAuthorizationStatus();
-        switch (authorStatus) {
-            case kABAuthorizationStatusAuthorized:
-                authority = @"Authorized";
-                break;
-            case kABAuthorizationStatusDenied:
-            {
-                authority = @"Denied";
-            }
-                break;
-            case kABAuthorizationStatusNotDetermined:
-            {
-                authority = @"NotDetermined";
-            }
-                break;
-            case kABAuthorizationStatusRestricted:
-                authority = @"Restricted";
-                break;
-            default:
-                break;
+    CNAuthorizationStatus authStatus = [CNContactStore authorizationStatusForEntityType:CNEntityTypeContacts];
+    switch (authStatus) {
+        case CNAuthorizationStatusAuthorized:
+            authority = @"Authorized";
+            break;
+        case CNAuthorizationStatusDenied:
+        {
+            authority = @"Denied";
         }
-        JKEndIgnoreDeprecatedWarning
-    }
-    else//iOS9.0之后
-    {
-        CNAuthorizationStatus authStatus = [CNContactStore authorizationStatusForEntityType:CNEntityTypeContacts];
-        switch (authStatus) {
-            case CNAuthorizationStatusAuthorized:
-                authority = @"Authorized";
-                break;
-            case CNAuthorizationStatusDenied:
-            {
-                authority = @"Denied";
-            }
-                break;
-            case CNAuthorizationStatusNotDetermined:
-            {
-                authority = @"NotDetermined";
-            }
-                break;
-            case CNAuthorizationStatusRestricted:
-                authority = @"Restricted";
-                break;
+            break;
+        case CNAuthorizationStatusNotDetermined:
+        {
+            authority = @"NotDetermined";
         }
+            break;
+        case CNAuthorizationStatusRestricted:
+            authority = @"Restricted";
+            break;
     }
     return authority;
 }

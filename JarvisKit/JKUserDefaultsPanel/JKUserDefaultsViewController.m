@@ -2,7 +2,7 @@
 //  JKUserDefaultsViewController.m
 //  WekidsEducation
 //
-//  Created by 邱一郎 on 2019/1/4.
+//  Created by CodingIran on 2019/1/4.
 //  Copyright © 2019 wekids. All rights reserved.
 //
 
@@ -168,9 +168,11 @@ static NSTimeInterval const kTransitionAnimationDuration = 0.45f;
         }
     }];
     UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:NULL];
+    __weak __typeof(self)weakSelf = self;
+    __weak __typeof(addAlertController)weakAddAlertController = addAlertController;
     UIAlertAction *submit = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
-        UITextField *tf0 = addAlertController.textFields[0];
-        UITextField *tf1 = addAlertController.textFields[1];
+        UITextField *tf0 = weakAddAlertController.textFields[0];
+        UITextField *tf1 = weakAddAlertController.textFields[1];
         if (tf0.text.length) {
             // 添加userdefaults数据
             JKUserDefaultsModel *newModel = [JKUserDefaultsModel new];
@@ -192,21 +194,21 @@ static NSTimeInterval const kTransitionAnimationDuration = 0.45f;
             }
             
             // 添加数据源
-            NSMutableArray<JKUserDefaultsModel *> *userDefaultsLists = self.userDefaultsLists.mutableCopy;
+            NSMutableArray<JKUserDefaultsModel *> *userDefaultsLists = weakSelf.userDefaultsLists.mutableCopy;
             [userDefaultsLists addObject:newModel];
             // 使用UILocalizedIndexedCollation对key属性重新排序
             UILocalizedIndexedCollation *collation = [UILocalizedIndexedCollation currentCollation];
-            self.userDefaultsLists = [collation sortedArrayFromArray:userDefaultsLists.copy collationStringSelector:@selector(key)];
+            weakSelf.userDefaultsLists = [collation sortedArrayFromArray:userDefaultsLists.copy collationStringSelector:@selector(key)];
             
             // 维护副本
-            [self updateUserDefaultsTranscript];
+            [weakSelf updateUserDefaultsTranscript];
             
             // 刷新列表
-            [self.tableView reloadData];
+            [weakSelf.tableView reloadData];
             
             // 如果是文本模式还需要刷新文本
-            if (self.userDefaultsShowType == JKUserDefaultsShowTypeText) {
-                self.textView.text = [self.currentUserDefaultsModel.value description];
+            if (weakSelf.userDefaultsShowType == JKUserDefaultsShowTypeText) {
+                weakSelf.textView.text = [weakSelf.currentUserDefaultsModel.value description];
             }
         }
     }];
@@ -392,7 +394,7 @@ static NSTimeInterval const kTransitionAnimationDuration = 0.45f;
         [alertController addAction:yesAction];
         [alertController addAction:noAction];
         [alertController addAction:cancelAction];
-        [self presentViewController:alertController animated:yesAction completion:NULL];
+        [self presentViewController:alertController animated:YES completion:NULL];
     }
     if (model.valueType == JKUserDefaultsValueTypeNumber) {
         UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"修改值" message:nil preferredStyle:UIAlertControllerStyleAlert];
@@ -401,9 +403,10 @@ static NSTimeInterval const kTransitionAnimationDuration = 0.45f;
             NSNumber *number = (NSNumber *)model.value;
             textField.text = [NSString stringWithFormat:@"%@", number.description];
         }];
+        __weak __typeof(alertController)weakAlertController = alertController;
         UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:NULL];
         UIAlertAction *submitAction = [UIAlertAction actionWithTitle:@"确认" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
-            UITextField *textField = alertController.textFields.firstObject;
+            UITextField *textField = weakAlertController.textFields.firstObject;
             NSNumber *number = (NSNumber *)model.value;
             if (textField.text.length && ![textField.text isEqualToString:number.description]) {
                 NSNumber *newNunber = [JKUserDefaultsHelper numberFromString:textField.text];
@@ -426,9 +429,10 @@ static NSTimeInterval const kTransitionAnimationDuration = 0.45f;
             NSString *textValue = (NSString *)model.value;
             textField.text = textValue;
         }];
+        __weak __typeof(alertController)weakAlertController = alertController;
         UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:NULL];
         UIAlertAction *submitAction = [UIAlertAction actionWithTitle:@"确认" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
-            UITextField *textField = alertController.textFields.firstObject;
+            UITextField *textField = weakAlertController.textFields.firstObject;
             NSString *textValue = (NSString *)model.value;
             if (textField.text.length && ![textField.text isEqualToString:textValue]) {
                 model.value = textField.text;

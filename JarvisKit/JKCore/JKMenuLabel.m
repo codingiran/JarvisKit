@@ -2,24 +2,25 @@
 //  JKMenuLabel.m
 //  WekidsEducation
 //
-//  Created by 邱一郎 on 2019/1/9.
+//  Created by CodingIran on 2019/1/9.
 //  Copyright © 2019 wekids. All rights reserved.
 //
 
 #import "JKMenuLabel.h"
-#import "JKHelper.h"
 #import <objc/runtime.h>
+#import "NSString+JarvisKit.h"
 
 @interface JKMenuLabel ()
 
+/// hightlight之前的背景色
 @property(nonatomic, strong) UIColor *originalBackGroundColor;
 
 @property(nonatomic, strong) UILongPressGestureRecognizer *longPress;
 
-@property(nonatomic, copy) void (^moreMenuCompletion)(void);
+@property(nonatomic, strong) NSMutableArray *moreMenuActionTitles;
 
-@property(nonatomic, strong) NSMutableArray<NSString *> *moreMenuTitles;
-@property(nonatomic, strong) NSMutableArray *moreMenuBlocks;
+/// 添加锁，确保`addMenuWithActionTitle:andActionCompletion`线程安全
+@property(nonatomic, strong) dispatch_semaphore_t addMenuActionLock;
 
 @end
 
@@ -28,41 +29,44 @@
 - (instancetype)initWithFrame:(CGRect)frame
 {
     if (self = [super initWithFrame:frame]) {
-        self.moreMenuTitles = [NSMutableArray array];
-        self.moreMenuBlocks = [NSMutableArray array];
+        self.addMenuActionLock = dispatch_semaphore_create(1);
     }
     return self;
 }
 
-- (void)setHighlightedBackgroundColor:(UIColor *)highlightedBackgroundColor
+- (void)dealloc
 {
-    _highlightedBackgroundColor = highlightedBackgroundColor;
-    if (highlightedBackgroundColor) {
-        self.originalBackGroundColor = self.backgroundColor;
-    }
-}
-
-- (void)setHighlighted:(BOOL)highlighted
-{
-    [super setHighlighted:highlighted];
-    if (self.highlightedBackgroundColor) {
-        self.backgroundColor = highlighted ? self.highlightedBackgroundColor : self.originalBackGroundColor;
-    }
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 #pragma mark - public method
 - (void)addMenuWithActionTitle:(NSString *)actionTitle andActionCompletion:(void (^ __nullable)(JKMenuLabel *label, NSString *actionTitle))completion
 {
-    https://stackoverflow.com/questions/33991067/collection-element-of-type-sel-is-not-an-objective-c-object
-    [self.moreMenuTitles addObject:actionTitle];
-    [self.moreMenuBlocks addObject:completion];
+    if (!actionTitle || !actionTitle.length) return;
     
-    SEL actionSEL = NSSelectorFromString(actionTitle);
-    IMP actionIMP = imp_implementationWithBlock(completion);
-    class_addMethod([self class], actionSEL, actionIMP, "i@:ii");
+    // 用信号量确保这个方法线程安全
+    dispatch_semaphore_wait(_addMenuActionLock, DISPATCH_TIME_FOREVER);
     
+    // 动态添加方法
+    SEL actionSEL = NSSelectorFromString(actionTitle);// 将 actionTitle 作为方法名以保证唯一性
+    IMP actionIMP = imp_implementationWithBlock(^(id selfObject) {
+        if (completion) {
+            completion(selfObject, actionTitle.copy);
+        }
+    });
+    BOOL addedSuccessfully = class_addMethod([self class], actionSEL, actionIMP, "v@:");
+    if (!addedSuccessfully) {
+        // 如果添加失败说明本来就有这个方法，需要用新的方法替换旧的
+        class_replaceMethod([self class], actionSEL, actionIMP, "v@:");
+    }
+    
+    if (!self.moreMenuActionTitles) {
+        self.moreMenuActionTitles = [NSMutableArray array];
+    }
+    [self.moreMenuActionTitles addObject:actionTitle];
+    
+    dispatch_semaphore_signal(_addMenuActionLock);
 }
-
 
 #pragma mark - 长按复制功能
 
@@ -77,7 +81,9 @@
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleMenuWillHideNotification:) name:UIMenuControllerWillHideMenuNotification object:nil];
         
         if (!self.highlightedBackgroundColor) {
-            self.highlightedBackgroundColor = JKColorMake(238.0, 239.0, 241.0);// 默认值高亮背景色
+            // 默认值高亮背景色
+            self.highlightedBackgroundColor = [UIColor colorWithRed:238.0 / 255.0 green:239.0 / 255.0 blue:241.0 / 255.0 alpha:1.0];
+
         }
     } else if (!_canPerformMenuAction && self.longPress) {
         [self removeGestureRecognizer:self.longPress];
@@ -88,7 +94,6 @@
     }
 }
 
-
 - (BOOL)canBecomeFirstResponder
 {
     return self.canPerformMenuAction;
@@ -96,10 +101,8 @@
 
 - (BOOL)canPerformAction:(SEL)action withSender:(id)sender
 {
-//    NSLog(@"%@", NSStringFromSelector(action));
     if ([self canBecomeFirstResponder]) {
-        return action == @selector(copyString:) || action == @selector(shareString:) || action == @selector(favoriteString:);
-        return YES;
+        return action == @selector(copyString:) || action == @selector(shareString:) || action == @selector(favoriteString:) || [self.moreMenuActionTitles containsObject:NSStringFromSelector(action)];
     }
     return NO;
 }
@@ -148,29 +151,6 @@
     }
 }
 
-- (void)moreMenuAction:(id)sender
-{
-    if (!self.canPerformMenuAction) return;
-    
-    UIMenuController *menuController = (UIMenuController *)sender;
-    __block UIMenuItem *menuItem = nil;
-    [menuController.menuItems enumerateObjectsUsingBlock:^(UIMenuItem * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-//        NSLog(@"%@", NSStringFromSelector(obj.action));
-        if ([NSStringFromSelector(obj.action) isEqualToString:@"moreMenuAction:"]) {
-            menuItem = obj;
-        }
-    }];
-    
-    if (menuItem) {
-        NSString *title = menuItem.title;
-        NSInteger idx = [self.moreMenuTitles indexOfObject:title];
-        void (^completion)(JKMenuLabel *label, NSString *actionTitle) = self.moreMenuBlocks[idx];
-        completion(self, title);
-        completion = nil;
-    }
-}
-
-
 - (void)handleLongPressGestureRecognizer:(UIGestureRecognizer *)gestureRecognizer
 {
     if (!self.canPerformMenuAction) {
@@ -179,13 +159,12 @@
     if (gestureRecognizer.state == UIGestureRecognizerStateBegan) {
         [self becomeFirstResponder];
         
+        // 默认菜单
         BOOL shouldShowCopyMenu = (self.menuActionType & JKMenuActionTypeCopy) == JKMenuActionTypeCopy;
         BOOL shouldShowShareMunu = (self.menuActionType & JKMenuActionTypeShare) == JKMenuActionTypeShare;
         BOOL shouldShowFavoriteMunu = (self.menuActionType & JKMenuActionTypeFavorite) == JKMenuActionTypeFavorite;
         
-        NSAssert(shouldShowCopyMenu || shouldShowShareMunu || shouldShowFavoriteMunu, @"JKError: 如果设置了canPerformMenuAction，那至少从『复制』『分享』『收藏』中选择一个");
-        
-        NSMutableArray<UIMenuItem *> *menuItems = [NSMutableArray arrayWithCapacity:2];
+        NSMutableArray<UIMenuItem *> *menuItems = [NSMutableArray arrayWithCapacity:3 + self.moreMenuActionTitles.count];
         if (shouldShowCopyMenu) {
             UIMenuItem *copyMenuItem = [[UIMenuItem alloc] initWithTitle:@"复制" action:@selector(copyString:)];
             [menuItems addObject:copyMenuItem];
@@ -199,9 +178,10 @@
             [menuItems addObject:favoriteMenuItem];
         }
         
-        if (self.moreMenuTitles.count) {
-            [self.moreMenuTitles enumerateObjectsUsingBlock:^(NSString * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-                UIMenuItem *moreMenuItem = [[UIMenuItem alloc] initWithTitle:obj action:@selector(moreMenuAction:)];
+        // 更多菜单
+        if (self.moreMenuActionTitles.count) {
+            [self.moreMenuActionTitles enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                UIMenuItem *moreMenuItem = [[UIMenuItem alloc] initWithTitle:obj action:NSSelectorFromString(obj)];
                 [menuItems addObject:moreMenuItem];
             }];
         }
@@ -224,6 +204,22 @@
     }
     
     [self setHighlighted:NO];
+}
+
+- (void)setHighlightedBackgroundColor:(UIColor *)highlightedBackgroundColor
+{
+    _highlightedBackgroundColor = highlightedBackgroundColor;
+    if (highlightedBackgroundColor) {
+        self.originalBackGroundColor = self.backgroundColor;
+    }
+}
+
+- (void)setHighlighted:(BOOL)highlighted
+{
+    [super setHighlighted:highlighted];
+    if (self.highlightedBackgroundColor) {
+        self.backgroundColor = highlighted ? self.highlightedBackgroundColor : self.originalBackGroundColor;
+    }
 }
 
 @end

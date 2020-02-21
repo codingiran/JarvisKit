@@ -2,7 +2,7 @@
 //  JKHelper.m
 //  WekidsEducation
 //
-//  Created by 邱一郎 on 2019/1/8.
+//  Created by CodingIran on 2019/1/8.
 //  Copyright © 2019 wekids. All rights reserved.
 //
 
@@ -34,11 +34,37 @@
     return nil;
 }
 
++ (__kindof UIView * _Nullable)jk_statusBar
+{
+    if (@available(iOS 13, *)) {
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wundeclared-selector"
+        UIStatusBarManager *statusBarManager = [UIApplication sharedApplication].keyWindow.windowScene.statusBarManager;
+        id _statusBar = nil;
+        if ([statusBarManager respondsToSelector:@selector(createLocalStatusBar)]) {
+            UIView *_localStatusBar = [statusBarManager performSelector:@selector(createLocalStatusBar)];
+            if ([_localStatusBar respondsToSelector:@selector(statusBar)]) {
+                _statusBar = [_localStatusBar performSelector:@selector(statusBar)];
+            }
+        }
+#pragma clang diagnostic pop
+        return _statusBar;
+    } else {
+        // Tip: statusBarWindow 不在 [UIApplication sharedApplication].windows 里，需要通过 statusBarWindow 拿到
+        UIView *statusBar = [[[UIApplication sharedApplication] valueForKey:@"statusBarWindow"] valueForKey:@"statusBar"];
+        return statusBar;
+    }
+}
+
 + (UIColor *)jk_getStatusBarColor
 {
-    UIView *statusBar = [[[UIApplication sharedApplication] valueForKey:@"statusBarWindow"] valueForKey:@"statusBar"];
-    if ([statusBar respondsToSelector:@selector(setBackgroundColor:)]) {
-        return statusBar.backgroundColor;
+    UIView *statusBar = [self jk_statusBar];
+    if (statusBar) {
+        if ([statusBar respondsToSelector:@selector(backgroundColor)]) {
+            return statusBar.backgroundColor;
+        } else {
+            return nil;
+        }
     } else {
         return nil;
     }
@@ -46,9 +72,11 @@
 
 + (void)jk_setStatusBarColorWith:(UIColor *)statusBarColor
 {
-    UIView *statusBar = [[[UIApplication sharedApplication] valueForKey:@"statusBarWindow"] valueForKey:@"statusBar"];
-    if ([statusBar respondsToSelector:@selector(setBackgroundColor:)]) {
-        [statusBar setBackgroundColor:statusBarColor];
+    UIView *statusBar = [self jk_statusBar];
+    if (statusBar) {
+        if ([statusBar respondsToSelector:@selector(setBackgroundColor:)]) {
+            [statusBar setBackgroundColor:statusBarColor];
+        }
     }
 }
 

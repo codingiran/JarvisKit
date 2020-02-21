@@ -2,7 +2,7 @@
 //  JKFloatWindow.h
 //  WekidsEducation
 //
-//  Created by 邱一郎 on 2019/1/24.
+//  Created by CodingIran on 2019/1/24.
 //  Copyright © 2019 wekids. All rights reserved.
 //
 
@@ -55,17 +55,14 @@ NS_ASSUME_NONNULL_BEGIN
 @property(nonatomic, weak) id<JKFloatWindowDelegate> delegate;
 
 /// 上面添加的实体view
-@property(nonatomic, weak, readonly) __kindof UIView *entityView;
-
+@property(nullable, nonatomic, weak, readonly) __kindof UIView *entityView;
 
 /**
  初始化方法
-
  @param entity 上面添加的实体view
  @return 实例对象
  */
-- (instancetype)initWithEntity:(__kindof UIView *)entity;
-
+- (instancetype)initWithEntity:(__kindof UIView * _Nullable)entity;
 
 @end
 

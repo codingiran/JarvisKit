@@ -2,7 +2,7 @@
 //  JKSandboxViewController.m
 //  WekidsEducation
 //
-//  Created by 邱一郎 on 2019/1/1.
+//  Created by CodingIran on 2019/1/1.
 //  Copyright © 2019 wekids. All rights reserved.
 //
 
@@ -24,8 +24,6 @@ static NSString * const kReuseIdentifier = @"SandboxTableViewCell";
 @property(nonatomic, strong) JKSandboxModel *currentSandboxModel;
 
 @property(nonatomic, copy) NSString *rootPath;
-
-@property(nonatomic, strong) UIImagePickerController *imagePicker;
 
 @property(nonatomic, strong) JKMenuLabel *fullPathLabel;
 
@@ -159,8 +157,9 @@ static NSString * const kReuseIdentifier = @"SandboxTableViewCell";
 /// 编辑
 - (void)editAction:(UIBarButtonItem *)sender
 {
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+    UIAlertController *editAlertController = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
     UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:NULL];
+    __weak __typeof(self)weakSelf = self;
     UIAlertAction *createFolder = [UIAlertAction actionWithTitle:@"创建文件夹" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"创建文件夹" message:nil preferredStyle:UIAlertControllerStyleAlert];
@@ -168,75 +167,81 @@ static NSString * const kReuseIdentifier = @"SandboxTableViewCell";
             textField.placeholder = @"输入文件夹名称";
         }];
         UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:NULL];
+        __weak __typeof(alert)weakAlert = alert;
         UIAlertAction *submitAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-            UITextField *textField = alert.textFields.firstObject;
+            UITextField *textField = weakAlert.textFields.firstObject;
             NSString *newFolderName = textField.text.length ? textField.text : @"未命名文件夹";
-            NSString *newPath = [self.currentSandboxModel.path stringByAppendingPathComponent:newFolderName];
+            NSString *newPath = [weakSelf.currentSandboxModel.path stringByAppendingPathComponent:newFolderName];
             BOOL createSuccess = [JKSandboxHelper creatDirectoryWithPath:newPath];
             if (!createSuccess) {
                 // 创建失败，通常是因为没有权限:例如真机下在根目录创建文件系统是不允许的
                 UIAlertController *alertWarning = [UIAlertController alertControllerWithTitle:@"创建失败" message:@"没有权限在当前目录下创建文件夹" preferredStyle:UIAlertControllerStyleAlert];
+                __weak __typeof(alertWarning)weakAlertWarning = alertWarning;
                 UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                    [alertWarning dismissViewControllerAnimated:YES completion:NULL];
+                    [weakAlertWarning dismissViewControllerAnimated:YES completion:NULL];
                 }];
                 [alertWarning addAction:okAction];
-                [self presentViewController:alertWarning animated:YES completion:NULL];
+                [weakSelf presentViewController:alertWarning animated:YES completion:NULL];
             } else {
                 // 创建成功，刷新数据
-                [self loadPath:self.currentSandboxModel.path];
+                [weakSelf loadPath:weakSelf.currentSandboxModel.path];
             }
         }];
         [alert addAction:cancelAction];
         [alert addAction:submitAction];
         
-        [self presentViewController:alert animated:YES completion:NULL];
+        [weakSelf presentViewController:alert animated:YES completion:NULL];
     }];
     UIAlertAction *addPhoto = [UIAlertAction actionWithTitle:@"从相册添加文件" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         if ([JKSandboxHelper isPhotoLibraryAvailable]) {
-            [self presentViewController:self.imagePicker animated:YES completion:NULL];
+            UIImagePickerController *imagePicker = [[UIImagePickerController alloc] init];
+            imagePicker.navigationBar.tintColor = [UIColor whiteColor];
+            [imagePicker.navigationBar setBackgroundImage:JKImageMake(@"jarvis_navi_bkg") forBarMetrics:UIBarMetricsDefault];
+            imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+            imagePicker.delegate = weakSelf;
+            [weakSelf presentViewController:imagePicker animated:YES completion:NULL];
         } else {
             UIAlertController *photoLibraryAlert = [UIAlertController alertControllerWithTitle:@"提示" message:@"没有相册访问权限" preferredStyle:UIAlertControllerStyleAlert];
+            __weak __typeof(photoLibraryAlert)weakPhotoLibraryAlert = photoLibraryAlert;
             UIAlertAction *okAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                [photoLibraryAlert dismissViewControllerAnimated:YES completion:NULL];
+                [weakPhotoLibraryAlert dismissViewControllerAnimated:YES completion:NULL];
             }];
             [photoLibraryAlert addAction:okAction];
-            [self presentViewController:photoLibraryAlert animated:YES completion:NULL];
+            [weakSelf presentViewController:photoLibraryAlert animated:YES completion:NULL];
         }
     }];
     
     UIAlertAction *batchModify = [UIAlertAction actionWithTitle:@"批量操作" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        if (!self.tableView.isEditing) {
-            [self.tableView setEditing:YES animated:YES];
-            
+        if (!weakSelf.tableView.isEditing) {
+            [weakSelf.tableView setEditing:YES animated:YES];
             // 编辑--->取消
-            UIBarButtonItem *cancelItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancelAction:)];
-            
-            self.navigationItem.rightBarButtonItems = @[cancelItem];
+            UIBarButtonItem *cancelItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:weakSelf action:@selector(cancelAction:)];
+            weakSelf.navigationItem.rightBarButtonItems = @[cancelItem];
         }
     }];
     UIAlertAction *refreshData = [UIAlertAction actionWithTitle:@"刷新数据" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         if (@available(iOS 10.0, *)) {
-            [self.tableView setContentOffset:CGPointMake(0, self.tableView.contentOffset.y - self.tableView.refreshControl.frame.size.height) animated:NO];
-            [self.tableView.refreshControl beginRefreshing];
-            [self.tableView.refreshControl sendActionsForControlEvents:UIControlEventValueChanged];
+            [weakSelf.tableView setContentOffset:CGPointMake(0, weakSelf.tableView.contentOffset.y - weakSelf.tableView.refreshControl.frame.size.height) animated:NO];
+            [weakSelf.tableView.refreshControl beginRefreshing];
+            [weakSelf.tableView.refreshControl sendActionsForControlEvents:UIControlEventValueChanged];
         } else {
-            [self loadPath:self.currentSandboxModel.path];
+            [weakSelf loadPath:weakSelf.currentSandboxModel.path];
         }
     }];
     
-    [alertController addAction:cancel];
-    [alertController addAction:createFolder];
-    [alertController addAction:addPhoto];
+    [editAlertController addAction:cancel];
+    [editAlertController addAction:createFolder];
+    [editAlertController addAction:addPhoto];
     
     // 这边对于权限的判断不是很靠谱：如果一个文件夹没有写入权限，自然没有删除其中文件的权限
     BOOL isWritable = [JKSandboxHelper isWritableFileAtPath:self.currentSandboxModel.path];
     if (isWritable) {
-        [alertController addAction:batchModify];
+        [editAlertController addAction:batchModify];
     }
     
-    [alertController addAction:refreshData];
+    [editAlertController addAction:refreshData];
 
-    [self presentViewController:alertController animated:YES completion:NULL];
+    [self presentViewController:editAlertController animated:YES completion:NULL];
 }
 
 - (void)cancelAction:(UIBarButtonItem *)sender
@@ -351,8 +356,9 @@ static NSString * const kReuseIdentifier = @"SandboxTableViewCell";
             textField.text = [[model.path lastPathComponent] stringByDeletingPathExtension];
         }];
         UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:NULL];
+        __weak __typeof(textFieldAlert)weakTextFieldAlert = textFieldAlert;
         UIAlertAction *submitAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-            UITextField *textField = textFieldAlert.textFields.firstObject;
+            UITextField *textField = weakTextFieldAlert.textFields.firstObject;
             NSString *newName = textField.text.length ? textField.text : @"重命名";
             BOOL renameSuccess = [JKSandboxHelper renameFileOrDirectoryAtPath:model.path withNewName:newName];
             if (renameSuccess) {
@@ -443,6 +449,7 @@ static NSString * const kReuseIdentifier = @"SandboxTableViewCell";
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<UIImagePickerControllerInfoKey,id> *)info
 {
+    __weak __typeof(self)weakSelf = self;
     [picker dismissViewControllerAnimated:YES completion:^{
         NSString *mediaType = [info objectForKey:UIImagePickerControllerMediaType];
         if ([mediaType isEqualToString:(NSString *)kUTTypeImage]) {
@@ -452,7 +459,7 @@ static NSString * const kReuseIdentifier = @"SandboxTableViewCell";
                 NSDate *date = [NSDate dateWithTimeIntervalSinceNow:0];
                 NSTimeInterval time = [date timeIntervalSince1970] * 10;
                 NSString *timeString = [NSString stringWithFormat:@"%.0f", time];
-                NSString *imagePath = [self.currentSandboxModel.path stringByAppendingPathComponent:[NSString stringWithFormat:@"MyPhoto_%@.png", timeString]];
+                NSString *imagePath = [weakSelf.currentSandboxModel.path stringByAppendingPathComponent:[NSString stringWithFormat:@"MyPhoto_%@.png", timeString]];
                 NSData *imageData = UIImagePNGRepresentation(image);
                 if (!image || !imageData.length) {
                     imageData = UIImageJPEGRepresentation(image, 0.9);
@@ -465,10 +472,10 @@ static NSString * const kReuseIdentifier = @"SandboxTableViewCell";
                         [alertWarning dismissViewControllerAnimated:YES completion:NULL];
                     }];
                     [alertWarning addAction:okAction];
-                    [self presentViewController:alertWarning animated:YES completion:NULL];
+                    [weakSelf presentViewController:alertWarning animated:YES completion:NULL];
                 } else {
                     // 创建成功，刷新数据
-                    [self loadPath:self.currentSandboxModel.path];
+                    [weakSelf loadPath:self.currentSandboxModel.path];
                 }
             }
         }
@@ -493,8 +500,9 @@ static NSString * const kReuseIdentifier = @"SandboxTableViewCell";
                 textField.placeholder = @"输入标识";
             }];
             UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:NULL];
+            __weak __typeof(alertController)weakAlertController = alertController;
             UIAlertAction *submit = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                UITextField *textField = alertController.textFields.firstObject;
+                UITextField *textField = weakAlertController.textFields.firstObject;
                 NSString *defaultName = [NSString stringWithFormat:@"收藏-%@", label.text.lastPathComponent];
                 NSString *favPathName = textField.text.length ? textField.text : defaultName;
                 JKSandboxFavPathModel *model = [[JKSandboxFavPathModel alloc] init];
@@ -506,11 +514,7 @@ static NSString * const kReuseIdentifier = @"SandboxTableViewCell";
             [alertController addAction:cancel];
             [alertController addAction:submit];
             
-            [self presentViewController:alertController animated:YES completion:^{
-                
-            }];
-            
-            
+            [self presentViewController:alertController animated:YES completion:NULL];
         }
     }
 }
@@ -534,19 +538,6 @@ static NSString * const kReuseIdentifier = @"SandboxTableViewCell";
     return _currentSandboxModel;
 }
 
-- (UIImagePickerController *)imagePicker
-{
-    if (!_imagePicker) {
-        _imagePicker = [[UIImagePickerController alloc] init];
-        _imagePicker.navigationBar.tintColor = [UIColor whiteColor];
-        [_imagePicker.navigationBar setBackgroundImage:JKImageMake(@"jarvis_navi_bkg") forBarMetrics:UIBarMetricsDefault];
-        _imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-        _imagePicker.delegate = self;
-    }
-    return _imagePicker;
-}
-
-
 - (JKMenuLabel *)fullPathLabel
 {
     if (!_fullPathLabel) {
@@ -558,14 +549,6 @@ static NSString * const kReuseIdentifier = @"SandboxTableViewCell";
         _fullPathLabel.canPerformMenuAction = YES;
         _fullPathLabel.menuActionType = JKMenuActionTypeCopy | JKMenuActionTypeFavorite;
         _fullPathLabel.delegate = self;
-        
-//        [_fullPathLabel addMenuWithActionTitle:@"转发" andActionCompletion:^(JKMenuLabel * _Nonnull label, NSString * _Nonnull actionTitle) {
-//            NSLog(@"%@-----%@", label.description, actionTitle);
-//        }];
-//
-//        [_fullPathLabel addMenuWithActionTitle:@"下载" andActionCompletion:^(JKMenuLabel * _Nonnull label, NSString * _Nonnull actionTitle) {
-//            NSLog(@"%@-----%@", label.description, actionTitle);
-//        }];
     }
     return _fullPathLabel;
 }

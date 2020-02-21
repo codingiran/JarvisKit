@@ -2,7 +2,7 @@
 //  UIImage+JarvisKit.m
 //  WekidsEducation
 //
-//  Created by 邱一郎 on 2019/1/30.
+//  Created by CodingIran on 2019/1/30.
 //  Copyright © 2019 wekids. All rights reserved.
 //
 
@@ -10,7 +10,6 @@
 #import "JKHelper.h"
 
 @implementation UIImage (JarvisKit)
-
 
 + (UIImage *)jk_imageWithView:(UIView *)view
 {
@@ -55,5 +54,38 @@
     return imageOut;
 }
 
+- (NSString *)jk_HexColorStringAtPoint:(CGPoint)point
+{
+    // Create a 1x1 pixel byte array and bitmap context to draw the pixel into.
+    // Reference: http://stackoverflow.com/questions/1042830/retrieving-a-pixel-alpha-value-for-a-uiimage
+    NSInteger pointX = trunc(point.x);
+    NSInteger pointY = trunc(point.y);
+    CGImageRef cgImage = self.CGImage;
+    NSUInteger width = self.size.width;
+    NSUInteger height = self.size.height;
+    CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
+    int bytesPerPixel = 4;
+    int bytesPerRow = bytesPerPixel * 1;
+    NSUInteger bitsPerComponent = 8;
+    unsigned char pixelData[4] = { 0, 0, 0, 0 };
+    CGContextRef context = CGBitmapContextCreate(pixelData,
+                                                 1,
+                                                 1,
+                                                 bitsPerComponent,
+                                                 bytesPerRow,
+                                                 colorSpace,
+                                                 kCGImageAlphaPremultipliedLast | kCGBitmapByteOrder32Big);
+    CGColorSpaceRelease(colorSpace);
+    CGContextSetBlendMode(context, kCGBlendModeCopy);
+    
+    // Draw the pixel we are interested in onto the bitmap context
+    CGContextTranslateCTM(context, -pointX, pointY-(CGFloat)height);
+    CGContextDrawImage(context, CGRectMake(0.0f, 0.0f, (CGFloat)width, (CGFloat)height), cgImage);
+    CGContextRelease(context);
+    
+    NSString *rgbString = [NSString stringWithFormat:@"#%02x%02x%02x%02x",pixelData[3],pixelData[0],pixelData[1],pixelData[2]];
+    
+    return rgbString;
+}
 
 @end

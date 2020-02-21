@@ -2,7 +2,7 @@
 //  JKPerformanceManager.m
 //  WekidsEducation
 //
-//  Created by 邱一郎 on 2019/1/24.
+//  Created by CodingIran on 2019/1/24.
 //  Copyright © 2019 wekids. All rights reserved.
 //
 
@@ -15,6 +15,7 @@
 #import "JKCPULabel.h"
 #import "JKRAMLabel.h"
 #import "JKFlowLabel.h"
+#import <objc/runtime.h>
 
 @interface JKPerformanceManager ()<JKFloatWindowDelegate>
 
@@ -72,9 +73,16 @@ static JKPerformanceManager *jkPerformanceManager = nil;
     if (JKFLOWActiveStatus) {
         [self setFlowActive:YES];
     }
+    if (JKLEAKActiveStatus) {
+        [self setLeakActive:YES];
+    }
+    if (JKCYCLEActiveStatus) {
+        [self setCycleActive:YES];
+    }
 }
 
 #pragma mark - JKFloatWindowDelegate
+
 - (void)floatWindow:(JKFloatWindow *)floatWindow punchOnEntity:(__kindof UIView *)entity
 {
     if (floatWindow == self.flowWindow) {
@@ -96,6 +104,7 @@ static JKPerformanceManager *jkPerformanceManager = nil;
 
 
 #pragma mark - setter & getter
+
 - (void)setFpsActive:(BOOL)fpsActive
 {
     BOOL hasChange = fpsActive != _fpsActive;
@@ -164,6 +173,24 @@ static JKPerformanceManager *jkPerformanceManager = nil;
     }
 }
 
+- (void)setLeakActive:(BOOL)leakActive
+{
+    BOOL hasChange = leakActive != _leakActive;
+    if (!hasChange) return;
+    
+    _leakActive = leakActive;
+    JKSaveLEAKActiveStatus(leakActive);
+}
+
+- (void)setCycleActive:(BOOL)cycleActive
+{
+    BOOL hasChange = cycleActive != _cycleActive;
+    if (!hasChange) return;
+    
+    _cycleActive = cycleActive;
+    JKSaveCYCLEActiveStatus(cycleActive);
+}
+
 - (JKFloatWindow *)fpsWindow
 {
     if (!_fpsWindow) {
@@ -200,6 +227,43 @@ static JKPerformanceManager *jkPerformanceManager = nil;
         _flowWindow.delegate = self;
     }
     return _flowWindow;
+}
+
+@end
+
+@implementation JKPerformanceManager (MLeaksFinder)
+
+/// Hook MLeaksMessenger 的弹框方法
++ (void)load
+{
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        // hook 的是类方法，需要用 object_getClass 方法获取 meta-class
+        Class _fromClass = object_getClass(NSClassFromString(@"MLeaksMessenger"));
+        Class _toClass = object_getClass(NSClassFromString(@"JKPerformanceManager"));
+        if (!_fromClass || !_toClass) {
+            return;
+        }
+        SEL _originSelector = NSSelectorFromString(@"alertWithTitle:message:delegate:additionalButtonTitle:");
+        SEL _newSelector = NSSelectorFromString(@"jk_alertWithTitle:message:delegate:additionalButtonTitle:");
+
+        ExchangeImplementationsInTwoClasses(_fromClass, _originSelector, _toClass, _newSelector);
+    });
+}
+
++ (void)jk_alertWithTitle:(NSString *)title message:(NSString *)message delegate:(id<UIAlertViewDelegate>)delegate additionalButtonTitle:(NSString *)additionalButtonTitle
+{
+    if ([title containsString:@"Retain Cycle"]) {
+        // FBRetainCycleDetector 触发循环引用
+        if (JKPerformanceManager.sharedManager.cycleActive) {
+            [JKPerformanceManager jk_alertWithTitle:title message:message delegate:delegate additionalButtonTitle:additionalButtonTitle];
+        }
+    } else {
+        // MLeaksFinder 触发内存泄露
+        if (JKPerformanceManager.sharedManager.leakActive) {
+            [JKPerformanceManager jk_alertWithTitle:title message:message delegate:delegate additionalButtonTitle:additionalButtonTitle];
+        }
+    }
 }
 
 @end

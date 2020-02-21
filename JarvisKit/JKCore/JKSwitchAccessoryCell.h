@@ -2,7 +2,7 @@
 //  JKSwitchAccessoryCell.h
 //  WekidsEducation
 //
-//  Created by 邱一郎 on 2019/1/23.
+//  Created by CodingIran on 2019/1/23.
 //  Copyright © 2019 wekids. All rights reserved.
 //
 
@@ -11,6 +11,8 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface JKSwitchAccessoryCell : UITableViewCell
+
+@property(nonatomic, assign) BOOL showSwitch;
 
 /// UISwitch开关回调，做好weakSelf防护
 @property(nonatomic, copy) void (^switchValueChangedResult)(JKSwitchAccessoryCell *cell ,UISwitch *switcher, BOOL on);
