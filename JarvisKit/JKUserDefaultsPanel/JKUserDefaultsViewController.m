@@ -10,7 +10,6 @@
 #import "JKUserDefaultsViewController.h"
 #import "JKUserDefaultsValueCell.h"
 #import "JKUserDefaultsHelper.h"
-#import "JKUserDefaultsKeyView.h"
 #import "JKUserDefaultsModel.h"
 
 typedef NS_ENUM(NSUInteger, JKUserDefaultsShowType) {
@@ -19,7 +18,6 @@ typedef NS_ENUM(NSUInteger, JKUserDefaultsShowType) {
 };
 
 static NSString * const kReuseTableViewCellIdentifier = @"JKUserDefaultsValueCell";
-static NSString * const kReuseTableViewHeaderViewIdentifier = @"JKUserDefaultsKeyView";
 static NSTimeInterval const kTransitionAnimationDuration = 0.45f;
 
 @interface JKUserDefaultsViewController ()
@@ -49,7 +47,6 @@ static NSTimeInterval const kTransitionAnimationDuration = 0.45f;
     [self.tableView setSectionIndexBackgroundColor:UIColor.clearColor];
     [self.tableView setSectionIndexColor:JKThemeColor];
     [self.tableView registerClass:[JKUserDefaultsValueCell class] forCellReuseIdentifier:kReuseTableViewCellIdentifier];
-    [self.tableView registerClass:[JKUserDefaultsKeyView class] forHeaderFooterViewReuseIdentifier:kReuseTableViewHeaderViewIdentifier];
     self.tableView.estimatedRowHeight = 44.f;
     self.tableView.estimatedSectionHeaderHeight = 0;
     self.tableView.estimatedSectionFooterHeight = 0;
@@ -89,11 +86,11 @@ static NSTimeInterval const kTransitionAnimationDuration = 0.45f;
     
     // 模型列表排序
     NSArray<JKUserDefaultsModel *> *sortedList = [list sortedArrayUsingComparator:^NSComparisonResult(JKUserDefaultsModel * _Nonnull obj1, JKUserDefaultsModel * _Nonnull obj2) {
-        return [obj1.key compare:obj2.key];
+        return [obj1.key.uppercaseString compare:obj2.key.uppercaseString];
     }];
     
     // 生成 section 需要的列表
-    NSMutableOrderedSet<NSString *> *orderdSet = [[NSMutableOrderedSet alloc] initWithCapacity:27];
+    NSMutableArray<NSString *> *sectionIndexList = [[NSMutableOrderedSet alloc] initWithCapacity:27];
     unichar lastChar = '^_^';
     NSMutableArray<NSMutableArray<JKUserDefaultsModel *> *> *resultList = [NSMutableArray arrayWithCapacity:27];
     NSMutableArray<JKUserDefaultsModel *> *otherModelList = [NSMutableArray array];
@@ -101,26 +98,28 @@ static NSTimeInterval const kTransitionAnimationDuration = 0.45f;
     for (JKUserDefaultsModel *model in sortedList) {
         // 索引
         unichar c = [model.key characterAtIndex:0];
+        NSString *cStr = [NSString stringWithFormat:@"%c", c].uppercaseString;
+        c = [cStr characterAtIndex:0];
         if (!isalpha(c)) {
-            [orderdSet addObject:@"#"];
             [otherModelList addObject:model];
         } else if (c != lastChar) {
-            [orderdSet addObject:[NSString stringWithFormat:@"%c", c].uppercaseString];
-            lastChar = c;
             if (alphaModelList && alphaModelList.count) {
                 [resultList addObject:alphaModelList];
+                NSString *lastCStr = [NSString stringWithFormat:@"%c", lastChar];
+                [sectionIndexList addObject:lastCStr];
             }
             alphaModelList = [NSMutableArray array];
             [alphaModelList addObject:model];
+            lastChar = c;
         } else {
-            [orderdSet addObject:[NSString stringWithFormat:@"%c", c].uppercaseString];
             [alphaModelList addObject:model];
         }
     }
     if (otherModelList.count) {
         [resultList addObject:otherModelList];
+        [sectionIndexList addObject:@"#"];
     }
-    self.sectionIndexList = orderdSet.array;
+    self.sectionIndexList = sectionIndexList.copy;
     
     return resultList.copy;
 }
@@ -334,7 +333,7 @@ static NSTimeInterval const kTransitionAnimationDuration = 0.45f;
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
     if (self.currentUserDefaultsModel.valueType == JKUserDefaultsValueTypeDictionary) {
-        self.sectionIndexList[section];
+        return self.sectionIndexList[section];
     }
     return nil;
 }

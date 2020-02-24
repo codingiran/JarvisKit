@@ -33,6 +33,7 @@
         self.keyBackgroudView.backgroundColor = JKColorMake(229, 229, 229);
         
         self.keyLabel = [UILabel new];
+        self.keyLabel.adjustsFontSizeToFitWidth = YES;
         self.keyLabel.textAlignment = NSTextAlignmentLeft;
         self.keyLabel.numberOfLines = 1;
         self.keyLabel.textColor = [UIColor darkTextColor];
@@ -100,8 +101,9 @@
     [super layoutSubviews];
     
     self.keyBackgroudView.frame = CGRectMake(0, 0, self.jk_width, self.needShowKey ? self.jk_height * 0.5 : 0.f);
-    [self.keyLabel sizeToFit];
-    self.keyLabel.frame = CGRectMake(15, (self.keyBackgroudView.jk_height - self.keyLabel.jk_height) * 0.5, self.keyLabel.jk_width, self.keyLabel.jk_height);
+    CGFloat keyLabelWidth = self.jk_width - 30.f;
+    CGSize keyLabelSize = [self.keyLabel sizeThatFits:CGSizeMake(keyLabelWidth, CGFLOAT_MAX)];
+    self.keyLabel.frame = CGRectMake(15, (self.keyBackgroudView.jk_height - self.keyLabel.jk_height) * 0.5, keyLabelWidth, keyLabelSize.height);
     
     self.valueBackgroudView.frame = CGRectMake(0, self.keyBackgroudView.jk_bottom, self.jk_width, self.jk_height - self.keyBackgroudView.jk_height);
     
