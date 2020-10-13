@@ -177,11 +177,17 @@ static NSString * const kTableViewResuseIdentifier = @"JKNetCaptureListCell";
         JKNetCaptureModel *model;
         if (self.isSearchActive && self.searchBarHasText) {
             model = self.filterdModelList[indexPath.row];
+            [JKNetCaptureDataSource.sharedDataSource removeHttpCaptureModel:model];
+            NSMutableArray *mutableFilterdModelList = [self.filterdModelList mutableCopy];
+            [mutableFilterdModelList removeObject:model];
+            self.filterdModelList = mutableFilterdModelList.copy;
         } else {
             model = self.allNetCaptureModelList[indexPath.row];
+            [JKNetCaptureDataSource.sharedDataSource removeHttpCaptureModel:model];
+            NSMutableArray *mutableAllNetCaptureModelList = [self.filterdModelList mutableCopy];
+            [mutableAllNetCaptureModelList removeObject:model];
+            self.allNetCaptureModelList = mutableAllNetCaptureModelList.copy;
         }
-        [JKNetCaptureDataSource.sharedDataSource removeHttpCaptureModel:model];
-        self.filterdModelList = JKNetCaptureDataSource.sharedDataSource.httpCaptureModelArray.copy;
         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
     }
 }
