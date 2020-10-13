@@ -184,7 +184,7 @@ static NSString * const kTableViewResuseIdentifier = @"JKNetCaptureListCell";
         } else {
             model = self.allNetCaptureModelList[indexPath.row];
             [JKNetCaptureDataSource.sharedDataSource removeHttpCaptureModel:model];
-            NSMutableArray *mutableAllNetCaptureModelList = [self.filterdModelList mutableCopy];
+            NSMutableArray *mutableAllNetCaptureModelList = [self.allNetCaptureModelList mutableCopy];
             [mutableAllNetCaptureModelList removeObject:model];
             self.allNetCaptureModelList = mutableAllNetCaptureModelList.copy;
         }
