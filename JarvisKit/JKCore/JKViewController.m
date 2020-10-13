@@ -10,7 +10,7 @@
 #import "JkPresentationWindow.h"
 #import "JKHelper.h"
 
-#define NavigationTitleDefaultColor        [UIColor whiteColor]
+#define NavigationTitleDefaultColor        [UIColor blackColor]
 #define NavigationTitleDefaultFont         [UIFont systemFontOfSize:19 weight:UIFontWeightBold]
 #define NavigationTitleDefaultAttributes   @{NSForegroundColorAttributeName : NavigationTitleDefaultColor, NSFontAttributeName : NavigationTitleDefaultFont}
 
@@ -52,7 +52,9 @@
     if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {
         self.firstControllerNeedNavigationCloseItem = YES;
         self.navigationTitle = @"";
-        self.navigationTitleAttributes = NavigationTitleDefaultAttributes;
+        self.navigationBarBackgroundColor = UIColor.whiteColor;
+        self.navigationBarTintColor = UIColor.blackColor;
+        self.navigationTitleAttributes = @{NSForegroundColorAttributeName : UIColor.blackColor, NSFontAttributeName : NavigationTitleDefaultFont};
     }
     return self;
 }
@@ -60,7 +62,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
+
     if (self.firstControllerNeedNavigationCloseItem && self.jk_isPresented) {
         UIBarButtonItem *closeItem = [[UIBarButtonItem alloc] initWithImage:JKImageMake(@"jarvis_navi_close") style:UIBarButtonItemStylePlain target:self action:@selector(navigationDismss:)];
         self.navigationItem.leftBarButtonItems = @[closeItem];
@@ -85,7 +87,7 @@
 
 - (UIStatusBarStyle)preferredStatusBarStyle
 {
-    return UIStatusBarStyleLightContent;
+    return UIStatusBarStyleDefault;
 }
 
 - (void)dealloc
@@ -187,7 +189,6 @@
         [self.navigationTitleLabel sizeToFit];
     }
 }
-
 
 @end
 

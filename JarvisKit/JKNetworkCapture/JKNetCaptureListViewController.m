@@ -47,7 +47,14 @@ static NSString * const kTableViewResuseIdentifier = @"JKNetCaptureListCell";
 - (void)jk_initTableView
 {
     [super jk_initTableView];
+    
     [self.tableView registerClass:[JKNetCaptureListCell class] forCellReuseIdentifier:kTableViewResuseIdentifier];
+    UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
+    [refreshControl addTarget:self action:@selector(refresh:) forControlEvents:UIControlEventValueChanged];
+    if (@available(iOS 10.0, *)) {
+        self.tableView.refreshControl = refreshControl;
+    } else {
+    }
 }
 
 - (void)jk_setupNavigationItems
@@ -56,7 +63,7 @@ static NSString * const kTableViewResuseIdentifier = @"JKNetCaptureListCell";
     
     self.navigationTitle = @"网络抓包列表";
     UISwitch *switcher = [[UISwitch alloc] init];
-    switcher.tintColor = JKColorMake(225, 226, 227);
+    switcher.tintColor = JKThemeColor;
     switcher.on = [JKNetCaptureDataSource sharedDataSource].netCaptureActive;
     [switcher addTarget:self action:@selector(switcher:) forControlEvents:UIControlEventValueChanged];
     UIBarButtonItem *switchActive = [[UIBarButtonItem alloc] initWithCustomView:switcher];
@@ -64,6 +71,7 @@ static NSString * const kTableViewResuseIdentifier = @"JKNetCaptureListCell";
 }
 
 #pragma mark - touch event
+
 - (void)switcher:(UISwitch *)switcher
 {
     [JKNetCaptureDataSource sharedDataSource].netCaptureActive = switcher.isOn;
@@ -79,7 +87,32 @@ static NSString * const kTableViewResuseIdentifier = @"JKNetCaptureListCell";
     }
 }
 
+- (void)refresh:(UIRefreshControl *)refreshControl
+{
+    if (self.isSearchActive) {
+        self.searchController.active = NO;
+    }
+    [JKNetCaptureDataSource.sharedDataSource empty];
+    self.allNetCaptureModelList = nil;
+    [self.tableView reloadData];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if (@available(iOS 10.0, *)) {
+            [self.tableView.refreshControl endRefreshing];
+        } else {
+            
+        }
+    });
+}
+
+- (void)clearAllRecord
+{
+    [[JKNetCaptureDataSource sharedDataSource] empty];
+    self.allNetCaptureModelList = [JKNetCaptureDataSource sharedDataSource].httpCaptureModelArray.copy;
+    [self.tableView reloadData];
+}
+
 #pragma mark - table view data source
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     return 1;
@@ -106,6 +139,7 @@ static NSString * const kTableViewResuseIdentifier = @"JKNetCaptureListCell";
 }
 
 #pragma mark - table view delegate
+
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     JKNetCaptureModel *model;
@@ -132,6 +166,25 @@ static NSString * const kTableViewResuseIdentifier = @"JKNetCaptureListCell";
     [self.navigationController pushViewController:netCaptureDetailViewController animated:YES];
 }
 
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return YES;
+}
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        JKNetCaptureModel *model;
+        if (self.isSearchActive && self.searchBarHasText) {
+            model = self.filterdModelList[indexPath.row];
+        } else {
+            model = self.allNetCaptureModelList[indexPath.row];
+        }
+        [JKNetCaptureDataSource.sharedDataSource removeHttpCaptureModel:model];
+        self.filterdModelList = JKNetCaptureDataSource.sharedDataSource.httpCaptureModelArray.copy;
+        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+    }
+}
 
 #pragma mark - JKTableViewSearchResultUpdating
 - (void)searchResultsForTableView:(UITableView *)tableView updatingResult:(NSString *)resultString
@@ -142,7 +195,5 @@ static NSString * const kTableViewResuseIdentifier = @"JKNetCaptureListCell";
     //刷新表格
     [self.tableView reloadData];
 }
-
-
 
 @end

@@ -18,8 +18,14 @@
 
 + (UIImage *)jk_imageWithName:(NSString *)name
 {
-    NSBundle *bundle = [self resourcesBundleWithName:@"JarvisKit.bundle"];
-    return [self imageInBundle:bundle withName:name];
+    static NSBundle *resourceBundle = nil;
+    if (!resourceBundle) {
+        NSBundle *mainBundle = [NSBundle bundleForClass:self];
+        NSString *resourcePath = [mainBundle pathForResource:@"JarvisKit" ofType:@"bundle"];
+        resourceBundle = [NSBundle bundleWithPath:resourcePath] ?: mainBundle;
+    }
+    UIImage *image = [UIImage imageNamed:name inBundle:resourceBundle compatibleWithTraitCollection:nil];
+    return image;
 }
 
 + (UIImage *)imageInBundle:(NSBundle *)bundle withName:(NSString *)name {

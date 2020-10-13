@@ -39,13 +39,17 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (void)addHttpCaptureModel:(JKNetCaptureModel *)captureModel;
 
+/**
+ 从httpCaptureArray删除JKNetCaptureModel
+
+ @param captureModel JKNetCaptureModel模型
+ */
+- (void)removeHttpCaptureModel:(JKNetCaptureModel *)captureModel;
 
 /**
  清空httpCaptureArray内所有模型数据
  */
 - (void)empty;
-
-
 
 @end
 

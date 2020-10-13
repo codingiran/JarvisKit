@@ -25,7 +25,7 @@
 {
     [super viewWillAppear:animated];
     // 导航栏主题色和背景
-    self.navigationBar.tintColor = [UIColor whiteColor];
+    self.navigationBar.tintColor = [UIColor redColor];
 }
 
 /// 将状态栏的样式交给topViewController

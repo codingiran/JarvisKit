@@ -90,7 +90,7 @@
         // 创建
         self.searchController = [[UISearchController alloc] initWithSearchResultsController:nil];
         self.searchController.searchResultsUpdater = self;
-        self.searchController.searchBar.tintColor = [UIColor whiteColor];
+        self.searchController.searchBar.tintColor = [UIColor blackColor];
         [self.searchController.searchBar sizeToFit];
         self.searchController.hidesNavigationBarDuringPresentation = YES;
         self.searchController.dimsBackgroundDuringPresentation = NO;

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3C23D68325357D1C00EE8FF4 /* JKMagnifierLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C23D68125357D1B00EE8FF4 /* JKMagnifierLayer.m */; };
 		AC5EB681221BA17E0021AA33 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = AC5EB680221BA17E0021AA33 /* AppDelegate.m */; };
 		AC5EB684221BA17E0021AA33 /* JKDemoMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AC5EB683221BA17E0021AA33 /* JKDemoMainViewController.m */; };
 		AC5EB689221BA17F0021AA33 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AC5EB688221BA17F0021AA33 /* Assets.xcassets */; };
@@ -92,6 +93,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3C23D68125357D1B00EE8FF4 /* JKMagnifierLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = JKMagnifierLayer.m; path = ../UIElementToolBox/JKMagnifierLayer.m; sourceTree = "<group>"; };
+		3C23D68225357D1C00EE8FF4 /* JKMagnifierLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JKMagnifierLayer.h; sourceTree = "<group>"; };
+		3C23D68725357D6B00EE8FF4 /* UIColor+JarvisKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIColor+JarvisKit.h"; path = "../../../../Downloads/JarvisKit-master/JarvisKit/JKCore/UIColor+JarvisKit.h"; sourceTree = "<group>"; };
+		3C23D68825357D6B00EE8FF4 /* UIColor+JarvisKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+JarvisKit.h"; sourceTree = "<group>"; };
 		AC5EB67C221BA17D0021AA33 /* JarvisKitDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JarvisKitDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AC5EB67F221BA17E0021AA33 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		AC5EB680221BA17E0021AA33 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -352,20 +357,20 @@
 		AC5EB6C0221BA1A00021AA33 /* JKSandboxBrowser */ = {
 			isa = PBXGroup;
 			children = (
-				AC5EB6C1221BA1A00021AA33 /* JKSandboxHelper.h */,
-				AC5EB6C2221BA1A00021AA33 /* JKSandboxFavPathModel.m */,
-				AC5EB6C3221BA1A00021AA33 /* JKSandboxFavPathListController.m */,
 				AC5EB6C4221BA1A00021AA33 /* JKSandboxCell.h */,
-				AC5EB6C5221BA1A00021AA33 /* JKSandboxViewController.h */,
-				AC5EB6C6221BA1A00021AA33 /* JKSandboxModel.h */,
-				AC5EB6C7221BA1A00021AA33 /* JKSandboxFilePreviewViewController.h */,
-				AC5EB6C8221BA1A00021AA33 /* JKSandboxHelper.m */,
-				AC5EB6C9221BA1A00021AA33 /* JKSandboxFavPathListController.h */,
-				AC5EB6CA221BA1A00021AA33 /* JKSandboxFavPathModel.h */,
-				AC5EB6CB221BA1A00021AA33 /* JKSandboxViewController.m */,
 				AC5EB6CC221BA1A00021AA33 /* JKSandboxCell.m */,
+				AC5EB6C9221BA1A00021AA33 /* JKSandboxFavPathListController.h */,
+				AC5EB6C3221BA1A00021AA33 /* JKSandboxFavPathListController.m */,
+				AC5EB6CA221BA1A00021AA33 /* JKSandboxFavPathModel.h */,
+				AC5EB6C2221BA1A00021AA33 /* JKSandboxFavPathModel.m */,
+				AC5EB6C7221BA1A00021AA33 /* JKSandboxFilePreviewViewController.h */,
 				AC5EB6CD221BA1A00021AA33 /* JKSandboxFilePreviewViewController.m */,
+				AC5EB6C1221BA1A00021AA33 /* JKSandboxHelper.h */,
+				AC5EB6C8221BA1A00021AA33 /* JKSandboxHelper.m */,
+				AC5EB6C6221BA1A00021AA33 /* JKSandboxModel.h */,
 				AC5EB6CE221BA1A00021AA33 /* JKSandboxModel.m */,
+				AC5EB6C5221BA1A00021AA33 /* JKSandboxViewController.h */,
+				AC5EB6CB221BA1A00021AA33 /* JKSandboxViewController.m */,
 			);
 			path = JKSandboxBrowser;
 			sourceTree = "<group>";
@@ -373,20 +378,22 @@
 		AC5EB6CF221BA1A00021AA33 /* JKPerformance */ = {
 			isa = PBXGroup;
 			children = (
-				AC5EB6D0221BA1A00021AA33 /* JKPerformanceManager.h */,
-				AC5EB6D1221BA1A00021AA33 /* JKRAMLabel.m */,
-				AC5EB6D2221BA1A00021AA33 /* JKPerformanceSettingController.m */,
-				AC5EB6D3221BA1A00021AA33 /* JKPerformanceHelper.h */,
-				AC5EB6D4221BA1A00021AA33 /* JKFPSLabel.h */,
+				3C23D68225357D1C00EE8FF4 /* JKMagnifierLayer.h */,
+				3C23D68125357D1B00EE8FF4 /* JKMagnifierLayer.m */,
+				AC5EB6DC221BA1A00021AA33 /* JKCPULabel.h */,
 				AC5EB6D5221BA1A00021AA33 /* JKCPULabel.m */,
 				AC5EB6D6221BA1A00021AA33 /* JKFlowLabel.h */,
-				AC5EB6D7221BA1A00021AA33 /* JKPerformanceManager.m */,
-				AC5EB6D8221BA1A00021AA33 /* JKPerformanceHelper.m */,
-				AC5EB6D9221BA1A00021AA33 /* JKPerformanceSettingController.h */,
-				AC5EB6DA221BA1A00021AA33 /* JKRAMLabel.h */,
 				AC5EB6DB221BA1A00021AA33 /* JKFlowLabel.m */,
-				AC5EB6DC221BA1A00021AA33 /* JKCPULabel.h */,
+				AC5EB6D4221BA1A00021AA33 /* JKFPSLabel.h */,
 				AC5EB6DD221BA1A00021AA33 /* JKFPSLabel.m */,
+				AC5EB6D3221BA1A00021AA33 /* JKPerformanceHelper.h */,
+				AC5EB6D8221BA1A00021AA33 /* JKPerformanceHelper.m */,
+				AC5EB6D0221BA1A00021AA33 /* JKPerformanceManager.h */,
+				AC5EB6D7221BA1A00021AA33 /* JKPerformanceManager.m */,
+				AC5EB6D9221BA1A00021AA33 /* JKPerformanceSettingController.h */,
+				AC5EB6D2221BA1A00021AA33 /* JKPerformanceSettingController.m */,
+				AC5EB6DA221BA1A00021AA33 /* JKRAMLabel.h */,
+				AC5EB6D1221BA1A00021AA33 /* JKRAMLabel.m */,
 			);
 			path = JKPerformance;
 			sourceTree = "<group>";
@@ -422,19 +429,19 @@
 		AC5EB6EE221BA1A00021AA33 /* JKNetworkCapture */ = {
 			isa = PBXGroup;
 			children = (
-				AC5EB6EF221BA1A00021AA33 /* JKNetCaptureDetailViewController.h */,
-				AC5EB6F0221BA1A00021AA33 /* JKNetCaptureListCell.h */,
-				AC5EB6F1221BA1A00021AA33 /* JKNetCaptureModel.m */,
-				AC5EB6F2221BA1A00021AA33 /* JKNetCaptureListViewController.m */,
 				AC5EB6F3221BA1A00021AA33 /* JKNetCaptureDataSource.h */,
-				AC5EB6F4221BA1A00021AA33 /* JKNetCaptureHelper.m */,
-				AC5EB6F5221BA1A00021AA33 /* JKURLProtocol.h */,
-				AC5EB6F6221BA1A00021AA33 /* JKNetCaptureListViewController.h */,
-				AC5EB6F7221BA1A00021AA33 /* JKNetCaptureModel.h */,
-				AC5EB6F8221BA1A00021AA33 /* JKNetCaptureDetailViewController.m */,
-				AC5EB6F9221BA1A00021AA33 /* JKNetCaptureListCell.m */,
-				AC5EB6FA221BA1A00021AA33 /* JKNetCaptureHelper.h */,
 				AC5EB6FB221BA1A00021AA33 /* JKNetCaptureDataSource.m */,
+				AC5EB6EF221BA1A00021AA33 /* JKNetCaptureDetailViewController.h */,
+				AC5EB6F8221BA1A00021AA33 /* JKNetCaptureDetailViewController.m */,
+				AC5EB6FA221BA1A00021AA33 /* JKNetCaptureHelper.h */,
+				AC5EB6F4221BA1A00021AA33 /* JKNetCaptureHelper.m */,
+				AC5EB6F0221BA1A00021AA33 /* JKNetCaptureListCell.h */,
+				AC5EB6F9221BA1A00021AA33 /* JKNetCaptureListCell.m */,
+				AC5EB6F6221BA1A00021AA33 /* JKNetCaptureListViewController.h */,
+				AC5EB6F2221BA1A00021AA33 /* JKNetCaptureListViewController.m */,
+				AC5EB6F7221BA1A00021AA33 /* JKNetCaptureModel.h */,
+				AC5EB6F1221BA1A00021AA33 /* JKNetCaptureModel.m */,
+				AC5EB6F5221BA1A00021AA33 /* JKURLProtocol.h */,
 				AC5EB6FC221BA1A00021AA33 /* JKURLProtocol.m */,
 			);
 			path = JKNetworkCapture;
@@ -464,40 +471,42 @@
 		AC5EB70D221BA1A00021AA33 /* JKCore */ = {
 			isa = PBXGroup;
 			children = (
-				AC5EB70E221BA1A00021AA33 /* JKTableViewController.h */,
-				AC5EB70F221BA1A00021AA33 /* JkPresentationWindow.m */,
-				AC5EB710221BA1A00021AA33 /* JKFloatWindow.m */,
-				AC5EB711221BA1A00021AA33 /* JKSegmentView.h */,
-				AC5EB712221BA1A00021AA33 /* JKNavigtionController.h */,
-				AC5EB713221BA1A00021AA33 /* JKHelper.h */,
-				AC5EB714221BA1A00021AA33 /* JKViewController.m */,
+				AC5EB726221BA1A10021AA33 /* JarvisKitManager.h */,
 				AC5EB715221BA1A00021AA33 /* JarvisKitManager.m */,
-				AC5EB716221BA1A00021AA33 /* JKIronmanWindow.h */,
-				AC5EB717221BA1A00021AA33 /* JKOrderedDictionary.m */,
-				AC5EB718221BA1A00021AA33 /* JKMacro.h */,
-				AC5EB719221BA1A00021AA33 /* UIImage+JarvisKit.h */,
-				AC5EB71A221BA1A00021AA33 /* UIView+JarvisKit.m */,
-				AC5EB71B221BA1A00021AA33 /* JKSwitchAccessoryCell.m */,
-				AC5EB71C221BA1A00021AA33 /* JKMovableWindowLabel.m */,
-				AC5EB71D221BA1A10021AA33 /* JKMenuLabel.m */,
-				AC5EB71E221BA1A10021AA33 /* UIViewController+JarvisKit.h */,
-				AC5EB71F221BA1A10021AA33 /* JKSegmentView.m */,
+				AC5EB727221BA1A10021AA33 /* JKCommonDefines.h */,
 				AC5EB720221BA1A10021AA33 /* JKFloatWindow.h */,
+				AC5EB710221BA1A00021AA33 /* JKFloatWindow.m */,
+				AC5EB713221BA1A00021AA33 /* JKHelper.h */,
+				AC5EB724221BA1A10021AA33 /* JKHelper.m */,
+				AC5EB716221BA1A00021AA33 /* JKIronmanWindow.h */,
+				AC5EB72F221BA1A10021AA33 /* JKIronmanWindow.m */,
+				AC5EB718221BA1A00021AA33 /* JKMacro.h */,
+				AC5EB728221BA1A10021AA33 /* JKMenuLabel.h */,
+				AC5EB71D221BA1A10021AA33 /* JKMenuLabel.m */,
+				AC5EB72B221BA1A10021AA33 /* JKMovableWindowLabel.h */,
+				AC5EB71C221BA1A00021AA33 /* JKMovableWindowLabel.m */,
+				AC5EB712221BA1A00021AA33 /* JKNavigtionController.h */,
+				AC5EB725221BA1A10021AA33 /* JKNavigtionController.m */,
+				AC5EB72D221BA1A10021AA33 /* JKOrderedDictionary.h */,
+				AC5EB717221BA1A00021AA33 /* JKOrderedDictionary.m */,
 				AC5EB721221BA1A10021AA33 /* JkPresentationWindow.h */,
+				AC5EB70F221BA1A00021AA33 /* JkPresentationWindow.m */,
+				AC5EB711221BA1A00021AA33 /* JKSegmentView.h */,
+				AC5EB71F221BA1A10021AA33 /* JKSegmentView.m */,
+				AC5EB72A221BA1A10021AA33 /* JKSwitchAccessoryCell.h */,
+				AC5EB71B221BA1A00021AA33 /* JKSwitchAccessoryCell.m */,
+				AC5EB70E221BA1A00021AA33 /* JKTableViewController.h */,
 				AC5EB722221BA1A10021AA33 /* JKTableViewController.m */,
 				AC5EB723221BA1A10021AA33 /* JKViewController.h */,
-				AC5EB724221BA1A10021AA33 /* JKHelper.m */,
-				AC5EB725221BA1A10021AA33 /* JKNavigtionController.m */,
-				AC5EB726221BA1A10021AA33 /* JarvisKitManager.h */,
-				AC5EB727221BA1A10021AA33 /* JKCommonDefines.h */,
-				AC5EB728221BA1A10021AA33 /* JKMenuLabel.h */,
-				AC5EB729221BA1A10021AA33 /* UIViewController+JarvisKit.m */,
-				AC5EB72A221BA1A10021AA33 /* JKSwitchAccessoryCell.h */,
-				AC5EB72B221BA1A10021AA33 /* JKMovableWindowLabel.h */,
-				AC5EB72C221BA1A10021AA33 /* UIView+JarvisKit.h */,
-				AC5EB72D221BA1A10021AA33 /* JKOrderedDictionary.h */,
+				AC5EB714221BA1A00021AA33 /* JKViewController.m */,
+				AC5EB719221BA1A00021AA33 /* UIImage+JarvisKit.h */,
 				AC5EB72E221BA1A10021AA33 /* UIImage+JarvisKit.m */,
-				AC5EB72F221BA1A10021AA33 /* JKIronmanWindow.m */,
+				AC5EB72C221BA1A10021AA33 /* UIView+JarvisKit.h */,
+				AC5EB71A221BA1A00021AA33 /* UIView+JarvisKit.m */,
+				3C23D68825357D6B00EE8FF4 /* UIColor+JarvisKit.h */,
+				3C23D68725357D6B00EE8FF4 /* UIColor+JarvisKit.h */,
+				AC5EB71E221BA1A10021AA33 /* UIViewController+JarvisKit.h */,
+				AC5EB729221BA1A10021AA33 /* UIViewController+JarvisKit.m */,
 			);
 			path = JKCore;
 			sourceTree = "<group>";
@@ -653,6 +662,7 @@
 				AC5EB73F221BA1A10021AA33 /* JKCPULabel.m in Sources */,
 				AC5EB766221BA1A10021AA33 /* JKNavigtionController.m in Sources */,
 				AC5EB74C221BA1A10021AA33 /* JKNetCaptureListViewController.m in Sources */,
+				3C23D68325357D1C00EE8FF4 /* JKMagnifierLayer.m in Sources */,
 				AC5EB75D221BA1A10021AA33 /* JarvisKitManager.m in Sources */,
 				AC5EB742221BA1A10021AA33 /* JKFlowLabel.m in Sources */,
 				AC5EB746221BA1A10021AA33 /* JKUserDefaultsHelper.m in Sources */,
@@ -855,16 +865,16 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = PXGX6Q44T9;
 				INFOPLIST_FILE = JarvisKitDemo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.CodingIran.JarvisKitDemo;
+				PRODUCT_BUNDLE_IDENTIFIER = com.codingiran.JarvisKitDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE_SPECIFIER = "CodingIran's wildcard profile";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -874,16 +884,16 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = PXGX6Q44T9;
 				INFOPLIST_FILE = JarvisKitDemo/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.CodingIran.JarvisKitDemo;
+				PRODUCT_BUNDLE_IDENTIFIER = com.codingiran.JarvisKitDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
+				PROVISIONING_PROFILE_SPECIFIER = "CodingIran's wildcard profile";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;

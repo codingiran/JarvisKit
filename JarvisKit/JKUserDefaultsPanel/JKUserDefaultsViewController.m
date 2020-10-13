@@ -90,7 +90,7 @@ static NSTimeInterval const kTransitionAnimationDuration = 0.45f;
     }];
     
     // 生成 section 需要的列表
-    NSMutableArray<NSString *> *sectionIndexList = [[NSMutableOrderedSet alloc] initWithCapacity:27];
+    NSMutableArray<NSString *> *sectionIndexList = [[NSMutableArray alloc] initWithCapacity:27];
     unichar lastChar = '^_^';
     NSMutableArray<NSMutableArray<JKUserDefaultsModel *> *> *resultList = [NSMutableArray arrayWithCapacity:27];
     NSMutableArray<JKUserDefaultsModel *> *otherModelList = [NSMutableArray array];

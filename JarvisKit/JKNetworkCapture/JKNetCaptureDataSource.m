@@ -60,6 +60,13 @@ static JKNetCaptureDataSource *jkNetCaptureDataSource = nil;
     dispatch_semaphore_signal(semaphore);
 }
 
+- (void)removeHttpCaptureModel:(JKNetCaptureModel *)captureModel
+{
+    dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+    [self.httpCaptureModelArray removeObject:captureModel];
+    dispatch_semaphore_signal(semaphore);
+}
+
 - (void)empty
 {
     dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
