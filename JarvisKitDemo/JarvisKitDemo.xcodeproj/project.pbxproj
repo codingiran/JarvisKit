@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		3C23D68325357D1C00EE8FF4 /* JKMagnifierLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C23D68125357D1B00EE8FF4 /* JKMagnifierLayer.m */; };
+		3C23D85925358A8F00EE8FF4 /* JKMagnifierLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C23D85825358A8F00EE8FF4 /* JKMagnifierLayer.m */; };
 		AC5EB681221BA17E0021AA33 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = AC5EB680221BA17E0021AA33 /* AppDelegate.m */; };
 		AC5EB684221BA17E0021AA33 /* JKDemoMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AC5EB683221BA17E0021AA33 /* JKDemoMainViewController.m */; };
 		AC5EB689221BA17F0021AA33 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AC5EB688221BA17F0021AA33 /* Assets.xcassets */; };
@@ -97,6 +98,8 @@
 		3C23D68225357D1C00EE8FF4 /* JKMagnifierLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JKMagnifierLayer.h; sourceTree = "<group>"; };
 		3C23D68725357D6B00EE8FF4 /* UIColor+JarvisKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIColor+JarvisKit.h"; path = "../../../../Downloads/JarvisKit-master/JarvisKit/JKCore/UIColor+JarvisKit.h"; sourceTree = "<group>"; };
 		3C23D68825357D6B00EE8FF4 /* UIColor+JarvisKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+JarvisKit.h"; sourceTree = "<group>"; };
+		3C23D85725358A8F00EE8FF4 /* JKMagnifierLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JKMagnifierLayer.h; sourceTree = "<group>"; };
+		3C23D85825358A8F00EE8FF4 /* JKMagnifierLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JKMagnifierLayer.m; sourceTree = "<group>"; };
 		AC5EB67C221BA17D0021AA33 /* JarvisKitDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JarvisKitDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AC5EB67F221BA17E0021AA33 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		AC5EB680221BA17E0021AA33 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -343,13 +346,15 @@
 			isa = PBXGroup;
 			children = (
 				AC5EB6B8221BA1A00021AA33 /* JKMagnifierView.h */,
-				AC5EB6B9221BA1A00021AA33 /* JKUIElementToolHelper.h */,
-				AC5EB6BA221BA1A00021AA33 /* JKUIElementToolSettingController.h */,
-				AC5EB6BB221BA1A00021AA33 /* JKUIElementToolManager.h */,
-				AC5EB6BC221BA1A00021AA33 /* JKUIElementToolHelper.m */,
 				AC5EB6BD221BA1A00021AA33 /* JKMagnifierView.m */,
-				AC5EB6BE221BA1A00021AA33 /* JKUIElementToolSettingController.m */,
+				3C23D85725358A8F00EE8FF4 /* JKMagnifierLayer.h */,
+				3C23D85825358A8F00EE8FF4 /* JKMagnifierLayer.m */,
+				AC5EB6B9221BA1A00021AA33 /* JKUIElementToolHelper.h */,
+				AC5EB6BC221BA1A00021AA33 /* JKUIElementToolHelper.m */,
+				AC5EB6BB221BA1A00021AA33 /* JKUIElementToolManager.h */,
 				AC5EB6BF221BA1A00021AA33 /* JKUIElementToolManager.m */,
+				AC5EB6BA221BA1A00021AA33 /* JKUIElementToolSettingController.h */,
+				AC5EB6BE221BA1A00021AA33 /* JKUIElementToolSettingController.m */,
 			);
 			path = UIElementToolBox;
 			sourceTree = "<group>";
@@ -670,6 +675,7 @@
 				AC5EB739221BA1A10021AA33 /* JKSandboxViewController.m in Sources */,
 				AC5EB759221BA1A10021AA33 /* JKCrashLogListCell.m in Sources */,
 				AC5EB730221BA1A10021AA33 /* JKFontLineHeightViewController.m in Sources */,
+				3C23D85925358A8F00EE8FF4 /* JKMagnifierLayer.m in Sources */,
 				AC5EB743221BA1A10021AA33 /* JKFPSLabel.m in Sources */,
 				AC5EB736221BA1A10021AA33 /* JKSandboxFavPathModel.m in Sources */,
 				AC5EB737221BA1A10021AA33 /* JKSandboxFavPathListController.m in Sources */,

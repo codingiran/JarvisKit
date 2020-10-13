@@ -25,7 +25,7 @@ Pod::Spec.new do |spec|
   spec.license      = { :type => 'MIT', :file => 'LICENSE' }
   spec.author             = { "codingiran" => "codingiran@gmail.com" }
   spec.social_media_url   = "https://weibo.com/iranq"
-  spec.platform     = :ios, "9.0"
+  spec.platform     = :ios, "10.0"
 
   spec.source       = { :git => "https://github.com/codingiran/JarvisKit.git", :tag => "#{spec.version}" }
   spec.source_files = "JarvisKit/**/*.{h,m}"
